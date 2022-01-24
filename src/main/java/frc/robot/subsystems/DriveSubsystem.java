@@ -7,33 +7,25 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.motorcontrol.PWMTalonFX;
-import edu.wpi.first.wpilibj.ADIS16448_IMU;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 public class DriveSubsystem extends SubsystemBase {
-    private PWMTalonFX motorLeftFront;
-    private PWMTalonFX motorRightFront;
-    private PWMTalonFX motorLeftBack;
-    private PWMTalonFX motorRightBack;
-    private ADIS16448_IMU gyro;
+    private final PWMTalonFX motorLeftFront = new PWMTalonFX(0);
+    private final PWMTalonFX motorRightFront = new PWMTalonFX(1);
+    private final PWMTalonFX motorLeftBack = new PWMTalonFX(2);
+    private final PWMTalonFX motorRightBack = new PWMTalonFX(3);
 
-    public MotorControllerGroup driveLeft;
-    public MotorControllerGroup driveRight;
-    public DifferentialDrive differentialDrive;
+    private MotorControllerGroup driveLeft;
+    private MotorControllerGroup driveRight;
+    private DifferentialDrive differentialDrive;
 
-  /** Creates a new ExampleSubsystem. */
-  public DriveSubsystem(
-    PWMTalonFX motorLeftFront, PWMTalonFX motorRightFront,
-    PWMTalonFX motorLeftBack, PWMTalonFX motorRightBack,
-    ADIS16448_IMU gyro) {
-      this.motorLeftFront = motorLeftFront;
-      this.motorRightFront = motorRightFront;
-      this.motorLeftBack = motorLeftBack;
-      this.motorRightBack = motorRightBack;
-      this.gyro = gyro;
-
+    public DriveSubsystem(){
       driveLeft = new MotorControllerGroup(motorLeftFront, motorLeftBack);
       driveRight = new MotorControllerGroup(motorRightFront, motorRightBack);
       differentialDrive = new DifferentialDrive(driveLeft, driveRight);
+    }
+
+    public void setMotors(float leftSpeed, float rightSpeed){
+      differentialDrive.tankDrive(leftSpeed, rightSpeed);
     }
 }
