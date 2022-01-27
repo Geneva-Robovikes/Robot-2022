@@ -11,6 +11,9 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.ADIS16448_IMU;
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.CvSink;
+import edu.wpi.first.cscore.CvSource;
 
 
 
@@ -25,7 +28,7 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
   XboxController xboxController = new XboxController(0);
-  ADIS16448_IMU gyro = new ADIS16448_IMU();
+  //ADIS16448_IMU gyro = new ADIS16448_IMU();
 
 
   /**
@@ -40,6 +43,9 @@ public class Robot extends TimedRobot {
     //Shuffleboard.getTab("SmartDashboard").add(gyro);
     //Shuffleboard.getTab("SmartDashboard").addCamera("camera", cameraName, cameraUrls)
     m_robotContainer = new RobotContainer();
+    CameraServer.startAutomaticCapture();
+    CvSink cvSink = CameraServer.getVideo();
+    CvSource outputStream = CameraServer.putVideo("USB Camera 0", 640, 480);
   }
 
   /**
@@ -100,6 +106,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("JoystickR2", xboxController.getRightY());
     SmartDashboard.putBoolean("x button", xboxController.getXButton());
     SmartDashboard.putNumber("Left Trigger", xboxController.getLeftTriggerAxis());
+    SmartDashboard.putNumber("Right Trigger", xboxController.getRightTriggerAxis());
     SmartDashboard.putNumber("Dpad", xboxController.getPOV());
 
   }
