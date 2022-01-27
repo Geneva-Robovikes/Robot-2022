@@ -7,6 +7,12 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.ADIS16448_IMU;
+
+
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -18,6 +24,9 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
+  XboxController xboxController = new XboxController(0);
+  ADIS16448_IMU gyro = new ADIS16448_IMU();
+
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -27,6 +36,9 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
+    
+    //Shuffleboard.getTab("SmartDashboard").add(gyro);
+    //Shuffleboard.getTab("SmartDashboard").addCamera("camera", cameraName, cameraUrls)
     m_robotContainer = new RobotContainer();
   }
 
@@ -81,7 +93,16 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    SmartDashboard.putNumber("Joystick", xboxController.getLeftX());
+    SmartDashboard.putNumber("Joystick2", xboxController.getLeftY());
+    SmartDashboard.putNumber("JoystickR", xboxController.getRightX());
+    SmartDashboard.putNumber("JoystickR2", xboxController.getRightY());
+    SmartDashboard.putBoolean("x button", xboxController.getXButton());
+    SmartDashboard.putNumber("Left Trigger", xboxController.getLeftTriggerAxis());
+    SmartDashboard.putNumber("Dpad", xboxController.getPOV());
+
+  }
 
   @Override
   public void testInit() {
