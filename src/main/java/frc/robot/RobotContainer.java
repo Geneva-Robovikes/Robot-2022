@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot;
+/*package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
@@ -11,6 +11,7 @@ import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj.ADIS16448_IMU;
+import edu.wpi.first.wpilibj.PowerDistribution;*/
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -20,7 +21,7 @@ import edu.wpi.first.wpilibj.ADIS16448_IMU;
  */
 
 
-public class RobotContainer {
+/*public class RobotContainer {
   public XboxController xboxController;
   public WPI_TalonFX motorRightFront;
   public WPI_TalonFX motorLeftFront;
@@ -31,14 +32,14 @@ public class RobotContainer {
 
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);*/
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
-  public RobotContainer() {
+  //public RobotContainer() {
     // Configure the button bindings
-    xboxController = new XboxController(0);
+    /*xboxController = new XboxController(0);
     configureButtonBindings();
-  }
+  }*/
 
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
@@ -46,17 +47,17 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {
+  /*private void configureButtonBindings() {
 
-  }
+  }*/
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
+  /*public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     return m_autoCommand;
   }
-}
+}*/

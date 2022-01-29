@@ -28,6 +28,6 @@ public class TeleopDriveCommand extends CommandBase {
         y = xboxController.getLeftY();
         //z = xboxController.ge();
 
-        drive.differentialDrive.arcadeDrive(x, y);
+        drive.differentialDrive.arcadeDrive(x/2, y/2);
     }
 }
