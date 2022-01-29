@@ -44,8 +44,8 @@ public class Robot extends TimedRobot {
     //Shuffleboard.getTab("SmartDashboard").addCamera("camera", cameraName, cameraUrls)
     m_robotContainer = new RobotContainer();
     CameraServer.startAutomaticCapture();
-    CvSink cvSink = CameraServer.getVideo();
-    CvSource outputStream = CameraServer.putVideo("USB Camera 0", 640, 480);
+    //CvSink cvSink = CameraServer.getVideo();
+    //CvSource outputStream = CameraServer.putVideo("USB Camera 0", 640, 480);
   }
 
   /**
