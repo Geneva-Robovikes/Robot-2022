@@ -122,9 +122,6 @@ public class Robot extends TimedRobot {
   public void teleopInit() {
     CommandScheduler.getInstance().cancelAll();
     CommandScheduler.getInstance().schedule(new TeleopDriveCommand(drive, xboxController));
-    /*joystick.getButton(5).whenPressed(new RollerOnCommand(intake));
-    joystick.getButton(6).whenPressed(new RollerOffCommand(intake));
-    joystick.getButton(11).whenPressed(new DeployIntake(intake));*/
   }
 
 

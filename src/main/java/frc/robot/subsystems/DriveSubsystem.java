@@ -28,6 +28,7 @@ public class DriveSubsystem extends SubsystemBase {
   private double adjustedAngle;
 
   public final static double BASE_WIDTH = 22.75;
+  //TODO: change
   public final static double WHEEL_DIAMETER = 6.0; // inches
 
   public DriveSubsystem(
