@@ -5,36 +5,43 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.DriveSubsystem;
-import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
-public class DriveStraightForTime extends CommandBase {
+public class TeleopDrive extends CommandBase {
   private final DriveSubsystem driveSubsystem;
-  private double speed = 0.25;
-  private double time = 2;
-  private Timer timer;
+  private final XboxController controller;
+  private double controlerScale = 2;
+  private double deadzoneX = 0.1;
+  private double deadzoneY = 0.1;
+
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public DriveStraightForTime(DriveSubsystem subsystem) {
+  public TeleopDrive(DriveSubsystem subsystem, XboxController xboxController) {
     driveSubsystem = subsystem;
+    controller = xboxController;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    driveSubsystem.tankDrive(speed, speed);
-    timer.start();
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    double x = controller.getLeftX() / controlerScale;
+    double y = controller.getLeftY() / controlerScale;
+    
+    if(x > deadzoneX && y > deadzoneY){
+      driveSubsystem.arcadeDrive(y, x);
+    }
+  }
 
   // Called once the command ends or is interrupted.
   @Override
@@ -45,7 +52,6 @@ public class DriveStraightForTime extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (timer.get() > time) {return true;}
-    else {return false;}
+    return false;
   }
 }

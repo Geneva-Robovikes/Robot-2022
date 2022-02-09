@@ -24,7 +24,11 @@ public class DriveSubsystem extends SubsystemBase {
       differentialDrive = new DifferentialDrive(driveLeft, driveRight);
     }
 
-    public void setMotors(double leftSpeed, double rightSpeed){
+    public void tankDrive (double leftSpeed, double rightSpeed){
       differentialDrive.tankDrive(leftSpeed, rightSpeed);
+    }
+
+    public void arcadeDrive (double speed, double rotation) {
+      differentialDrive.arcadeDrive(speed, rotation);
     }
 }
