@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 public class DriveSubsystem extends SubsystemBase {
@@ -19,6 +20,8 @@ public class DriveSubsystem extends SubsystemBase {
     private MotorControllerGroup driveRight = new MotorControllerGroup(motorRightFront, motorRightBack);
     private DifferentialDrive differentialDrive;
 
+    private XboxController controller;
+
     public DriveSubsystem(){
       driveRight.setInverted(true);
       differentialDrive = new DifferentialDrive(driveLeft, driveRight);
@@ -30,5 +33,13 @@ public class DriveSubsystem extends SubsystemBase {
 
     public void arcadeDrive (double speed, double rotation) {
       differentialDrive.arcadeDrive(speed, rotation);
+    }
+
+    public double getLeftX() {
+      return controller.getLeftX();
+    }
+    
+    public double getLeftY() {
+      return controller.getLeftY();
     }
 }

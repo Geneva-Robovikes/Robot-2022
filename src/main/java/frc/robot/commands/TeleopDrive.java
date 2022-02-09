@@ -5,13 +5,11 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.DriveSubsystem;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
 public class TeleopDrive extends CommandBase {
   private final DriveSubsystem driveSubsystem;
-  private final XboxController controller;
   private double controlerScale = 2;
   private double deadzoneX = 0.1;
   private double deadzoneY = 0.1;
@@ -21,9 +19,8 @@ public class TeleopDrive extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public TeleopDrive(DriveSubsystem subsystem, XboxController xboxController) {
+  public TeleopDrive(DriveSubsystem subsystem) {
     driveSubsystem = subsystem;
-    controller = xboxController;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -35,8 +32,8 @@ public class TeleopDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double x = controller.getLeftX() / controlerScale;
-    double y = controller.getLeftY() / controlerScale;
+    double x = driveSubsystem.getLeftX() / controlerScale;
+    double y = driveSubsystem.getLeftY() / controlerScale;
     
     if(x > deadzoneX && y > deadzoneY){
       driveSubsystem.arcadeDrive(y, x);
