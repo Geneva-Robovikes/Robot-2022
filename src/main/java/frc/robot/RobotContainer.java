@@ -17,11 +17,11 @@ import frc.robot.subsystems.DriveSubsystem;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
-  private final DriveSubsystem driveSubsystem = new DriveSubsystem();
+  private XboxController controller = new XboxController(0);
 
+  private final DriveSubsystem driveSubsystem = new DriveSubsystem();
   public final DriveStraightForTime driveStraight = new DriveStraightForTime(driveSubsystem);
-  public final TeleopDrive teleopDrive = new TeleopDrive(driveSubsystem);
+  public final TeleopDrive teleopDrive = new TeleopDrive(driveSubsystem, controller);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
