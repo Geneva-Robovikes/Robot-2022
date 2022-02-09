@@ -6,14 +6,16 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
-import edu.wpi.first.wpilibj.motorcontrol.PWMTalonFX;
+
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 public class DriveSubsystem extends SubsystemBase {
-    private final PWMTalonFX motorLeftFront = new PWMTalonFX(0);
-    private final PWMTalonFX motorRightFront = new PWMTalonFX(1);
-    private final PWMTalonFX motorLeftBack = new PWMTalonFX(2);
-    private final PWMTalonFX motorRightBack = new PWMTalonFX(3);
+    private final WPI_TalonFX motorLeftFront = new WPI_TalonFX(0);
+    private final WPI_TalonFX motorRightFront = new WPI_TalonFX(1);
+    private final WPI_TalonFX motorLeftBack = new WPI_TalonFX(2);
+    private final WPI_TalonFX motorRightBack = new WPI_TalonFX(3);
 
     private MotorControllerGroup driveLeft;
     private MotorControllerGroup driveRight;
