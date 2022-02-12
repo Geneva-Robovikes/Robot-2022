@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class DriveStraightForTime extends CommandBase {
   private final DriveSubsystem driveSubsystem;
   private double lspeed = 0.4;
-  private double rspeed = 0.43;
+  //private double rspeed = 0.43;
   private double time = 2;
   private Timer timer = new Timer();
   /**
@@ -29,7 +29,7 @@ public class DriveStraightForTime extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    driveSubsystem.tankDrive(lspeed, rspeed);
+    driveSubsystem.tankDrive(lspeed, lspeed);
     timer.start();
   }
 

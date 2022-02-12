@@ -37,8 +37,8 @@ public class DriveSubsystem extends SubsystemBase {
       differentialDrive.tankDrive(leftSpeed, rightSpeed);
     }
 
-    public void arcadeDrive (double speed, double rotation) {
-      differentialDrive.arcadeDrive(speed, rotation);
+    public void curvatureDrive (double speed, double rotation) {
+      differentialDrive.curvatureDrive(speed, rotation, false);
     }
 
     public double getLeftX() {
