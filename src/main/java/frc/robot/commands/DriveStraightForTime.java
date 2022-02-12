@@ -11,9 +11,10 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 /** An example command that uses an example subsystem. */
 public class DriveStraightForTime extends CommandBase {
   private final DriveSubsystem driveSubsystem;
-  private double speed = 0.25;
+  private double lspeed = 0.4;
+  private double rspeed = 0.43;
   private double time = 2;
-  private Timer timer;
+  private Timer timer = new Timer();
   /**
    * Creates a new ExampleCommand.
    *
@@ -28,7 +29,7 @@ public class DriveStraightForTime extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    driveSubsystem.tankDrive(speed, speed);
+    driveSubsystem.tankDrive(lspeed, rspeed);
     timer.start();
   }
 
@@ -40,6 +41,8 @@ public class DriveStraightForTime extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     driveSubsystem.tankDrive(0, 0);
+    timer.stop();
+    timer.reset();
   }
 
   // Returns true when the command should end.

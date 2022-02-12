@@ -12,9 +12,10 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 public class DriveSubsystem extends SubsystemBase {
     private final WPI_TalonFX motorLeftFront = new WPI_TalonFX(0);
-    private final WPI_TalonFX motorRightFront = new WPI_TalonFX(1);
-    private final WPI_TalonFX motorLeftBack = new WPI_TalonFX(2);
+    private final WPI_TalonFX motorRightFront = new WPI_TalonFX(2);
+    private final WPI_TalonFX motorLeftBack = new WPI_TalonFX(1);
     private final WPI_TalonFX motorRightBack = new WPI_TalonFX(3);
+
 
     private MotorControllerGroup driveLeft = new MotorControllerGroup(motorLeftFront, motorLeftBack);
     private MotorControllerGroup driveRight = new MotorControllerGroup(motorRightFront, motorRightBack);
@@ -24,7 +25,12 @@ public class DriveSubsystem extends SubsystemBase {
 
     public DriveSubsystem(){
       driveRight.setInverted(true);
+      motorLeftFront.setSafetyEnabled(false);
+      motorRightFront.setSafetyEnabled(false);
+      motorLeftBack.setSafetyEnabled(false);
+      motorRightBack.setSafetyEnabled(false);
       differentialDrive = new DifferentialDrive(driveLeft, driveRight);
+      differentialDrive.setSafetyEnabled(false);
     }
 
     public void tankDrive (double leftSpeed, double rightSpeed){

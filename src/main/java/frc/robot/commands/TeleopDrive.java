@@ -35,11 +35,12 @@ public class TeleopDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double x = xboxController.getLeftX() / controlerScale;
-    double y = xboxController.getLeftY() / controlerScale;
-    
-    if(x > deadzoneX && y > deadzoneY){
-      driveSubsystem.arcadeDrive(y, x);
+    double x = xboxController.getLeftX();
+    double y = xboxController.getLeftY();
+    System.out.println("x: " + x + ", y: " + y);
+    if((x > deadzoneX || x < -deadzoneX) || (y > deadzoneY || y < -deadzoneY)){
+      driveSubsystem.arcadeDrive(-y / controlerScale, x / controlerScale);
+      System.out.println("Driving!");
     }
   }
 
