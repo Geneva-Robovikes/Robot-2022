@@ -108,7 +108,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Left Trigger", xboxController.getLeftTriggerAxis());
     SmartDashboard.putNumber("Right Trigger", xboxController.getRightTriggerAxis());
     SmartDashboard.putNumber("Dpad", xboxController.getPOV());
-
+    
   }
 
   @Override
