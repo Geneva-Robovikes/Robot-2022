@@ -12,7 +12,8 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class TeleopDrive extends CommandBase {
   private final DriveSubsystem driveSubsystem;
   private XboxController xboxController;
-  private double controlerScale = 2;
+  private double controllerScaleL = 2;
+  private double controllerScaleR = (1/.53);
   private double deadzoneX = 0.1;
   private double deadzoneY = 0.1;
 
@@ -39,7 +40,7 @@ public class TeleopDrive extends CommandBase {
     double y = xboxController.getLeftY();
     System.out.println("x: " + x + ", y: " + y);
     if((x > deadzoneX || x < -deadzoneX) || (y > deadzoneY || y < -deadzoneY)){
-      driveSubsystem.arcadeDrive(-y / controlerScale, x / controlerScale);
+      driveSubsystem.arcadeDrive(-y / controllerScaleL, x / controllerScaleL);
       System.out.println("Driving!");
     }
   }
