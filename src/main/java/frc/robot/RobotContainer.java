@@ -4,18 +4,15 @@
 
 package frc.robot;
 
-import java.util.List;
-
+import java.io.IOException;
+import java.nio.file.Path;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.Trajectory;
-import edu.wpi.first.math.trajectory.TrajectoryConfig;
-import edu.wpi.first.math.trajectory.TrajectoryGenerator;
-import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
+import edu.wpi.first.math.trajectory.TrajectoryUtil;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -53,42 +50,20 @@ public class RobotContainer {
 
   
   public Command getAutonomousCommand() {
-
-    // Create a voltage constraint to ensure we don't accelerate too fast
-    var autoVoltageConstraint =
-        new DifferentialDriveVoltageConstraint(
-            new SimpleMotorFeedforward(
-                Constants.ksVolts,
-                Constants.kvVoltSecondsPerMeter,
-                Constants.kaVoltSecondsSquaredPerMeter),
-            Constants.kDriveKinematics,
-            10);
-
-    // Create config for trajectory
-    TrajectoryConfig config =
-        new TrajectoryConfig(
-                Constants.kMaxSpeedMetersPerSecond,
-                Constants.kMaxAccelerationMetersPerSecondSquared)
-            // Add kinematics to ensure max speed is actually obeyed
-            .setKinematics(Constants.kDriveKinematics)
-            // Apply the voltage constraint
-            .addConstraint(autoVoltageConstraint);
-
-    // An example trajectory to follow.  All units in meters.
-    Trajectory exampleTrajectory =
-        TrajectoryGenerator.generateTrajectory(
-            // Start at the origin facing the +X direction
-            new Pose2d(0, 0, new Rotation2d(0)),
-            // Pass through these two interior waypoints, making an 's' curve path
-            List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
-            // End 3 meters straight ahead of where we started, facing forward
-            new Pose2d(3, 0, new Rotation2d(0)),
-            // Pass config
-            config);
+    Trajectory trajectory = new Trajectory();
+    try {
+      System.out.println("pathing!");
+      Path path = Filesystem.getDeployDirectory().toPath().resolve("PathWeaver/output/TestPath.wpilib.json");
+      System.out.println(path);
+      trajectory = TrajectoryUtil.fromPathweaverJson(path);
+      System.out.println(trajectory);
+    } catch (IOException ex) {
+      DriverStation.reportError("Unable to open trajectory: " + trajectory, ex.getStackTrace());
+    }
 
     RamseteCommand ramseteCommand = 
         new RamseteCommand(
-            exampleTrajectory,
+            trajectory,
             driveSubsystem::getPose,
             new RamseteController(Constants.kRamseteB, Constants.kRamseteZeta),
             new SimpleMotorFeedforward(
@@ -103,7 +78,7 @@ public class RobotContainer {
             driveSubsystem::tankDriveVolts,
             driveSubsystem);
     // Reset odometry to the starting pose of the trajectory.
-    driveSubsystem.ResetOdometry(exampleTrajectory.getInitialPose());
+    driveSubsystem.ResetOdometry(trajectory.getInitialPose());
 
     // Run path following command, then stop at the end.
     return ramseteCommand.andThen(() -> driveSubsystem.tankDrive(0, 0));

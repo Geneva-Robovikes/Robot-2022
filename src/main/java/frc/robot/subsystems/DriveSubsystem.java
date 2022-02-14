@@ -42,6 +42,9 @@ public class DriveSubsystem extends SubsystemBase {
       odometry = new DifferentialDriveOdometry(new Rotation2d(gyro.getGyroRateX(), gyro.getGyroAngleY()));
     }
 
+    public void arcadeDrive(double speed, double rotation) {
+      differentialDrive.arcadeDrive(speed, rotation);
+    }
     public void tankDrive (double leftSpeed, double rightSpeed){
       differentialDrive.tankDrive(leftSpeed, rightSpeed);
     }

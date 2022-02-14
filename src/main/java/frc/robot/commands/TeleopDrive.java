@@ -40,7 +40,8 @@ public class TeleopDrive extends CommandBase {
     double y = xboxController.getLeftY();
     System.out.println("x: " + x + ", y: " + y);
     if((x > deadzoneX || x < -deadzoneX) || (y > deadzoneY || y < -deadzoneY)){
-      driveSubsystem.curvatureDrive(-y / controllerScaleL, x / 3);
+      //driveSubsystem.curvatureDrive(-y / controllerScaleL, x / 3);
+      driveSubsystem.arcadeDrive(-y/controllerScaleL, x/controllerScaleL);
       System.out.println("Driving!");
     }
   }
