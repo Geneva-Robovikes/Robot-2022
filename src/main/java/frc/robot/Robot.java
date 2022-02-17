@@ -42,7 +42,7 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
     //System.out.println(driveSubsystem.getGyro());
-    System.out.println(robotContainer.driveSubsystem.gyro.getRotation2d());
+    //System.out.println(robotContainer.driveSubsystem.gyro.getRotation2d());
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
