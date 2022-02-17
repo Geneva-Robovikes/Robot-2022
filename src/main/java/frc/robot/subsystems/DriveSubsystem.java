@@ -67,13 +67,19 @@ public class DriveSubsystem extends SubsystemBase {
       double wheelDiameter = 0.1524;
       double gearRatio = 10.71;
       double unitsPerRevolution = 2048;
-      return motor.getSelectedSensorPosition() / (gearRatio * unitsPerRevolution / (Math.PI * wheelDiameter));
+      return motor.getSelectedSensorPosition() / (gearRatio * unitsPerRevolution) / (Math.PI * wheelDiameter);
+    }
+
+    private double getEncoderVelocity(WPI_TalonFX motor) {
+      double wheelDiameter = 0.1524;
+      double gearRatio = 10.71;
+      double unitsPerRevolution = 2048;
+      return motor.getSelectedSensorVelocity() / (gearRatio * unitsPerRevolution) / (Math.PI * wheelDiameter);
     }
 
     @Override
     public void periodic() {
-        odometry.update(gyro.getRotation2d(), getEncoderMeters(motorLeftFront), getEncoderMeters(motorRightFront));
-        System.out.println(getEncoderMeters(motorLeftFront));
+      odometry.update(gyro.getRotation2d(), getEncoderMeters(motorLeftFront), getEncoderMeters(motorRightFront));
     }
 
     public Pose2d getPose() {
@@ -81,7 +87,7 @@ public class DriveSubsystem extends SubsystemBase {
     }
 
     public DifferentialDriveWheelSpeeds getWheelSpeeds(){
-      return new DifferentialDriveWheelSpeeds(motorLeftFront.getSelectedSensorVelocity(), motorRightFront.getSelectedSensorVelocity());
+      return new DifferentialDriveWheelSpeeds(getEncoderVelocity(motorLeftFront), getEncoderVelocity(motorRightFront));
     }
 
     public void ResetOdometry(Pose2d pose){
