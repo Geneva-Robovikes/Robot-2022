@@ -83,7 +83,9 @@ public class DriveSubsystem extends SubsystemBase {
     }
 
     public Pose2d getPose() {
+      System.out.println(odometry.getPoseMeters());
       return odometry.getPoseMeters();
+
     }
 
     public DifferentialDriveWheelSpeeds getWheelSpeeds(){
