@@ -30,7 +30,7 @@ import frc.robot.subsystems.DriveSubsystem;
 public class RobotContainer {
   private XboxController controller = new XboxController(0);
 
-  private final DriveSubsystem driveSubsystem = new DriveSubsystem();
+  public final DriveSubsystem driveSubsystem = new DriveSubsystem();
   public final DriveStraightForTime driveStraight = new DriveStraightForTime(driveSubsystem);
   public final TeleopDrive teleopDrive = new TeleopDrive(driveSubsystem, controller);
 
@@ -49,14 +49,13 @@ public class RobotContainer {
   private void configureButtonBindings() {}
 
   
-  public Command getAutonomousCommand() {
+  public Command TrajectoryCommand() {
+    driveSubsystem.gyro.reset();
+    String pathToRun = "TestPath2";
     Trajectory trajectory = new Trajectory();
     try {
-      System.out.println("pathing!");
-      Path path = Filesystem.getDeployDirectory().toPath().resolve("PathWeaver/output/TestPath.wpilib.json");
-      System.out.println(path);
+      Path path = Filesystem.getDeployDirectory().toPath().resolve("PathWeaver/output/" + pathToRun + ".wpilib.json");
       trajectory = TrajectoryUtil.fromPathweaverJson(path);
-      System.out.println(trajectory);
     } catch (IOException ex) {
       DriverStation.reportError("Unable to open trajectory: " + trajectory, ex.getStackTrace());
     }
@@ -81,6 +80,6 @@ public class RobotContainer {
     driveSubsystem.ResetOdometry(trajectory.getInitialPose());
 
     // Run path following command, then stop at the end.
-    return ramseteCommand.andThen(() -> driveSubsystem.tankDrive(0, 0));
+    return ramseteCommand.andThen(() -> driveSubsystem.tankDriveVolts(0, 0));
   }
 }

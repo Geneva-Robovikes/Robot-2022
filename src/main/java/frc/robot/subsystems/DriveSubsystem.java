@@ -8,19 +8,21 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
-import edu.wpi.first.wpilibj.ADIS16448_IMU;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+//import SPI
 
 public class DriveSubsystem extends SubsystemBase {
+
     private final WPI_TalonFX motorLeftFront = new WPI_TalonFX(0);
     private final WPI_TalonFX motorRightFront = new WPI_TalonFX(2);
     private final WPI_TalonFX motorLeftBack = new WPI_TalonFX(1);
     private final WPI_TalonFX motorRightBack = new WPI_TalonFX(3);
-    private final ADIS16448_IMU gyro = new ADIS16448_IMU();
+    public final ADXRS450_Gyro gyro = new ADXRS450_Gyro(); 
+    //public final ADIS16448_IMU gyro = new ADIS16448_IMU(ADIS16448_IMU.IMUAxis.kZ, SPI.Port.kMXP, ADIS16448_IMU.CalibrationTime._1s);
 
 
     private MotorControllerGroup driveLeft = new MotorControllerGroup(motorLeftFront, motorLeftBack);
@@ -39,7 +41,7 @@ public class DriveSubsystem extends SubsystemBase {
       motorRightBack.setSafetyEnabled(false);
       differentialDrive = new DifferentialDrive(driveLeft, driveRight);
       differentialDrive.setSafetyEnabled(false);
-      odometry = new DifferentialDriveOdometry(new Rotation2d(gyro.getGyroRateX(), gyro.getGyroAngleY()));
+      odometry = new DifferentialDriveOdometry(gyro.getRotation2d());
     }
 
     public void arcadeDrive(double speed, double rotation) {
@@ -70,7 +72,7 @@ public class DriveSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        odometry.update(new Rotation2d(gyro.getGyroRateX(), gyro.getGyroAngleY()), getEncoderMeters(motorLeftFront), getEncoderMeters(motorRightFront));
+        odometry.update(gyro.getRotation2d(), getEncoderMeters(motorLeftFront), getEncoderMeters(motorRightFront));
     }
 
     public Pose2d getPose() {
@@ -84,16 +86,20 @@ public class DriveSubsystem extends SubsystemBase {
     public void ResetOdometry(Pose2d pose){
       motorRightFront.setSelectedSensorPosition(0);
       motorLeftFront.setSelectedSensorPosition(0);
-      odometry.resetPosition(pose, new Rotation2d(gyro.getGyroRateX(), gyro.getGyroAngleY()));
+      odometry.resetPosition(pose, gyro.getRotation2d());
     }
 
     public double getHeading() {
-      return new Rotation2d(gyro.getGyroRateX(), gyro.getGyroAngleY()).getDegrees();
+      return gyro.getRotation2d().getDegrees();
     }
 
     public void tankDriveVolts(double leftVolts, double rightVolts) {
       driveLeft.setVoltage(leftVolts);
       driveRight.setVoltage(rightVolts);
       differentialDrive.feed();
+    }
+
+    public double getGyro() {
+      return gyro.getAngle();
     }
 }
