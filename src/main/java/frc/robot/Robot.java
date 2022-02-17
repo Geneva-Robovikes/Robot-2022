@@ -4,9 +4,28 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
+//import com.analog.adis16448.frc.ADIS16448_IMU;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+//import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.*;
 
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+//import frc.robot.command.auto.autopaths.*;
+//import frc.robot.command.drive.TeleopDriveCommand;
+import edu.wpi.first.wpilibj.util.Color;
+import java.util.ArrayList;
+import com.ctre.phoenix.music.Orchestra;
+//import frc.robot.subsystem.*;
+//import frc.robot.DashHelper;
+import edu.wpi.first.wpilibj.PowerDistribution;
+import com.ctre.phoenix.music.Orchestra;
+import edu.wpi.first.wpilibj.XboxController;
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -14,17 +33,81 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  * project.
  */
 public class Robot extends TimedRobot {
-  private RobotContainer robotContainer;
+  //private DriveSubsystem drive;
+  public PowerDistribution pdp;
 
+  public WPI_TalonFX motorRightFront;
+  public WPI_TalonFX motorLeftFront;
+  public WPI_TalonFX motorRightBack;
+  public WPI_TalonFX motorLeftBack;
+  public Orchestra orchestra;
+  public XboxController xboxController;
+  public int songselection;
+  public String[] songList;
+  public int btn;
+  public int lastButton;
+  public int selectedsong;
+
+  public Robot() {
+    xboxController = new XboxController(0);
+
+    orchestra = new Orchestra();
+    motorLeftFront = new WPI_TalonFX(0);
+    motorRightFront = new WPI_TalonFX(2);
+    motorLeftBack = new WPI_TalonFX(1);
+    motorRightBack = new WPI_TalonFX(3);
+    motorRightFront.setSafetyEnabled(false);
+    motorRightBack.setSafetyEnabled(false);
+    motorLeftFront.setSafetyEnabled(false);
+    motorLeftBack.setSafetyEnabled(false);
+    songList = new String[] {
+      "Fanfare.chrp",
+      "portal.chrp",
+      "HyruleCastle"
+
+    };
+    songselection = 0;
+    lastButton = 0;
+  }
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
    */
+  void LoadMusicSelection(int button) {
+    songselection = button;
+    System.out.println(songselection);
+    if (songselection >= songList.length) {
+      songselection = 0;
+    }
+    if (songselection < 0) {
+      songselection = songList.length - 1;
+    }
+    orchestra.loadMusic(songList[songselection]);
+  }
+
+  int getButton() {
+    for (int i = songList.length + 1; i < 13; ++i) {
+      if (xboxController.getRawButton(i)) {
+        selectedsong = i - (songList.length-1);
+      }
+    }
+    return(selectedsong);
+  }
+
   @Override
   public void robotInit() {
+    orchestra.loadMusic("Fanfare.chrp");
+    orchestra.stop();
+
+    orchestra.stop();
+    orchestra.addInstrument(motorLeftBack);
+    orchestra.addInstrument(motorLeftFront);
+    orchestra.addInstrument(motorRightBack);
+    orchestra.addInstrument(motorRightFront);
+    orchestra.stop();
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-    robotContainer = new RobotContainer();
+    //robotContainer = new RobotContainer();
   }
 
   /**
@@ -53,7 +136,7 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    robotContainer.driveStraight.schedule();
+    //robotContainer.driveStraight.schedule();
   }
 
   /** This function is called periodically during autonomous. */
@@ -62,12 +145,22 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    robotContainer.teleopDrive.schedule();
+    //robotContainer.teleopDrive.schedule();
   }
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    btn = getButton();
+
+    if (lastButton != btn) {
+      System.out.println(btn);
+      orchestra.stop();
+      lastButton = btn;
+      LoadMusicSelection(btn);
+      orchestra.play();
+    }
+  }
 
   @Override
   public void testInit() {
