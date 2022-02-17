@@ -73,6 +73,7 @@ public class DriveSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         odometry.update(gyro.getRotation2d(), getEncoderMeters(motorLeftFront), getEncoderMeters(motorRightFront));
+        System.out.println(getEncoderMeters(motorLeftFront));
     }
 
     public Pose2d getPose() {
