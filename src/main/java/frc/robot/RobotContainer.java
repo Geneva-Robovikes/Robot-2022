@@ -55,7 +55,7 @@ public class RobotContainer {
   
   public Command TrajectoryCommand() {
     driveSubsystem.gyro.reset();
-    String pathToRun = "test3";
+    String pathToRun = "TestPath4";
     Trajectory trajectory = new Trajectory();
     try {
       Path path = Filesystem.getDeployDirectory().toPath().resolve("PathWeaver/output/" + pathToRun + ".wpilib.json");
