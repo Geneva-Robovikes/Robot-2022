@@ -63,8 +63,7 @@ public class Robot extends TimedRobot {
     songList = new String[] {
       "Fanfare.chrp",
       "portal.chrp",
-      "HyruleCastle"
-
+      "HyruleCastle.chrp"
     };
     songselection = 0;
     lastButton = 0;
@@ -75,7 +74,7 @@ public class Robot extends TimedRobot {
    */
   void LoadMusicSelection(int button) {
     songselection = button;
-    System.out.println(songselection);
+    //System.out.println(songselection);
     if (songselection >= songList.length) {
       songselection = 0;
     }
@@ -86,9 +85,10 @@ public class Robot extends TimedRobot {
   }
 
   int getButton() {
-    for (int i = songList.length + 1; i < 13; ++i) {
+    for (int i = 1; i < 10; ++i) {
       if (xboxController.getRawButton(i)) {
-        selectedsong = i - (songList.length-1);
+        //System.out.println(xboxController.getRawButton(i));
+        selectedsong = i-1;
       }
     }
     return(selectedsong);
@@ -154,7 +154,7 @@ public class Robot extends TimedRobot {
     btn = getButton();
 
     if (lastButton != btn) {
-      System.out.println(btn);
+      //System.out.println(btn);
       orchestra.stop();
       lastButton = btn;
       LoadMusicSelection(btn);
