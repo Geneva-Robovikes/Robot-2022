@@ -12,7 +12,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class TeleopDrive extends CommandBase {
   private final DriveSubsystem driveSubsystem;
   private XboxController xboxController;
-  private double controllerScaleL = 2;
+  private double halfSpeed = 2;
+  private double fullSpeed = 1;
+  private double threeQuarters = (1.33333);
   //private double controllerScaleR = (1/.53);
   private double deadzoneX = 0.1;
   private double deadzoneY = 0.1;
@@ -41,7 +43,7 @@ public class TeleopDrive extends CommandBase {
     //System.out.println("x: " + x + ", y: " + y);
     if((x > deadzoneX || x < -deadzoneX) || (y > deadzoneY || y < -deadzoneY)){
       //driveSubsystem.curvatureDrive(-y / controllerScaleL, x / 3);
-      driveSubsystem.arcadeDrive(-y/controllerScaleL, x/controllerScaleL);
+      driveSubsystem.arcadeDrive(-y/threeQuarters, x/threeQuarters);
       //System.out.println("Driving!");
     }
   }
