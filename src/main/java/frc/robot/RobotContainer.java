@@ -16,7 +16,9 @@ import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
+import frc.robot.commands.DefaultCommand;
 import frc.robot.commands.DriveStraightForTime;
 import frc.robot.commands.TeleopDrive;
 import frc.robot.subsystems.DriveSubsystem;
@@ -33,9 +35,11 @@ public class RobotContainer {
   public final DriveSubsystem driveSubsystem = new DriveSubsystem();
   public final DriveStraightForTime driveStraight = new DriveStraightForTime(driveSubsystem);
   public final TeleopDrive teleopDrive = new TeleopDrive(driveSubsystem, controller);
+  public final DefaultCommand defaultCommand = new DefaultCommand(driveSubsystem);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    CommandScheduler.getInstance().setDefaultCommand(driveSubsystem, defaultCommand);
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -51,7 +55,7 @@ public class RobotContainer {
   
   public Command TrajectoryCommand() {
     driveSubsystem.gyro.reset();
-    String pathToRun = "test3";
+    String pathToRun = "TestPath4";
     Trajectory trajectory = new Trajectory();
     try {
       Path path = Filesystem.getDeployDirectory().toPath().resolve("PathWeaver/output/" + pathToRun + ".wpilib.json");
