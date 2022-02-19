@@ -15,9 +15,11 @@ public class TeleopDrive extends CommandBase {
   private double halfSpeed = 2;
   private double fullSpeed = 1;
   private double threeQuarters = (1.33333);
+  private double oneQuarter = (4);
   //private double controllerScaleR = (1/.53);
   private double deadzoneX = 0.1;
   private double deadzoneY = 0.1;
+  private double changeSpeed = 2;
 
   /**
    * Creates a new ExampleCommand.
@@ -38,12 +40,20 @@ public class TeleopDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double x = xboxController.getLeftX();
+    double x = xboxController.getRightX();
     double y = xboxController.getLeftY();
+    int getSpeed = xboxController.getPOV();
+    if (getSpeed == 0)
+      changeSpeed = threeQuarters;
+    //else if (getSpeed == 90)
+      //changeSpeed = halfSpeed;
+    else if (getSpeed == 180)
+      changeSpeed = halfSpeed;
+    //System.out.println(changeSpeed);
     //System.out.println("x: " + x + ", y: " + y);
     if((x > deadzoneX || x < -deadzoneX) || (y > deadzoneY || y < -deadzoneY)){
       //driveSubsystem.curvatureDrive(-y / controllerScaleL, x / 3);
-      driveSubsystem.arcadeDrive(-y/threeQuarters, x/threeQuarters);
+      driveSubsystem.arcadeDrive(-y/changeSpeed, x/changeSpeed);
       //System.out.println("Driving!");
     }
   }
