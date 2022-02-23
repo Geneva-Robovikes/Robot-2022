@@ -15,6 +15,7 @@ public class TeleopDrive extends CommandBase {
   private double halfSpeed = 2;
   private double fullSpeed = 1;
   private double threeQuarters = (1.33333);
+  private double inBetween = (1.6);
   private double oneQuarter = (4);
   //private double controllerScaleR = (1/.53);
   private double deadzoneX = 0.1;
@@ -45,11 +46,10 @@ public class TeleopDrive extends CommandBase {
     int getSpeed = xboxController.getPOV();
     if (getSpeed == 0)
       changeSpeed = threeQuarters;
-    //else if (getSpeed == 90)
-      //changeSpeed = halfSpeed;
+    else if (getSpeed == 90)
+      changeSpeed = inBetween;
     else if (getSpeed == 180)
       changeSpeed = halfSpeed;
-    //System.out.println(changeSpeed);
     //System.out.println("x: " + x + ", y: " + y);
     if((x > deadzoneX || x < -deadzoneX) || (y > deadzoneY || y < -deadzoneY)){
       //driveSubsystem.curvatureDrive(-y / controllerScaleL, x / 3);
