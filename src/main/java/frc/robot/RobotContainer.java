@@ -18,10 +18,13 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DefaultCommand;
 import frc.robot.commands.DriveStraightForTime;
+import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.TeleopDrive;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -36,10 +39,13 @@ public class RobotContainer {
   public final DriveStraightForTime driveStraight = new DriveStraightForTime(driveSubsystem);
   public final TeleopDrive teleopDrive = new TeleopDrive(driveSubsystem, controller);
   public final DefaultCommand defaultCommand = new DefaultCommand(driveSubsystem);
+  public final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+  public final IntakeCommand intakeCommand = new IntakeCommand(intakeSubsystem, controller);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     CommandScheduler.getInstance().setDefaultCommand(driveSubsystem, defaultCommand);
+
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -50,7 +56,10 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+    JoystickButton onButton = new JoystickButton(controller, 3);
+    onButton.toggleWhenPressed(intakeCommand);
+  }
 
   
   public Command TrajectoryCommand() {
