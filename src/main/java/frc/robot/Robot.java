@@ -63,7 +63,8 @@ public class Robot extends TimedRobot {
     songList = new String[] {
       "Fanfare.chrp",
       "portal.chrp",
-      "HyruleCastle.chrp"
+      "HyruleCastle.chrp",
+      "Halo.chrp"
     };
     songselection = 0;
     lastButton = 0;
