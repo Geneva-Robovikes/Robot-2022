@@ -30,8 +30,6 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     robotContainer = new RobotContainer();
     CameraServer.startAutomaticCapture();
-    CvSink cvSink = CameraServer.getVideo();
-    CvSource outputStream = CameraServer.putVideo("USB Camera 0", 1280, 720);
   }
 
   /**
