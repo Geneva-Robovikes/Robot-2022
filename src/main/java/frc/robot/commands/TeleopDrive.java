@@ -13,10 +13,8 @@ public class TeleopDrive extends CommandBase {
   private final DriveSubsystem driveSubsystem;
   private XboxController xboxController;
   private double halfSpeed = 2;
-  private double fullSpeed = 1;
   private double threeQuarters = (1.33333);
   private double inBetween = (1.6);
-  private double oneQuarter = (4);
   //private double controllerScaleR = (1/.53);
   private double deadzoneX = 0.1;
   private double deadzoneY = 0.1;

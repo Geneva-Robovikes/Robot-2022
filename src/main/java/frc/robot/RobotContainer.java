@@ -17,8 +17,10 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.AutoTimer;
 import frc.robot.commands.DefaultCommand;
 import frc.robot.commands.DriveStraightForTime;
 import frc.robot.commands.IntakeCommand;
@@ -39,6 +41,7 @@ public class RobotContainer {
   public final DriveStraightForTime driveStraight = new DriveStraightForTime(driveSubsystem);
   public final TeleopDrive teleopDrive = new TeleopDrive(driveSubsystem, controller);
   public final DefaultCommand defaultCommand = new DefaultCommand(driveSubsystem);
+  public final AutoTimer autoTimer = new AutoTimer();
   public final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   public final IntakeCommand intakeCommand = new IntakeCommand(intakeSubsystem, controller);
 
@@ -60,11 +63,10 @@ public class RobotContainer {
     JoystickButton onButton = new JoystickButton(controller, 3);
     onButton.toggleWhenPressed(intakeCommand);
   }
-
   
   public Command TrajectoryCommand() {
     driveSubsystem.gyro.reset();
-    String pathToRun = "TestPath5";
+    String pathToRun = "BallTest1";
     Trajectory trajectory = new Trajectory();
     try {
       Path path = Filesystem.getDeployDirectory().toPath().resolve("PathWeaver/output/" + pathToRun + ".wpilib.json");
@@ -93,6 +95,6 @@ public class RobotContainer {
     driveSubsystem.ResetOdometry(trajectory.getInitialPose());
 
     // Run path following command, then stop at the end.
-    return ramseteCommand.andThen(() -> driveSubsystem.tankDriveVolts(0, 0));
+    return new ParallelRaceGroup(ramseteCommand.andThen(() -> driveSubsystem.tankDriveVolts(0, 0)), autoTimer);
   }
 }
