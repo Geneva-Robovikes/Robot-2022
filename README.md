@@ -28,6 +28,6 @@ If things get a bit spicy, press space for an emergency stop. To restart the rob
 
 If you want a specific point, type values into the fields at the bottom.
 
-**ALL VALUES ARE IN METERS!** The path will not work correctly if you use different units.
+**Distances ARE IN METERS!** The path will not work correctly if you use different units.
 
 *Pathweaver does **NOT** run sharp corners well. Make sure all trajectories are well rounded.
