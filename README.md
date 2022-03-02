@@ -11,4 +11,5 @@
 6) Press "Enable" to start the Robot!
 
 **Always remember the space key is emergency stop**
+
 After an emergency stop either power cycle or press the restart button on the roboRIO.
