@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
@@ -22,8 +23,6 @@ public class DriveSubsystem extends SubsystemBase {
     private final WPI_TalonFX motorLeftBack = new WPI_TalonFX(1);
     private final WPI_TalonFX motorRightBack = new WPI_TalonFX(3);
     public final ADXRS450_Gyro gyro = new ADXRS450_Gyro(); 
-    //public final ADIS16448_IMU gyro = new ADIS16448_IMU(ADIS16448_IMU.IMUAxis.kZ, SPI.Port.kMXP, ADIS16448_IMU.CalibrationTime._1s);
-
 
     private MotorControllerGroup driveLeft = new MotorControllerGroup(motorLeftFront, motorLeftBack);
     private MotorControllerGroup driveRight = new MotorControllerGroup(motorRightFront, motorRightBack);

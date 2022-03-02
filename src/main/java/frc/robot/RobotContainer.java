@@ -45,7 +45,7 @@ public class RobotContainer {
   public final AutoTimer autoTimer = new AutoTimer();
   public final DriveStraight driveStraight = new DriveStraight(driveSubsystem, 1.15, .5);
   public final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
-  public final IntakeCommand intakeCommand = new IntakeCommand(intakeSubsystem, controller);
+  public final IntakeCommand intakeCommand = new IntakeCommand(intakeSubsystem);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -62,8 +62,8 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    JoystickButton onButton = new JoystickButton(controller, 3);
-    onButton.toggleWhenPressed(intakeCommand);
+    JoystickButton intakeButton = new JoystickButton(controller, 3);
+    intakeButton.toggleWhenPressed(intakeCommand);
   }
   
   public Command TrajectoryCommand() {
