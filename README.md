@@ -2,7 +2,7 @@
 
 2022 Geneva Robovikes code for the 2022 FRC season. Proceed with caution...
 
-#### **How to Run the Robot**
+## **How to Run the Robot**
 1) Connect to the radio over wifi.
 2) Open driver station and verify the connection box is green.
 3) Using VS Code, click on the "W" in the top right then select "Deploy Robot Code".
