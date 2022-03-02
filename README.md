@@ -10,7 +10,8 @@
 5) Check to make sure you are on the correct robot mode.
 6) Press "Enable" to start the Robot!
 
-If things get a bit spicy, press space for an emergency stop. To restart the robot after, press the restart button on the roboRIO.\n
+If things get a bit spicy, press space for an emergency stop. To restart the robot after, press the restart button on the roboRIO.
+
 *You do not need to wait to connect, as soon as you hit the button you are good.
 
 ## **How to make a Pathweaver path**
