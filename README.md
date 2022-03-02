@@ -26,4 +26,8 @@ If things get a bit spicy, press space for an emergency stop. To restart the rob
 9) Redeploy the code as seen in the above section.
 10) Enable the Robot in autonomous to see the path in action!
 
+If you want a specific point, type values into the fields at the bottom.
+
+**ALL VALUES ARE IN METERS!** It should look wrong if you put things in a different unit.
+
 *Pathweaver does **NOT** run sharp corners well. Make sure all trajectories are well rounded.
