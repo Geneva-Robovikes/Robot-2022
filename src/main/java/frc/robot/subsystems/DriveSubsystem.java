@@ -63,6 +63,11 @@ public class DriveSubsystem extends SubsystemBase {
       return controller.getLeftY();
     }
 
+    public WPI_TalonFX getMotor(int i) {
+      if(i == 0) {return motorLeftFront;}
+      else {return motorRightBack;}
+    }
+
     public double getEncoderMeters(WPI_TalonFX motor, int mult) {
       double wheelDiameter = 0.1524;
       double gearRatio = 10.71;

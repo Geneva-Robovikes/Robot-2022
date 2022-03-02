@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.AutoTimer;
 import frc.robot.commands.DefaultCommand;
+import frc.robot.commands.DriveStraight;
 import frc.robot.commands.DriveStraightForTime;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.TeleopDrive;
@@ -38,10 +39,11 @@ public class RobotContainer {
   private XboxController controller = new XboxController(0);
 
   public final DriveSubsystem driveSubsystem = new DriveSubsystem();
-  public final DriveStraightForTime driveStraight = new DriveStraightForTime(driveSubsystem);
+  public final DriveStraightForTime driveStraightfortime = new DriveStraightForTime(driveSubsystem);
   public final TeleopDrive teleopDrive = new TeleopDrive(driveSubsystem, controller);
   public final DefaultCommand defaultCommand = new DefaultCommand(driveSubsystem);
   public final AutoTimer autoTimer = new AutoTimer();
+  public final DriveStraight driveStraight = new DriveStraight(driveSubsystem, 1.15, .5);
   public final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   public final IntakeCommand intakeCommand = new IntakeCommand(intakeSubsystem, controller);
 

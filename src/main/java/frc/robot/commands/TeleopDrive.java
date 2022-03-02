@@ -16,8 +16,8 @@ public class TeleopDrive extends CommandBase {
   private double threeQuarters = (1.33333);
   private double inBetween = (1.6);
   //private double controllerScaleR = (1/.53);
-  private double deadzoneX = 0.8;
-  private double deadzoneY = 0.8;
+  private double deadzoneX = 0.5;
+  private double deadzoneY = 0.5;
   private double changeSpeed = 2;
 
   /**
@@ -53,6 +53,8 @@ public class TeleopDrive extends CommandBase {
       //driveSubsystem.curvatureDrive(-y / controllerScaleL, x / 3);
       driveSubsystem.arcadeDrive(-y/changeSpeed, x/changeSpeed);
       //System.out.println("Driving!");
+    } else {
+      driveSubsystem.arcadeDrive(0, 0);
     }
   }
 
