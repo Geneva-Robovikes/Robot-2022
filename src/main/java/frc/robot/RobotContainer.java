@@ -20,7 +20,19 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
+<<<<<<< Updated upstream
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+=======
+  //Add Commands Here!
+  public final DriveSubsystem driveSubsystem = new DriveSubsystem();
+  public final DriveStraightForTime driveStraightfortime = new DriveStraightForTime(driveSubsystem);
+  public final TeleopDrive teleopDrive = new TeleopDrive(driveSubsystem, controller);
+  public final DefaultCommand defaultCommand = new DefaultCommand(driveSubsystem);
+  public final AutoTimer autoTimer = new AutoTimer();
+  public final DriveStraight driveStraight = new DriveStraight(driveSubsystem, 1.15, .5);
+  public final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+  public final IntakeCommand intakeCommand = new IntakeCommand(intakeSubsystem);
+>>>>>>> Stashed changes
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -34,7 +46,47 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
+<<<<<<< Updated upstream
   private void configureButtonBindings() {}
+=======
+  private void configureButtonBindings() {
+    JoystickButton intakeButton = new JoystickButton(controller, 3);
+    intakeButton.toggleWhenPressed(intakeCommand);
+  }
+  
+  public Command TrajectoryCommand() {
+    driveSubsystem.gyro.reset();
+
+    // ~~~~~~ Change string to filename of wanted path ~~~~~~ //
+    String pathToRun = "one ball";
+
+    Trajectory trajectory = new Trajectory();
+    try {
+      Path path = Filesystem.getDeployDirectory().toPath().resolve("PathWeaver/output/" + pathToRun + ".wpilib.json");
+      trajectory = TrajectoryUtil.fromPathweaverJson(path);
+    } catch (IOException ex) {
+      DriverStation.reportError("Unable to open trajectory: " + trajectory, ex.getStackTrace());
+    }
+
+    RamseteCommand ramseteCommand = 
+        new RamseteCommand(
+            trajectory,
+            driveSubsystem::getPose,
+            new RamseteController(Constants.kRamseteB, Constants.kRamseteZeta),
+            new SimpleMotorFeedforward(
+                Constants.ksVolts,
+                Constants.kvVoltSecondsPerMeter,
+                Constants.kaVoltSecondsSquaredPerMeter),
+            Constants.kDriveKinematics,
+            driveSubsystem::getWheelSpeeds,
+            new PIDController(Constants.kPDriveVel, 0, 0),
+            new PIDController(Constants.kPDriveVel, 0, 0),
+            // RamseteCommand passes volts to the callback
+            driveSubsystem::tankDriveVolts,
+            driveSubsystem);
+    // Reset odometry to the starting pose of the trajectory.
+    driveSubsystem.ResetOdometry(trajectory.getInitialPose());
+>>>>>>> Stashed changes
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

@@ -12,4 +12,25 @@ package frc.robot;
  * <p>It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
+<<<<<<< Updated upstream
 public final class Constants {}
+=======
+public final class Constants {
+
+    // ~~~~~~ values from system identification ~~~~~~ //
+    public static final double ksVolts = 0.55274;
+    public static final double kvVoltSecondsPerMeter = 2.2988;
+    public static final double kaVoltSecondsSquaredPerMeter = 0.37267;
+    public static final double kPDriveVel = .0000014057;
+    public static final double kTrackWidthMeters = 0.50165;
+    public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackWidthMeters);
+    
+    // ~~~~~~ Make these values the same as the ones in pathweaver.json ~~~~~~ //
+    public static final double kMaxSpeedMetersPerSecond = 1.75;
+    public static final double kMaxAccelerationMetersPerSecondSquared = .5;
+    
+    // ~~~~~~ Reccomended robot values ~~~~~~ //
+    public static final double kRamseteB = 2;
+    public static final double kRamseteZeta = 0.7;
+}
+>>>>>>> Stashed changes
