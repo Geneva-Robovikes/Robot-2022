@@ -16,8 +16,8 @@ public class TeleopDrive extends CommandBase {
   private double threeQuarters = (1.33333);
   private double inBetween = (1.6);
   //private double controllerScaleR = (1/.53);
-  private double deadzoneX = 0.1;
-  private double deadzoneY = 0.1;
+  private double deadzoneX = 0.8;
+  private double deadzoneY = 0.8;
   private double changeSpeed = 2;
 
   /**
