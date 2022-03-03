@@ -4,11 +4,30 @@
 
 package frc.robot;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.RamseteController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.math.trajectory.TrajectoryUtil;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
+import edu.wpi.first.wpilibj2.command.RamseteCommand;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.AutoTimer;
+import frc.robot.commands.DefaultCommand;
+import frc.robot.commands.DriveStraight;
+import frc.robot.commands.DriveStraightForTime;
+import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.TeleopDrive;
+import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -17,12 +36,8 @@ import edu.wpi.first.wpilibj2.command.Command;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  private XboxController controller = new XboxController(0);
 
-<<<<<<< Updated upstream
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-=======
   //Add Commands Here!
   public final DriveSubsystem driveSubsystem = new DriveSubsystem();
   public final DriveStraightForTime driveStraightfortime = new DriveStraightForTime(driveSubsystem);
@@ -32,10 +47,11 @@ public class RobotContainer {
   public final DriveStraight driveStraight = new DriveStraight(driveSubsystem, 1.15, .5);
   public final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   public final IntakeCommand intakeCommand = new IntakeCommand(intakeSubsystem);
->>>>>>> Stashed changes
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    CommandScheduler.getInstance().setDefaultCommand(driveSubsystem, defaultCommand);
+
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -46,9 +62,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-<<<<<<< Updated upstream
-  private void configureButtonBindings() {}
-=======
+  
   private void configureButtonBindings() {
     JoystickButton intakeButton = new JoystickButton(controller, 3);
     intakeButton.toggleWhenPressed(intakeCommand);
@@ -56,10 +70,7 @@ public class RobotContainer {
   
   public Command TrajectoryCommand() {
     driveSubsystem.gyro.reset();
-
-    // ~~~~~~ Change string to filename of wanted path ~~~~~~ //
     String pathToRun = "one ball";
-
     Trajectory trajectory = new Trajectory();
     try {
       Path path = Filesystem.getDeployDirectory().toPath().resolve("PathWeaver/output/" + pathToRun + ".wpilib.json");
@@ -86,15 +97,8 @@ public class RobotContainer {
             driveSubsystem);
     // Reset odometry to the starting pose of the trajectory.
     driveSubsystem.ResetOdometry(trajectory.getInitialPose());
->>>>>>> Stashed changes
 
-  /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
-  public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    // Run path following command, then stop at the end.
+    return new ParallelRaceGroup(ramseteCommand.andThen(() -> driveSubsystem.tankDriveVolts(0, 0)), autoTimer);
   }
 }
