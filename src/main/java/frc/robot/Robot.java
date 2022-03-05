@@ -60,13 +60,16 @@ public class Robot extends TimedRobot {
     motorRightBack.setSafetyEnabled(false);
     motorLeftFront.setSafetyEnabled(false);
     motorLeftBack.setSafetyEnabled(false);
+    //10 song max
     songList = new String[] {
       "Fanfare.chrp",
       "portal.chrp",
       "HyruleCastle.chrp",
       "Halo.chrp",
       "Enemy.chrp",
-      "TurretSong.chrp"
+      "TurretSong.chrp",
+      "Wiisports.chrp",
+      "Zelda.chrp"
     };
     songselection = 0;
     lastButton = 0;
