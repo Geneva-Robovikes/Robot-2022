@@ -64,7 +64,9 @@ public class Robot extends TimedRobot {
       "Fanfare.chrp",
       "portal.chrp",
       "HyruleCastle.chrp",
-      "Halo.chrp"
+      "Halo.chrp",
+      "Enemy.chrp",
+      "TurretSong.chrp"
     };
     songselection = 0;
     lastButton = 0;
@@ -83,6 +85,7 @@ public class Robot extends TimedRobot {
       songselection = songList.length - 1;
     }
     orchestra.loadMusic(songList[songselection]);
+    System.out.println(songList[songselection]);
   }
 
   int getButton() {
