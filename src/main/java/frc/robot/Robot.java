@@ -61,7 +61,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     robotContainer.driveSubsystem.gyro.reset();
-    robotContainer.driveStraight.schedule();
+    robotContainer.AutoCommand().schedule();
   }
 
   /** This function is called periodically during autonomous. */

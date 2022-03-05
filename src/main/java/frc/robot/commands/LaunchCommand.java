@@ -6,18 +6,19 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.LaunchSubsystem;
 
 /** An example command that uses an example subsystem. */
-public class IntakeCommand extends CommandBase {
-  private final IntakeSubsystem intakeSubsystem;
+public class LaunchCommand extends CommandBase {
+  private final LaunchSubsystem launchSubsystem;
   //private final DriveSubsystem driveSubsystem;
    /*
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public IntakeCommand(IntakeSubsystem subsystem) {
-    intakeSubsystem = subsystem;
+  public LaunchCommand(LaunchSubsystem subsystem) {
+    launchSubsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -31,7 +32,7 @@ public class IntakeCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intakeSubsystem.setRollerMotor(.4);
+    launchSubsystem.setLaunchMotors(.4);
     System.out.println("it worked");
   }
 
@@ -43,7 +44,7 @@ public class IntakeCommand extends CommandBase {
 
   @Override
   public void end(boolean interrupted) {
-    intakeSubsystem.setRollerMotor(0);
+    launchSubsystem.setLaunchMotors(0);
     System.out.print("stopped");
     
   }

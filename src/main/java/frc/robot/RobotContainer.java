@@ -21,13 +21,16 @@ import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.AutoTimer;
+import frc.robot.commands.BeltCommand;
 import frc.robot.commands.DefaultCommand;
 import frc.robot.commands.DriveStraight;
 import frc.robot.commands.DriveStraightForTime;
 import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.LaunchCommand;
 import frc.robot.commands.TeleopDrive;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.LaunchSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -43,15 +46,21 @@ public class RobotContainer {
   public final DriveStraightForTime driveStraightfortime = new DriveStraightForTime(driveSubsystem);
   public final TeleopDrive teleopDrive = new TeleopDrive(driveSubsystem, controller);
   public final DefaultCommand defaultCommand = new DefaultCommand(driveSubsystem);
-  public final AutoTimer autoTimer = new AutoTimer();
   public final DriveStraight driveStraight = new DriveStraight(driveSubsystem, 1.15, .5);
   public final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+  public final LaunchSubsystem launchSubsystem = new LaunchSubsystem();
+  public final AutoTimer autoTimer = new AutoTimer();
+
+  public final BeltCommand beltCommand = new BeltCommand(intakeSubsystem);
   public final IntakeCommand intakeCommand = new IntakeCommand(intakeSubsystem);
+  public final LaunchCommand launchCommand = new LaunchCommand(launchSubsystem);
+
+  private Command autoCommand;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     CommandScheduler.getInstance().setDefaultCommand(driveSubsystem, defaultCommand);
-
+    autoCommand = new ParallelRaceGroup(TrajectoryCommand(), autoTimer);
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -64,11 +73,21 @@ public class RobotContainer {
    */
   
   private void configureButtonBindings() {
-    JoystickButton intakeButton = new JoystickButton(controller, 3);
+    JoystickButton intakeButton = new JoystickButton(controller, 1);
+    JoystickButton launchButton = new JoystickButton(controller, 4);
+    JoystickButton beltButton = new JoystickButton(controller, 3);
+
     intakeButton.toggleWhenPressed(intakeCommand);
+    launchButton.toggleWhenPressed(launchCommand);
+    beltButton.toggleWhenPressed(beltCommand);
+    
+  }
+
+  public Command AutoCommand() {
+    return autoCommand;
   }
   
-  public Command TrajectoryCommand() {
+  private Command TrajectoryCommand() {
     driveSubsystem.gyro.reset();
     String pathToRun = "one ball";
     Trajectory trajectory = new Trajectory();
@@ -99,6 +118,6 @@ public class RobotContainer {
     driveSubsystem.ResetOdometry(trajectory.getInitialPose());
 
     // Run path following command, then stop at the end.
-    return new ParallelRaceGroup(ramseteCommand.andThen(() -> driveSubsystem.tankDriveVolts(0, 0)), autoTimer);
+    return ramseteCommand.andThen(() -> driveSubsystem.tankDriveVolts(0, 0));
   }
 }
