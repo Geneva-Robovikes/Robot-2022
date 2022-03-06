@@ -10,13 +10,13 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 
 /** An example command that uses an example subsystem. */
-public class DriveStraight extends PIDCommand {
+public class DriveStraightPIDCommand extends PIDCommand {
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public DriveStraight(DriveSubsystem drive, double distance, double speed) {
+  public DriveStraightPIDCommand(DriveSubsystem drive, double distance) {
     super (
       new PIDController(Constants.kPDriveVel, 0, 0),
       drive::getHeading,
