@@ -53,16 +53,18 @@ public class RobotContainer {
   public final LaunchSubsystem launchSubsystem = new LaunchSubsystem();
   public final BeltSubsystem beltSubsystem = new BeltSubsystem();
 
-  //Add Commands Here!
-  public final DriveStraightForTime driveStraightfortime = new DriveStraightForTime(driveSubsystem);
+  //Add Teleop Commands Here!
   public final TeleopDrive teleopDrive = new TeleopDrive(driveSubsystem, controller);
   public final DefaultCommand defaultCommand = new DefaultCommand(driveSubsystem);
-  public final DriveStraightPIDCommand driveStraight = new DriveStraightPIDCommand(driveSubsystem, 1.15);
-  public final TurnPIDCommand turnPIDCommand = new TurnPIDCommand(driveSubsystem, 180);
-  public final AutoTimer autoTimer = new AutoTimer();
   public final BeltCommand beltCommand = new BeltCommand(beltSubsystem);
   public final IntakeCommand intakeCommand = new IntakeCommand(intakeSubsystem, beltSubsystem);
   public final LaunchCommand launchCommand = new LaunchCommand(launchSubsystem);
+  
+  //add Auto Commands Here!
+  public final DriveStraightForTime driveStraightfortime = new DriveStraightForTime(driveSubsystem);
+  public final DriveStraightPIDCommand driveStraightPIDCommand = new DriveStraightPIDCommand(driveSubsystem, 1.15);
+  public final AutoTimer autoTimer = new AutoTimer();
+  public final TurnPIDCommand turnPIDCommand = new TurnPIDCommand(driveSubsystem, 180);
   public final AutoIntakeCommand autoIntakeCommand = new AutoIntakeCommand(intakeSubsystem);
   public final AutoBeltCommand autoBeltCommand = new AutoBeltCommand(beltSubsystem);
   public final AutoLaunchCommand autoLaunchCommand = new AutoLaunchCommand(launchSubsystem);
@@ -134,5 +136,6 @@ public class RobotContainer {
 
     // Run path following command, then stop at the end.
     return new ParallelCommandGroup(new ParallelRaceGroup(autoIntakeCommand, ramseteCommand.andThen(() -> driveSubsystem.tankDriveVolts(0, 0)).andThen(new ParallelCommandGroup(autoBeltCommand, autoLaunchCommand))), autoTimer);
+    //return new ParallelCommandGroup(new ParallelRaceGroup(autoIntakeCommand, ramseteCommand.andThen(() -> ))
   }
 }
