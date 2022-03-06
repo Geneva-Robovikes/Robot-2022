@@ -26,7 +26,7 @@ public class IntakeCommand extends CommandBase {
   @Override
   public void initialize() {
     intakeSubsystem.setRollerMotor(.4);
-    //intakeSubsystem.setBeltMotor(0.75);
+    intakeSubsystem.setBeltMotor(0.75);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -42,6 +42,6 @@ public class IntakeCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     intakeSubsystem.setRollerMotor(0);
-    //intakeSubsystem.setBeltMotor(0);
+    intakeSubsystem.setBeltMotor(0);
   }
 }
