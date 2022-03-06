@@ -5,19 +5,19 @@
 package frc.robot.commands.Auto;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.BeltSubsystem;
 
 /** An example command that uses an example subsystem. */
 public class AutoBeltCommand extends CommandBase {
-  private final IntakeSubsystem intakeSubsystem;
+  private final BeltSubsystem beltSubsystem;
   //private final DriveSubsystem driveSubsystem;
    /*
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public AutoBeltCommand(IntakeSubsystem subsystem) {
-    intakeSubsystem = subsystem;
+  public AutoBeltCommand(BeltSubsystem subsystem) {
+    beltSubsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -25,7 +25,7 @@ public class AutoBeltCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    intakeSubsystem.setBeltMotor(.8);
+    beltSubsystem.setBeltMotor(.8);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -40,6 +40,6 @@ public class AutoBeltCommand extends CommandBase {
 
   @Override
   public void end(boolean interrupted) {
-    intakeSubsystem.setBeltMotor(0);
+    beltSubsystem.setBeltMotor(0);
   }
 }

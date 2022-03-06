@@ -21,7 +21,9 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.Auto.AutoBeltCommand;
 import frc.robot.commands.Auto.AutoIntakeCommand;
+import frc.robot.commands.Auto.AutoLaunchCommand;
 import frc.robot.commands.Auto.AutoTimer;
 import frc.robot.commands.Auto.DriveStraightForTime;
 import frc.robot.commands.Auto.DriveStraightPIDCommand;
@@ -31,6 +33,7 @@ import frc.robot.commands.Teleop.DefaultCommand;
 import frc.robot.commands.Teleop.IntakeCommand;
 import frc.robot.commands.Teleop.LaunchCommand;
 import frc.robot.commands.Teleop.TeleopDrive;
+import frc.robot.subsystems.BeltSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LaunchSubsystem;
@@ -44,21 +47,25 @@ import frc.robot.subsystems.LaunchSubsystem;
 public class RobotContainer {
   private XboxController controller = new XboxController(0);
 
-  //Add Commands Here!
+  //Add Subsystems Here!
   public final DriveSubsystem driveSubsystem = new DriveSubsystem();
+  public final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+  public final LaunchSubsystem launchSubsystem = new LaunchSubsystem();
+  public final BeltSubsystem beltSubsystem = new BeltSubsystem();
+
+  //Add Commands Here!
   public final DriveStraightForTime driveStraightfortime = new DriveStraightForTime(driveSubsystem);
   public final TeleopDrive teleopDrive = new TeleopDrive(driveSubsystem, controller);
   public final DefaultCommand defaultCommand = new DefaultCommand(driveSubsystem);
   public final DriveStraightPIDCommand driveStraight = new DriveStraightPIDCommand(driveSubsystem, 1.15);
   public final TurnPIDCommand turnPIDCommand = new TurnPIDCommand(driveSubsystem, 180);
-  public final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
-  public final LaunchSubsystem launchSubsystem = new LaunchSubsystem();
   public final AutoTimer autoTimer = new AutoTimer();
-
-  public final BeltCommand beltCommand = new BeltCommand(intakeSubsystem);
-  public final IntakeCommand intakeCommand = new IntakeCommand(intakeSubsystem);
+  public final BeltCommand beltCommand = new BeltCommand(beltSubsystem);
+  public final IntakeCommand intakeCommand = new IntakeCommand(intakeSubsystem, beltSubsystem);
   public final LaunchCommand launchCommand = new LaunchCommand(launchSubsystem);
   public final AutoIntakeCommand autoIntakeCommand = new AutoIntakeCommand(intakeSubsystem);
+  public final AutoBeltCommand autoBeltCommand = new AutoBeltCommand(beltSubsystem);
+  public final AutoLaunchCommand autoLaunchCommand = new AutoLaunchCommand(launchSubsystem);
 
   //private Command autoCommand;
 
@@ -126,6 +133,6 @@ public class RobotContainer {
     driveSubsystem.ResetOdometry(trajectory.getInitialPose());
 
     // Run path following command, then stop at the end.
-    return new ParallelRaceGroup(autoTimer, intakeCommand, ramseteCommand.andThen(() -> driveSubsystem.tankDriveVolts(0, 0))).andThen(new ParallelCommandGroup(beltCommand, launchCommand));
+    return new ParallelCommandGroup(new ParallelRaceGroup(autoIntakeCommand, ramseteCommand.andThen(() -> driveSubsystem.tankDriveVolts(0, 0)).andThen(new ParallelCommandGroup(autoBeltCommand, autoLaunchCommand))), autoTimer);
   }
 }
