@@ -25,6 +25,7 @@ public class BeltCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    System.out.println("Belt Starting!");
     intakeSubsystem.setBeltMotor(.4);
   }
 

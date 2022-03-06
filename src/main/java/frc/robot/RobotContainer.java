@@ -17,9 +17,11 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.AutoIntakeCommand;
 import frc.robot.commands.AutoTimer;
 import frc.robot.commands.BeltCommand;
 import frc.robot.commands.DefaultCommand;
@@ -56,13 +58,14 @@ public class RobotContainer {
   public final BeltCommand beltCommand = new BeltCommand(intakeSubsystem);
   public final IntakeCommand intakeCommand = new IntakeCommand(intakeSubsystem);
   public final LaunchCommand launchCommand = new LaunchCommand(launchSubsystem);
+  public final AutoIntakeCommand autoIntakeCommand = new AutoIntakeCommand(intakeSubsystem);
 
-  private Command autoCommand;
+  //private Command autoCommand;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     CommandScheduler.getInstance().setDefaultCommand(driveSubsystem, defaultCommand);
-    autoCommand = new ParallelRaceGroup(TrajectoryCommand(), autoTimer);
+    //autoCommand = new ParallelRaceGroup(TrajectoryCommand(), autoTimer);
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -93,7 +96,7 @@ public class RobotContainer {
     driveSubsystem.gyro.reset();
 
     // ~~~~~~ Change this string to the path you want to run ~~~~~~//
-    String pathToRun = "Curve";
+    String pathToRun = "one ball";
     
     Trajectory trajectory = new Trajectory();
     try {
@@ -123,6 +126,6 @@ public class RobotContainer {
     driveSubsystem.ResetOdometry(trajectory.getInitialPose());
 
     // Run path following command, then stop at the end.
-    return ramseteCommand.andThen(() -> driveSubsystem.tankDriveVolts(0, 0));
+    return new ParallelRaceGroup(autoTimer, intakeCommand, ramseteCommand.andThen(() -> driveSubsystem.tankDriveVolts(0, 0))).andThen(new ParallelCommandGroup(beltCommand, launchCommand));
   }
 }
