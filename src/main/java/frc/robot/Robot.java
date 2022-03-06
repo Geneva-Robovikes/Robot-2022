@@ -61,7 +61,8 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     robotContainer.driveSubsystem.gyro.reset();
-    robotContainer.AutoCommand().schedule();
+    System.out.println("Heading: " + robotContainer.driveSubsystem.getHeading());
+    robotContainer.TrajectoryCommand().schedule();
   }
 
   /** This function is called periodically during autonomous. */

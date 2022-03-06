@@ -84,14 +84,17 @@ public class RobotContainer {
     beltButton.toggleWhenPressed(beltCommand);
     
   }
-
+/*
   public Command AutoCommand() {
     return autoCommand;
   }
-  
-  private Command TrajectoryCommand() {
+*/
+  public Command TrajectoryCommand() {
     driveSubsystem.gyro.reset();
-    String pathToRun = "one ball";
+
+    // ~~~~~~ Change this string to the path you want to run ~~~~~~//
+    String pathToRun = "Curve";
+    
     Trajectory trajectory = new Trajectory();
     try {
       Path path = Filesystem.getDeployDirectory().toPath().resolve("PathWeaver/output/" + pathToRun + ".wpilib.json");

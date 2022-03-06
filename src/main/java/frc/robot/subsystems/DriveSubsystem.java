@@ -40,6 +40,8 @@ public class DriveSubsystem extends SubsystemBase {
       motorRightBack.setSafetyEnabled(false);
       differentialDrive = new DifferentialDrive(driveLeft, driveRight);
       differentialDrive.setSafetyEnabled(false);
+      gyro.reset();
+      gyro.calibrate();
       odometry = new DifferentialDriveOdometry(gyro.getRotation2d());
     }
 
@@ -87,8 +89,8 @@ public class DriveSubsystem extends SubsystemBase {
     }
 
     public Pose2d getPose() {
+      System.out.println(odometry.getPoseMeters());
       return odometry.getPoseMeters();
-
     }
 
     public DifferentialDriveWheelSpeeds getWheelSpeeds(){

@@ -25,15 +25,12 @@ public class BeltCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
+    intakeSubsystem.setBeltMotor(.4);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    intakeSubsystem.setBeltMotor(.4);
-    System.out.println("it worked");
-  }
+  public void execute() {}
 
   // Returns true when the command should end.
   @Override
@@ -44,7 +41,5 @@ public class BeltCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     intakeSubsystem.setBeltMotor(0);
-    System.out.print("stopped");
-    
   }
 }
