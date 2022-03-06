@@ -14,7 +14,7 @@ If things get a bit spicy, press space for an emergency stop. To restart the rob
 
 *You do not need to wait to connect, as soon as you hit the button you are good.
 
-## **How to make a Pathweaver path**
+## **How to Make a Pathweaver Path**
 1) Open Pathweaver 2022.
 2) Open the "PathWeaver" project in the "Robot-2022" repository.
 3) Press the "+" button in the bottom right.
@@ -31,3 +31,8 @@ If you want a specific point, type values into the fields at the bottom.
 **Distances ARE IN METERS!** The path will not work correctly if you use different units.
 
 *Pathweaver does **NOT** run sharp corners well. Make sure all trajectories are well rounded.
+
+## **Useful Links**
+1) https://docs.wpilib.org/en/stable/ - Use this website to reasearch topics. It has great turtorials on trjectories, pathfinding, vision, and more if you look deep enough.
+2) https://first.wpi.edu/wpilib/allwpilib/docs/release/java/index.html - Use this website when reasearching specific classes or methods, it gives a more code-sided descriptions.
+3) https://www.chiefdelphi.com/ - Stack Overflow like website that focuses on FRC problems. Post a problem if in need!
