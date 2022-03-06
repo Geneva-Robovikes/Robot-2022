@@ -25,8 +25,7 @@ public class TurnPIDCommand extends PIDCommand {
       drive);
 
     getController().enableContinuousInput(-180, 180);
-    //use this if things are a bit spicy
-    //getController().setTolerance(positionTolerance, velocityTolerance);
+    getController().setTolerance(1.5, 5);
   }
 
   // Returns true when the command should end.
