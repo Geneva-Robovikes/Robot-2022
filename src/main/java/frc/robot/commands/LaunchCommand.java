@@ -5,7 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.IntakeSubsystem;
+//import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LaunchSubsystem;
 
 /** An example command that uses an example subsystem. */
@@ -26,15 +26,12 @@ public class LaunchCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
+    launchSubsystem.setLaunchMotors(.4);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    launchSubsystem.setLaunchMotors(.4);
-    System.out.println("it worked");
-  }
+  public void execute() {}
 
   // Returns true when the command should end.
   @Override
@@ -45,7 +42,5 @@ public class LaunchCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     launchSubsystem.setLaunchMotors(0);
-    System.out.print("stopped");
-    
   }
 }
