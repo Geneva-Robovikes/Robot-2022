@@ -105,6 +105,13 @@ public class DriveSubsystem extends SubsystemBase {
       return gyro.getRotation2d().getDegrees();
     }
 
+    public double getLeftEncoderMeters() {
+      double wheelDiameter = 0.1524;
+      double gearRatio = 10.71;
+      double unitsPerRevolution = 2048;
+      return motorLeftFront.getSelectedSensorPosition() / (gearRatio * unitsPerRevolution) * (Math.PI * wheelDiameter);
+    }
+
     public void tankDriveVolts(double leftVolts, double rightVolts) {
       driveLeft.setVoltage(leftVolts);
       driveRight.setVoltage(rightVolts);
