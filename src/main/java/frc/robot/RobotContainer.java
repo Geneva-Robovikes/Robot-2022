@@ -105,19 +105,25 @@ public class RobotContainer {
     driveSubsystem.gyro.reset();
 
     // ~~~~~~ Change this string to the path you want to run ~~~~~~//
-    String pathToRun = "one ball";
+    String pathToRun = "one ball part1";
+    String secondPath = "one ball part2";
     
-    Trajectory trajectory = new Trajectory();
+    Trajectory trajectory1 = new Trajectory();
+    Trajectory trajectory2 = new Trajectory();
     try {
-      Path path = Filesystem.getDeployDirectory().toPath().resolve("PathWeaver/output/" + pathToRun + ".wpilib.json");
-      trajectory = TrajectoryUtil.fromPathweaverJson(path);
+      Path path1 = Filesystem.getDeployDirectory().toPath().resolve("PathWeaver/output/" + pathToRun + ".wpilib.json");
+      Path path2 = Filesystem.getDeployDirectory().toPath().resolve("PathWeaver/output/" + secondPath + ".wpilib.json");
+
+      trajectory1 = TrajectoryUtil.fromPathweaverJson(path1);
+      trajectory2 = TrajectoryUtil.fromPathweaverJson(path2);
+
     } catch (IOException ex) {
-      DriverStation.reportError("Unable to open trajectory: " + trajectory, ex.getStackTrace());
+      DriverStation.reportError("Unable to open trajectory: " + trajectory1, ex.getStackTrace());
     }
 
-    RamseteCommand ramseteCommand = 
+    RamseteCommand ramseteCommandPart1 = 
         new RamseteCommand(
-            trajectory,
+            trajectory1,
             driveSubsystem::getPose,
             new RamseteController(Constants.kRamseteB, Constants.kRamseteZeta),
             new SimpleMotorFeedforward(
@@ -131,11 +137,28 @@ public class RobotContainer {
             // RamseteCommand passes volts to the callback
             driveSubsystem::tankDriveVolts,
             driveSubsystem);
+
+            RamseteCommand ramseteCommandPart2 = 
+            new RamseteCommand(
+                trajectory2,
+                driveSubsystem::getPose,
+                new RamseteController(Constants.kRamseteB, Constants.kRamseteZeta),
+                new SimpleMotorFeedforward(
+                    Constants.ksVolts,
+                    Constants.kvVoltSecondsPerMeter,
+                    Constants.kaVoltSecondsSquaredPerMeter),
+                Constants.kDriveKinematics,
+                driveSubsystem::getWheelSpeeds,
+                new PIDController(Constants.kPDriveVel, 0, 0),
+                new PIDController(Constants.kPDriveVel, 0, 0),
+                // RamseteCommand passes volts to the callback
+                driveSubsystem::tankDriveVolts,
+                driveSubsystem);
     // Reset odometry to the starting pose of the trajectory.
-    driveSubsystem.ResetOdometry(trajectory.getInitialPose());
+    driveSubsystem.ResetOdometry(trajectory1.getInitialPose());
 
     // Run path following command, then stop at the end.
-    return new ParallelCommandGroup(new ParallelRaceGroup(autoIntakeCommand, ramseteCommand.andThen(() -> driveSubsystem.tankDriveVolts(0, 0)).andThen(new ParallelCommandGroup(autoBeltCommand, autoLaunchCommand))), autoTimer);
-    //return new ParallelCommandGroup(new ParallelRaceGroup(autoIntakeCommand, ramseteCommand.andThen(() -> ))
+    //return new ParallelCommandGroup(new ParallelRaceGroup(autoIntakeCommand, ramseteCommandPart1.andThen(() -> driveSubsystem.tankDriveVolts(0, 0)).andThen(new ParallelCommandGroup(autoBeltCommand, autoLaunchCommand))), autoTimer);
+    return new ParallelCommandGroup(new ParallelRaceGroup(autoIntakeCommand, ramseteCommandPart1.andThen(new ParallelCommandGroup(autoBeltCommand, autoIntakeCommand, ramseteCommandPart2)).andThen(() -> driveSubsystem.tankDriveVolts(0, 0))),  autoTimer);
   }
 }
