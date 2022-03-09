@@ -66,7 +66,6 @@ public class Robot extends TimedRobot {
       "portal.chrp",
       "HyruleCastle.chrp",
       "Halo.chrp",
-      "Enemy.chrp",
       "TurretSong.chrp",
       "Wiisports.chrp",
       "Zelda.chrp",
