@@ -69,7 +69,9 @@ public class Robot extends TimedRobot {
       "Enemy.chrp",
       "TurretSong.chrp",
       "Wiisports.chrp",
-      "Zelda.chrp"
+      "Zelda.chrp",
+      "Enemy2.chrp",
+      "Enemymelody.chrp"
     };
     songselection = 0;
     lastButton = 0;
