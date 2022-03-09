@@ -158,7 +158,7 @@ public class RobotContainer {
     driveSubsystem.ResetOdometry(trajectory1.getInitialPose());
 
     // Run path following command, then stop at the end.
-    //return new ParallelCommandGroup(new ParallelRaceGroup(autoIntakeCommand, ramseteCommandPart1.andThen(() -> driveSubsystem.tankDriveVolts(0, 0)).andThen(new ParallelCommandGroup(autoBeltCommand, autoLaunchCommand))), autoTimer);
-    return new ParallelCommandGroup(new ParallelRaceGroup(autoIntakeCommand, ramseteCommandPart1.andThen(new ParallelCommandGroup(autoBeltCommand, autoIntakeCommand, ramseteCommandPart2)).andThen(() -> driveSubsystem.tankDriveVolts(0, 0))),  autoTimer);
+    return new ParallelCommandGroup(new ParallelRaceGroup(autoIntakeCommand, ramseteCommandPart1.andThen(() -> driveSubsystem.tankDriveVolts(0, 0)).andThen(new ParallelCommandGroup(autoBeltCommand, autoLaunchCommand))), autoTimer);
+    //return new ParallelCommandGroup(new ParallelRaceGroup(autoIntakeCommand, ramseteCommandPart1.andThen(new ParallelCommandGroup(autoBeltCommand, autoIntakeCommand, ramseteCommandPart2)).andThen(() -> driveSubsystem.tankDriveVolts(0, 0))),  autoTimer);
   }
 }
