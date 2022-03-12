@@ -26,6 +26,8 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
+
+    //does not work with raspberry pi right now
     robotContainer = new RobotContainer();
     CameraServer.startAutomaticCapture();
   }

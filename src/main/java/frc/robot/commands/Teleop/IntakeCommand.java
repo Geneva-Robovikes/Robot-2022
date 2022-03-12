@@ -28,7 +28,7 @@ public class IntakeCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    intakeSubsystem.setRollerMotor(.4);
+    intakeSubsystem.setRollerMotor(.6);
     beltSubsystem.setBeltMotor(0.75);
   }
 
