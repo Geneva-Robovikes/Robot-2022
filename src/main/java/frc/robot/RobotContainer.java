@@ -58,7 +58,7 @@ public class RobotContainer {
   public final TeleopDrive teleopDrive = new TeleopDrive(driveSubsystem, controller);
   public final DefaultCommand defaultCommand = new DefaultCommand(driveSubsystem);
   public final BeltCommand beltCommand = new BeltCommand(beltSubsystem);
-  public final IntakeCommand intakeCommand = new IntakeCommand(intakeSubsystem, beltSubsystem);
+  public final IntakeCommand intakeCommand = new IntakeCommand(intakeSubsystem);
   public final LaunchCommand launchCommand = new LaunchCommand(launchSubsystem);
   
   //add Auto Commands Here!
@@ -107,7 +107,7 @@ public class RobotContainer {
     driveSubsystem.gyro.reset();
 
     // ~~~~~~ Change this string to the path you want to run ~~~~~~//
-    String pathToRun = "F5";
+    String pathToRun = "C3";
     //String secondPath = "one ball part2";
     
     Trajectory trajectory1 = new Trajectory();

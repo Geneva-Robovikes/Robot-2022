@@ -26,7 +26,7 @@ public final class Constants {
     
     // ~~~~~~ Make these values the same as the ones in pathweaver.json ~~~~~~ //
     public static final double kMaxSpeedMetersPerSecond = 1;
-    public static final double kMaxAccelerationMetersPerSecondSquared = 0.2;
+    public static final double kMaxAccelerationMetersPerSecondSquared = 0.4;
     
     // ~~~~~~ Reccomended robot values ~~~~~~ //
     public static final double kRamseteB = 2;
