@@ -25,7 +25,7 @@ public final class Constants {
     public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackWidthMeters);
     
     // ~~~~~~ Make these values the same as the ones in pathweaver.json ~~~~~~ //
-    public static final double kMaxSpeedMetersPerSecond = 0.6;
+    public static final double kMaxSpeedMetersPerSecond = 1;
     public static final double kMaxAccelerationMetersPerSecondSquared = 0.2;
     
     // ~~~~~~ Reccomended robot values ~~~~~~ //
