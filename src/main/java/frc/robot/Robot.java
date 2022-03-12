@@ -63,7 +63,6 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     robotContainer.driveSubsystem.gyro.reset();
-    System.out.println("Heading: " + robotContainer.driveSubsystem.getHeading());
     robotContainer.TrajectoryCommand().schedule();
   }
 

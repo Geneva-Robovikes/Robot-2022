@@ -107,7 +107,7 @@ public class RobotContainer {
     driveSubsystem.gyro.reset();
 
     // ~~~~~~ Change this string to the path you want to run ~~~~~~//
-    String pathToRun = "BallTestBumpers";
+    String pathToRun = "F5";
     //String secondPath = "one ball part2";
     
     Trajectory trajectory1 = new Trajectory();
