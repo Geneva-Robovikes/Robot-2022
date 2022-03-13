@@ -59,7 +59,7 @@ public class RobotContainer {
   public final DefaultCommand defaultCommand = new DefaultCommand(driveSubsystem);
   public final BeltCommand beltCommand = new BeltCommand(beltSubsystem);
   public final IntakeCommand intakeCommand = new IntakeCommand(intakeSubsystem);
-  public final LaunchCommand launchCommand = new LaunchCommand(launchSubsystem);
+  public final LaunchCommand launchCommand = new LaunchCommand(launchSubsystem, controller);
   
   //add Auto Commands Here!
   public final DriveStraightForTime driveStraightfortime = new DriveStraightForTime(driveSubsystem);

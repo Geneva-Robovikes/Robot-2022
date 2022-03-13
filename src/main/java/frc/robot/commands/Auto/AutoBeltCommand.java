@@ -27,7 +27,6 @@ public class AutoBeltCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    System.out.println("Belt Starting!");
     beltSubsystem.setBeltMotor(beltSpeed);
   }
 
@@ -35,7 +34,6 @@ public class AutoBeltCommand extends CommandBase {
   @Override
   public void execute() {
     if(beltSubsystem.getSwitch1State() || beltSubsystem.getSwitch2State()) {
-      System.out.println("Belt Stopped!");
       beltSubsystem.setBeltMotor(0);
     }
   }

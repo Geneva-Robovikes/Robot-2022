@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.cameraserver.CameraServer;
 
@@ -29,7 +30,8 @@ public class Robot extends TimedRobot {
 
     //does not work with raspberry pi right now
     robotContainer = new RobotContainer();
-    CameraServer.startAutomaticCapture();
+    CameraServer.startAutomaticCapture("Top Camera", 1);
+    CameraServer.startAutomaticCapture("Bottom Camera", 0);
   }
 
   /**
@@ -46,6 +48,7 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    SmartDashboard.putBoolean("Belt Switch", robotContainer.beltSubsystem.getSwitch1State());
     //System.out.println(driveSubsystem.getGyro());
     //System.out.println(robotContainer.driveSubsystem.gyro.getRotation2d());
   }

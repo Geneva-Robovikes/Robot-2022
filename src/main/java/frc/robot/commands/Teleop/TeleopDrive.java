@@ -3,9 +3,9 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands.Teleop;
-
 import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
@@ -13,12 +13,15 @@ public class TeleopDrive extends CommandBase {
   private final DriveSubsystem driveSubsystem;
   private XboxController xboxController;
   private double halfSpeed = 2;
-  private double threeQuarters = (1.33333);
+  private double threeQuarters = 1.33333;
+  private double[] driveSpeedList = new double[2];
+  private double[] launchSpeedList = new double[2];
+  private int rightIndex = 0;
   //private double inBetween = (1.6);
   //private double controllerScaleR = (1/.53);
   private double deadzoneX = 0.5;
   private double deadzoneY = 0.5;
-  private double changeSpeed = 2;
+  private double changeDriveSpeed = 2;
 
   /**
    * Creates a new ExampleCommand.
@@ -28,6 +31,10 @@ public class TeleopDrive extends CommandBase {
   public TeleopDrive(DriveSubsystem subsystem, XboxController controller) {
     xboxController = controller;
     driveSubsystem = subsystem;
+    driveSpeedList[0] = halfSpeed;
+    driveSpeedList[1] = threeQuarters;
+    launchSpeedList[0] = 0.5;
+    launchSpeedList[1] = 1;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -42,15 +49,20 @@ public class TeleopDrive extends CommandBase {
     double x = xboxController.getRightX();
     double y = xboxController.getLeftY();
     boolean rightBumperPressed = xboxController.getRightBumperPressed();
-    boolean leftBumperPressed = xboxController.getLeftBumperPressed();
-    if (rightBumperPressed)
-      changeSpeed = threeQuarters;
-    else if (leftBumperPressed)
-      changeSpeed = halfSpeed;
+    
+    if (rightBumperPressed) {
+      rightIndex++;
+      if(rightIndex > driveSpeedList.length - 1) {
+        rightIndex = 0;
+      }
+      SmartDashboard.putNumber("Drive Speed", rightIndex + 1);
+      changeDriveSpeed = driveSpeedList[rightIndex];
+    }
+
     //System.out.println("x: " + x + ", y: " + y);
     if((x > deadzoneX || x < -deadzoneX) || (y > deadzoneY || y < -deadzoneY)){
       //driveSubsystem.curvatureDrive(-y / controllerScaleL, x / 3);
-      driveSubsystem.arcadeDrive(-y/changeSpeed, x/changeSpeed);
+      driveSubsystem.arcadeDrive(-y/changeDriveSpeed, x/changeDriveSpeed);
       //System.out.println("Driving!");
     } else {
       driveSubsystem.arcadeDrive(0, 0);
