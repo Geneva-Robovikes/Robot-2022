@@ -24,7 +24,7 @@ public class DriveStraightPIDCommand extends PIDCommand {
       output -> drive.tankDrive(output, output),
       drive);
 
-    getController().setTolerance(0.1, 0.2);
+    getController().setTolerance(0.05, 0.1);
   }
 
   // Returns true when the command should end.
