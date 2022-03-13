@@ -119,6 +119,14 @@ public class DriveSubsystem extends SubsystemBase {
       differentialDrive.feed();
     }
 
+    public double getLeftVolts() {
+      return (motorLeftFront.getMotorOutputVoltage() + motorLeftBack.getMotorOutputVoltage()) / 2;
+    }
+
+    public double getRightVolts() {
+      return (motorRightFront.getMotorOutputVoltage() + motorRightBack.getMotorOutputVoltage()) / 2;
+    }
+
     public double getGyro() {
       return gyro.getAngle();
     }
