@@ -39,14 +39,22 @@ public class TeleopDriveRecord extends CommandBase {
   private double deadzoneY = 0.5;
   private double changeDriveSpeed = 2;
 
-  class Item {
+  class Point {
     
-    private final String name;
-    private final double quantity;
+    private final String timeString;
+    private final double time;
+    private final String leftString;
+    private final double leftVolts;
+    private final String rightString;
+    private final double rightVolts;
 
-    public Item(String name, double quantity) {
-        this.name = name;
-        this.quantity = quantity;
+    public Point(String timeString, double time, String leftString, double leftVolts, String rightString, double rightVolts) {
+      this.timeString = timeString;
+      this.time = time;
+      this.leftString = leftString;
+      this.leftVolts = leftVolts;
+      this.rightString = rightString;
+      this.rightVolts = rightVolts;
     }
 }
 
@@ -103,11 +111,9 @@ public class TeleopDriveRecord extends CommandBase {
 
     if(recordTimer.get() > prevTime + timeInterval){
       prevTime = recordTimer.get();
-      List<Item> data = new ArrayList<Item>();
-      data.add(new Item("Time", prevTime));
-      data.add(new Item("LeftVolts", driveSubsystem.getLeftVolts()));
-      data.add(new Item("RightVolts", driveSubsystem.getRightVolts()));
-      gson.toJson(data, writer);
+      List<Point> pointList = new ArrayList<Point>();
+      new Point("time", prevTime, "left volts", driveSubsystem.getLeftVolts(), "right volts", driveSubsystem.getRightVolts());
+      gson.toJson(pointList, writer);
     }
   }
 
