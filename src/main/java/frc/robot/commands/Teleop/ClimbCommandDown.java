@@ -5,7 +5,6 @@
 package frc.robot.commands.Teleop;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.BeltSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
 
 /** An example command that uses an example subsystem. */
@@ -27,7 +26,6 @@ public class ClimbCommandDown extends CommandBase {
   @Override
   public void initialize() {
     climbSubsystem.setClimbMotors(-.5);
-
   }
 
   // Called every time the scheduler runs while the command is scheduled.
