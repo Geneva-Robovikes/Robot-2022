@@ -66,7 +66,8 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     robotContainer.driveSubsystem.gyro.reset();
-    robotContainer.TrajectoryCommand().schedule();
+    //robotContainer.TrajectoryCommand().schedule();
+    robotContainer.replayTeleop.schedule();
   }
 
   /** This function is called periodically during autonomous. */
@@ -75,7 +76,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    robotContainer.teleopDrive.schedule();
+    //robotContainer.teleopDrive.schedule();
+    robotContainer.teleopDriveRecord.schedule();
   }
 
   /** This function is called periodically during operator control. */
