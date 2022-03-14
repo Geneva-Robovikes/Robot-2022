@@ -28,12 +28,14 @@ import frc.robot.commands.Auto.AutoLaunchCommand;
 import frc.robot.commands.Auto.AutoTimer;
 import frc.robot.commands.Auto.DriveStraightForTime;
 import frc.robot.commands.Auto.DriveStraightPIDCommand;
+import frc.robot.commands.Auto.ReplayTeleop;
 import frc.robot.commands.Auto.TurnPIDCommand;
 import frc.robot.commands.Teleop.BeltCommand;
 import frc.robot.commands.Teleop.DefaultCommand;
 import frc.robot.commands.Teleop.IntakeCommand;
 import frc.robot.commands.Teleop.LaunchCommand;
 import frc.robot.commands.Teleop.TeleopDrive;
+import frc.robot.commands.Teleop.TeleopDriveRecord;
 import frc.robot.subsystems.BeltSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -56,6 +58,7 @@ public class RobotContainer {
 
   //Add Teleop Commands Here!
   public final TeleopDrive teleopDrive = new TeleopDrive(driveSubsystem, controller);
+  public final TeleopDriveRecord teleopDriveRecord = new TeleopDriveRecord(driveSubsystem, controller);
   public final DefaultCommand defaultCommand = new DefaultCommand(driveSubsystem);
   public final BeltCommand beltCommand = new BeltCommand(beltSubsystem);
   public final IntakeCommand intakeCommand = new IntakeCommand(intakeSubsystem);
@@ -70,6 +73,7 @@ public class RobotContainer {
   public final AutoBeltCommand autoBeltCommand = new AutoBeltCommand(beltSubsystem, 0.8);
   public final AutoLaunchCommand autoLaunchCommand = new AutoLaunchCommand(launchSubsystem);
   public final AutoContinuousBeltCommand autoContinuousBeltCommand = new AutoContinuousBeltCommand(beltSubsystem);
+  public final ReplayTeleop replayTeleop = new ReplayTeleop(driveSubsystem);
 
   //private Command autoCommand;
 
