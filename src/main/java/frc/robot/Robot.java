@@ -60,7 +60,8 @@ public class Robot extends TimedRobot {
     motorRightBack.setSafetyEnabled(false);
     motorLeftFront.setSafetyEnabled(false);
     motorLeftBack.setSafetyEnabled(false);
-    //10 song max
+    
+    //10 song max for xbox controllers
     songList = new String[] {
       "Fanfare.chrp",
       "portal.chrp",
@@ -69,7 +70,7 @@ public class Robot extends TimedRobot {
       "TurretSong.chrp",
       "Wiisports.chrp",
       "Zelda.chrp",
-      "Enemy2.chrp",
+      "happyBirthday",
       "Enemymelody.chrp"
     };
     songselection = 0;
