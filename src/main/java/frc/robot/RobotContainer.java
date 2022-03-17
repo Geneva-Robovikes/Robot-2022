@@ -73,7 +73,7 @@ public class RobotContainer {
   public final AutoTimer autoTimer = new AutoTimer();
   public final TurnPIDCommand turnPIDCommand = new TurnPIDCommand(driveSubsystem, 180);
   public final AutoIntakeCommand autoIntakeCommand = new AutoIntakeCommand(intakeSubsystem);
-  public final AutoBeltCommand autoBeltCommand = new AutoBeltCommand(beltSubsystem, 0.8, controller);
+  public final AutoBeltCommand autoBeltCommand = new AutoBeltCommand(beltSubsystem, 0.8);
   public final AutoLaunchCommand autoLaunchCommand = new AutoLaunchCommand(launchSubsystem);
   public final AutoContinuousBeltCommand autoContinuousBeltCommand = new AutoContinuousBeltCommand(beltSubsystem);
 
@@ -169,7 +169,7 @@ public class RobotContainer {
     driveSubsystem.ResetOdometry(trajectory1.getInitialPose());
 
     // Run path following command, then stop at the end.
-    return new ParallelRaceGroup(new AutoIntakeCommand(intakeSubsystem), new AutoBeltCommand(beltSubsystem, 8.0, controller), ramseteCommandPart1.andThen(() -> driveSubsystem.tankDriveVolts(0, 0))).andThen(new ParallelCommandGroup(new AutoLaunchCommand(launchSubsystem), new AutoContinuousBeltCommand(beltSubsystem)));
+    return new ParallelRaceGroup(new AutoIntakeCommand(intakeSubsystem), new AutoBeltCommand(beltSubsystem, 8.0), ramseteCommandPart1.andThen(() -> driveSubsystem.tankDriveVolts(0, 0))).andThen(new ParallelCommandGroup(new AutoLaunchCommand(launchSubsystem), new AutoContinuousBeltCommand(beltSubsystem)));
     //return new ParallelCommandGroup(new ParallelRaceGroup(autoIntakeCommand, ramseteCommandPart1.andThen(new ParallelCommandGroup(autoBeltCommand, autoIntakeCommand, ramseteCommandPart2)).andThen(() -> driveSubsystem.tankDriveVolts(0, 0))),  autoTimer);
   }
 }
