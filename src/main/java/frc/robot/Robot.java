@@ -70,7 +70,7 @@ public class Robot extends TimedRobot {
       "TurretSong.chrp",
       "Wiisports.chrp",
       "Zelda.chrp",
-      "happyBirthday",
+      "happyBirthday2.chrp",
       "Enemymelody.chrp"
     };
     songselection = 0;
