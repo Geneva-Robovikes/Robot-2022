@@ -4,30 +4,22 @@
 
 package frc.robot.commands.Auto;
 
-import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.BeltSubsystem;
 
 /** An example command that uses an example subsystem. */
 public class AutoBeltCommand extends CommandBase {
   private final BeltSubsystem beltSubsystem;
-  private final XboxController controller;
-  private Timer timer = new Timer();
   private final double beltSpeed;
-  private double rumbleLength = 0.5;
-  private boolean canRumble = true;
   //private final DriveSubsystem driveSubsystem;
    /*
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public AutoBeltCommand(BeltSubsystem subsystem, double speed, XboxController xboxController) {
+  public AutoBeltCommand(BeltSubsystem subsystem, double speed) {
     beltSubsystem = subsystem;
     beltSpeed = speed;
-    controller = xboxController;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -43,16 +35,6 @@ public class AutoBeltCommand extends CommandBase {
   public void execute() {
     if(beltSubsystem.getSwitch1State() || beltSubsystem.getSwitch2State()) {
       beltSubsystem.setBeltMotor(0);
-      if(canRumble = true) {
-        controller.setRumble(GenericHID.RumbleType.kLeftRumble, 1);
-        canRumble = false;
-        if(timer.get() > rumbleLength) {
-          canRumble = false;
-        }
-        timer.start();
-      } else {
-        timer.stop();
-      }
     }
   }
 
