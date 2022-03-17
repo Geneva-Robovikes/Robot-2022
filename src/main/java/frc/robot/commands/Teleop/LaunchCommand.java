@@ -40,7 +40,7 @@ public class LaunchCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    boolean leftStickPressed = xboxController.getLeftStickButtonPressed();
+    boolean leftStickPressed = xboxController.getRightStickButtonPressed();
     SmartDashboard.putNumber("Launch Speed", leftIndex);
     
     if (leftStickPressed) {
