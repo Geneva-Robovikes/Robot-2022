@@ -15,7 +15,7 @@ public class LaunchCommand extends CommandBase {
   private final LaunchSubsystem launchSubsystem;
   private XboxController xboxController;
   private int leftIndex = 0;
-  private double[] launchSpeedList = new double[3];
+  private double[] launchSpeedList = new double[2];
   //private final DriveSubsystem driveSubsystem;
    /*
    * Creates a new ExampleCommand.
@@ -28,7 +28,6 @@ public class LaunchCommand extends CommandBase {
 
     launchSpeedList[0] = 0.35;
     launchSpeedList[1] = 0.5;
-    launchSpeedList[2] = 1;
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -41,15 +40,14 @@ public class LaunchCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    boolean leftBumperPressed = xboxController.getLeftStickButtonPressed();
+    boolean leftStickPressed = xboxController.getLeftStickButtonPressed();
     SmartDashboard.putNumber("Launch Speed", leftIndex);
     
-    if (leftBumperPressed) {
+    if (leftStickPressed) {
       leftIndex++;
       if(leftIndex > launchSpeedList.length - 1) {
         leftIndex = 0;
       }
-      SmartDashboard.putNumber("Launch Speed", leftIndex + 1);
     }
 
     launchSubsystem.setLaunchMotors(launchSpeedList[leftIndex]);

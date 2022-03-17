@@ -48,15 +48,14 @@ public class TeleopDrive extends CommandBase {
   public void execute() {
     double x = xboxController.getRightX();
     double y = xboxController.getLeftY();
-    boolean rightBumperPressed = xboxController.getRightStickButtonPressed();
-    SmartDashboard.putNumber("Drive Speed", rightIndex);
+    boolean rightStickPressed = xboxController.getRightStickButtonPressed();
+    SmartDashboard.putNumber("Drive Speed", rightIndex + 1);
     
-    if (rightBumperPressed) {
+    if (rightStickPressed) {
       rightIndex++;
       if(rightIndex > driveSpeedList.length - 1) {
         rightIndex = 0;
       }
-      SmartDashboard.putNumber("Drive Speed", rightIndex + 1);
       changeDriveSpeed = driveSpeedList[rightIndex];
     }
 
