@@ -171,5 +171,6 @@ public class RobotContainer {
     // Run path following command, then stop at the end.
     return new ParallelRaceGroup(new AutoIntakeCommand(intakeSubsystem), new AutoBeltCommand(beltSubsystem, 8.0), ramseteCommandPart1.andThen(() -> driveSubsystem.tankDriveVolts(0, 0))).andThen(new ParallelCommandGroup(new AutoLaunchCommand(launchSubsystem), new AutoContinuousBeltCommand(beltSubsystem)));
     //return new ParallelCommandGroup(new ParallelRaceGroup(autoIntakeCommand, ramseteCommandPart1.andThen(new ParallelCommandGroup(autoBeltCommand, autoIntakeCommand, ramseteCommandPart2)).andThen(() -> driveSubsystem.tankDriveVolts(0, 0))),  autoTimer);
+    //return new ParallelCommandGroup(new AutoLaunchCommand(launchSubsystem), new AutoContinuousBeltCommand(beltSubsystem));
   }
 }

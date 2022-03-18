@@ -26,7 +26,7 @@ public class AutoLaunchCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    launchSubsystem.setLaunchMotors(.6);
+    launchSubsystem.setLaunchMotors(.4);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

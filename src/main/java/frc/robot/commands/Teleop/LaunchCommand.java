@@ -41,7 +41,7 @@ public class LaunchCommand extends CommandBase {
   @Override
   public void execute() {
     boolean leftStickPressed = xboxController.getRightStickButtonPressed();
-    SmartDashboard.putNumber("Launch Speed", leftIndex);
+    SmartDashboard.putNumber("Launch Speed", leftIndex + 1);
     
     if (leftStickPressed) {
       leftIndex++;
