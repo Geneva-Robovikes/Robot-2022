@@ -38,9 +38,9 @@ import frc.robot.subsystems.BeltSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LaunchSubsystem;
-//import frc.robot.subsystems.ClimbSubsystem;
-//import frc.robot.commands.Teleop.ClimbCommandDown;
-//import frc.robot.commands.Teleop.ClimbCommandUp;
+import frc.robot.subsystems.ClimbSubsystem;
+import frc.robot.commands.Teleop.ClimbCommandDown;
+import frc.robot.commands.Teleop.ClimbCommandUp;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -56,7 +56,7 @@ public class RobotContainer {
   public final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   public final LaunchSubsystem launchSubsystem = new LaunchSubsystem();
   public final BeltSubsystem beltSubsystem = new BeltSubsystem();
-  //public final ClimbSubsystem climbSubsystem = new ClimbSubsystem();
+  public final ClimbSubsystem climbSubsystem = new ClimbSubsystem();
 
   //Add Teleop Commands Here!
   public final TeleopDrive teleopDrive = new TeleopDrive(driveSubsystem, controller);
@@ -64,8 +64,8 @@ public class RobotContainer {
   public final BeltCommand beltCommand = new BeltCommand(beltSubsystem);
   public final IntakeCommand intakeCommand = new IntakeCommand(intakeSubsystem);
   public final LaunchCommand launchCommand = new LaunchCommand(launchSubsystem, controller);
-  //public final ClimbCommandUp climbCommandUp = new ClimbCommandUp(climbSubsystem);
-  //public final ClimbCommandDown climbCommandDown = new ClimbCommandDown(climbSubsystem);
+  public final ClimbCommandUp climbCommandUp = new ClimbCommandUp(climbSubsystem);
+  public final ClimbCommandDown climbCommandDown = new ClimbCommandDown(climbSubsystem);
   
   //add Auto Commands Here!
   public final DriveStraightForTime driveStraightfortime = new DriveStraightForTime(driveSubsystem);
@@ -98,14 +98,14 @@ public class RobotContainer {
     JoystickButton intakeButton = new JoystickButton(controller, 1);
     JoystickButton launchButton = new JoystickButton(controller, 4);
     JoystickButton beltButton = new JoystickButton(controller, 3);
-    //JoystickButton climbDownButton = new JoystickButton(controller, 5);
-    //JoystickButton climbUpButton = new JoystickButton(controller, 6);
+    JoystickButton climbDownButton = new JoystickButton(controller, 5);
+    JoystickButton climbUpButton = new JoystickButton(controller, 6);
 
     intakeButton.toggleWhenPressed(intakeCommand);
     launchButton.toggleWhenPressed(launchCommand);
     beltButton.toggleWhenPressed(beltCommand);
-    //climbDownButton.toggleWhenPressed(climbCommandDown);
-    //climbUpButton.toggleWhenPressed(climbCommandUp);
+    climbDownButton.toggleWhenPressed(climbCommandDown);
+    climbUpButton.toggleWhenPressed(climbCommandUp);
   }
 /*
   public Command AutoCommand() {
@@ -116,7 +116,7 @@ public class RobotContainer {
     driveSubsystem.gyro.reset();
 
     // ~~~~~~ Change this string to the path you want to run ~~~~~~//
-    String pathToRun = "F5";
+    String pathToRun = "C3";
     //String secondPath = "one ball part2";
     
     Trajectory trajectory1 = new Trajectory();

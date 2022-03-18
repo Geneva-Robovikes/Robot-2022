@@ -25,7 +25,7 @@ public class ClimbCommandDown extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    climbSubsystem.setClimbMotors(-0.75);
+    climbSubsystem.setClimbMotors(-0.25);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

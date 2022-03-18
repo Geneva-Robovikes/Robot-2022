@@ -31,7 +31,7 @@ public class Robot extends TimedRobot {
     //does not work with raspberry pi right now
     robotContainer = new RobotContainer();
     CameraServer.startAutomaticCapture("Top Camera", 1);
-    CameraServer.startAutomaticCapture("Bottom Camera", 0);
+    CameraServer.startAutomaticCapture("Bottom Camera", 0); 
   }
 
   /**
