@@ -19,9 +19,12 @@ public class TeleopDrive extends CommandBase {
   private int rightIndex = 0;
   //private double inBetween = (1.6);
   //private double controllerScaleR = (1/.53);
-  private double deadzoneX = 0.5;
-  private double deadzoneY = 0.5;
+  private double deadzoneX = 0.4;
+  private double deadzoneY = 0.4;
   private double changeDriveSpeed = 2;
+  private double previousX;
+  private double previousY;
+  private double speedChangeScale = 3;
 
   /**
    * Creates a new ExampleCommand.
@@ -51,6 +54,9 @@ public class TeleopDrive extends CommandBase {
     boolean rightStickPressed = xboxController.getLeftStickButtonPressed();
     SmartDashboard.putNumber("Drive Speed", rightIndex + 1);
     
+    x = (x - previousX) / speedChangeScale + previousX;
+    y = (y - previousY) / speedChangeScale + previousY;
+
     if (rightStickPressed) {
       rightIndex++;
       if(rightIndex > driveSpeedList.length - 1) {
@@ -64,6 +70,9 @@ public class TeleopDrive extends CommandBase {
     } else {
       driveSubsystem.arcadeDrive(0, 0);
     }
+
+    previousX = x;
+    previousY = y;
   }
 
   // Called once the command ends or is interrupted.

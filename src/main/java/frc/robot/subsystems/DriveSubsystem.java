@@ -92,11 +92,11 @@ public class DriveSubsystem extends SubsystemBase {
       return odometry.getPoseMeters();
     }
 
-    public DifferentialDriveWheelSpeeds getWheelSpeeds(){
+    public DifferentialDriveWheelSpeeds getWheelSpeeds() {
       return new DifferentialDriveWheelSpeeds(getEncoderVelocity(motorLeftFront, 1), getEncoderVelocity(motorRightFront, -1));
     }
-
-    public void ResetOdometry(Pose2d pose){
+    
+    public void ResetOdometry(Pose2d pose) {
       motorRightFront.setSelectedSensorPosition(0);
       motorLeftFront.setSelectedSensorPosition(0);
       odometry.resetPosition(pose, gyro.getRotation2d());
