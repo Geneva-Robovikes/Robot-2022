@@ -83,6 +83,13 @@ public class DriveSubsystem extends SubsystemBase {
       return mult * motor.getSelectedSensorVelocity() / (gearRatio * unitsPerRevolution) * (Math.PI * wheelDiameter);
     }
 
+    public double getLeftMotorVelocity() {
+      double wheelDiameter = 0.1524;
+      double gearRatio = 10.71;
+      double unitsPerRevolution = 2048;
+      return motorLeftFront.getSelectedSensorVelocity() / (gearRatio * unitsPerRevolution) * (Math.PI * wheelDiameter);
+    }
+
     @Override
     public void periodic() {
       odometry.update(gyro.getRotation2d(), getEncoderMeters(motorLeftFront, 1), getEncoderMeters(motorRightFront, -1));

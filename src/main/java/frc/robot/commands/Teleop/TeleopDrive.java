@@ -24,7 +24,7 @@ public class TeleopDrive extends CommandBase {
   private double changeDriveSpeed = 2;
   private double previousX;
   private double previousY;
-  private double speedChangeScale = 3;
+  private double speedChangeScale = 25;
 
   /**
    * Creates a new ExampleCommand.
@@ -53,7 +53,7 @@ public class TeleopDrive extends CommandBase {
     double y = xboxController.getLeftY();
     boolean rightStickPressed = xboxController.getLeftStickButtonPressed();
     SmartDashboard.putNumber("Drive Speed", rightIndex + 1);
-    
+
     x = (x - previousX) / speedChangeScale + previousX;
     y = (y - previousY) / speedChangeScale + previousY;
 
