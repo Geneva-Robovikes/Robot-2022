@@ -3,7 +3,9 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands.Teleop;
+import frc.robot.Constants;
 import frc.robot.subsystems.DriveSubsystem;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -24,7 +26,9 @@ public class TeleopDrive extends CommandBase {
   private double changeDriveSpeed = 2;
   private double previousX;
   private double previousY;
-  private double speedChangeScale = 3;
+  private double speedChangeScale = 50;
+  PIDController leftPidController = new PIDController(Constants.kPDriveVel, 0, 0);
+
 
   /**
    * Creates a new ExampleCommand.
@@ -54,8 +58,11 @@ public class TeleopDrive extends CommandBase {
     boolean rightStickPressed = xboxController.getLeftStickButtonPressed();
     SmartDashboard.putNumber("Drive Speed", rightIndex + 1);
     
-    x = (x - previousX) / speedChangeScale + previousX;
-    y = (y - previousY) / speedChangeScale + previousY;
+    //smooth drive
+    //leftPidController.
+
+    //x = (x - previousX) / speedChangeScale + previousX;
+    //y = (y - previousY) / speedChangeScale + previousY;
 
     if (rightStickPressed) {
       rightIndex++;
@@ -65,6 +72,7 @@ public class TeleopDrive extends CommandBase {
       changeDriveSpeed = driveSpeedList[rightIndex];
     }
 
+    //joystick deadzone
     if((x > deadzoneX || x < -deadzoneX) || (y > deadzoneY || y < -deadzoneY)){
       driveSubsystem.arcadeDrive(-y/changeDriveSpeed, x/changeDriveSpeed);
     } else {

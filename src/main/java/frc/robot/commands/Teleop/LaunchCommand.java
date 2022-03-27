@@ -43,14 +43,15 @@ public class LaunchCommand extends CommandBase {
     boolean leftStickPressed = xboxController.getRightStickButtonPressed();
     SmartDashboard.putNumber("Launch Speed", leftIndex + 1);
     
-    if (leftStickPressed) {
-      leftIndex++;
-      if(leftIndex > launchSpeedList.length - 1) {
-        leftIndex = 0;
-      }
-    }
+    //if (leftStickPressed) {
+      //leftIndex++;
+      //if(leftIndex > launchSpeedList.length - 1) {
+        //leftIndex = 0;
+      //}
+    //}
 
-    launchSubsystem.setLaunchMotors(launchSpeedList[leftIndex]);
+    //launchSubsystem.setLaunchMotors(launchSpeedList[leftIndex]);
+    launchSubsystem.setLaunchMotors(.15);
   }
 
   // Returns true when the command should end.
