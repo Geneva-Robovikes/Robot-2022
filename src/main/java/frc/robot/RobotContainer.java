@@ -148,23 +148,7 @@ public class RobotContainer {
             // RamseteCommand passes volts to the callback
             driveSubsystem::tankDriveVolts,
             driveSubsystem);
-
-            /*RamseteCommand ramseteCommandPart2 = 
-            new RamseteCommand(
-                trajectory2,
-                driveSubsystem::getPose,
-                new RamseteController(Constants.kRamseteB, Constants.kRamseteZeta),
-                new SimpleMotorFeedforward(
-                    Constants.ksVolts,
-                    Constants.kvVoltSecondsPerMeter,
-                    Constants.kaVoltSecondsSquaredPerMeter),
-                Constants.kDriveKinematics,
-                driveSubsystem::getWheelSpeeds,
-                new PIDController(Constants.kPDriveVel, 0, 0),
-                new PIDController(Constants.kPDriveVel, 0, 0),
-                // RamseteCommand passes volts to the callback
-                driveSubsystem::tankDriveVolts,
-                driveSubsystem);*/
+            
     // Reset odometry to the starting pose of the trajectory.
     driveSubsystem.ResetOdometry(trajectory1.getInitialPose());
 
