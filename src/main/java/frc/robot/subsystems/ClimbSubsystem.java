@@ -26,4 +26,9 @@ public class ClimbSubsystem extends SubsystemBase {
     public double getRightClimbEncoder() {
         return climbRight.getSelectedSensorPosition();
     }
+
+    public void ResetClimbEncoders() {
+        climbRight.setSelectedSensorPosition(0);
+        climbLeft.setSelectedSensorPosition(0);
+    }
 }

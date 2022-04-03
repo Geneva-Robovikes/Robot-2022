@@ -8,7 +8,6 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.cameraserver.CameraServer;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -76,6 +75,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     robotContainer.teleopDrive.schedule();
+    robotContainer.climbSubsystem.ResetClimbEncoders();
   }
 
   /** This function is called periodically during operator control. */

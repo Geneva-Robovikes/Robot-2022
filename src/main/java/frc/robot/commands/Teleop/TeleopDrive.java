@@ -26,7 +26,7 @@ public class TeleopDrive extends CommandBase {
   private double changeDriveSpeed = 2;
   private double previousX;
   private double previousY;
-  private double speedChangeScale = 50;
+  private double speedChangeScale = 20;
   PIDController leftPidController = new PIDController(Constants.kPDriveVel, 0, 0);
 
   /*
@@ -80,7 +80,7 @@ public class TeleopDrive extends CommandBase {
     }
 
     //smooth turn;
-    if (x == 0) {
+    //if (x == 0) {
       /*if(justReleasedZFlag) {
         driveSubsystem.setZeroAngle(driveSubsystem.getZeroAngle() + driveSubsystem.getGyroRate() * spinConstant);
         justReleasedZFlag = false;
@@ -91,7 +91,7 @@ public class TeleopDrive extends CommandBase {
       driveSubsystem.arcadeDrive(-y/changeDriveSpeed, turnPower*2);
       previousError = error;
       */
-    } else {
+    //} else {
       //joystick deadzone
       if((x > deadzoneX || x < -deadzoneX) || (y > deadzoneY || y < -deadzoneY)){
         driveSubsystem.arcadeDrive(-y/changeDriveSpeed, x/changeDriveSpeed);
@@ -102,7 +102,7 @@ public class TeleopDrive extends CommandBase {
       } else {
         driveSubsystem.arcadeDrive(0, 0);
       }
-    }
+    //}
 
     previousX = x;
     previousY = y;
