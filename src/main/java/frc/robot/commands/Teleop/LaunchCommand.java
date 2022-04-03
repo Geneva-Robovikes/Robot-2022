@@ -51,7 +51,7 @@ public class LaunchCommand extends CommandBase {
     //}
 
     //launchSubsystem.setLaunchMotors(launchSpeedList[leftIndex]);
-    launchSubsystem.setLaunchMotors(.2);
+    launchSubsystem.setLaunchMotors(.4);
   }
 
   // Returns true when the command should end.
