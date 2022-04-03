@@ -10,7 +10,6 @@ import frc.robot.subsystems.ClimbSubsystem;
 /** An example command that uses an example subsystem. */
 public class ClimbCommandUp extends CommandBase {
   private final ClimbSubsystem climbSubsystem;
-  private double maxHeight = 307200;
   //private final DriveSubsystem driveSubsystem;
    /*
    * Creates a new ExampleCommand.
@@ -36,8 +35,7 @@ public class ClimbCommandUp extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(climbSubsystem.getRightClimbEncoder() > maxHeight){ return true; }
-    else { return false; }
+    return false;
   }
 
   @Override
