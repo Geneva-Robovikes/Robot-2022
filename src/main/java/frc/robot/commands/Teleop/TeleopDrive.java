@@ -90,7 +90,7 @@ public class TeleopDrive extends CommandBase {
 
       double error = driveSubsystem.getZeroAngle() - driveSubsystem.getGyro();
       double turnPower = kP * error;
-      driveSubsystem.arcadeDrive(-y/changeDriveSpeed, turnPower);
+      driveSubsystem.arcadeDrive(-y/changeDriveSpeed, turnPower*2);
       previousError = error;
 
     } else {
@@ -100,10 +100,10 @@ public class TeleopDrive extends CommandBase {
         driveSubsystem.setZeroAngle(driveSubsystem.getGyro());
         previousError = 0;
         justReleasedZFlag = true;
-        
+
       } else {
         driveSubsystem.arcadeDrive(0, 0);
-    }
+      }
     }
 
     previousX = x;

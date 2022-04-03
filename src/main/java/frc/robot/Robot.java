@@ -47,6 +47,7 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
     SmartDashboard.putBoolean("Belt Switch", robotContainer.beltSubsystem.getSwitch1State());
+    SmartDashboard.putBoolean("Belt Switch 2", robotContainer.beltSubsystem.getSwitch2State());
     //System.out.println(driveSubsystem.getGyro());
     //System.out.println(robotContainer.driveSubsystem.gyro.getRotation2d());
   }

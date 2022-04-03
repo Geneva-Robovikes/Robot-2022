@@ -33,7 +33,8 @@ public class AutoBeltCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(beltSubsystem.getSwitch1State() || beltSubsystem.getSwitch2State()) {
+    //only other working limit switch is on by default, will fix later :/
+    if(beltSubsystem.getSwitch1State() || !beltSubsystem.getSwitch2State()) {
       beltSubsystem.setBeltMotor(0);
     }
   }
