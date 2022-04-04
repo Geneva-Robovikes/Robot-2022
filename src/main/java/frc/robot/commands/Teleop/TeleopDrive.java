@@ -16,6 +16,7 @@ public class TeleopDrive extends CommandBase {
   private XboxController xboxController;
   private double halfSpeed = 1.6;
   private double threeQuarters = 1.33333;
+  //private double actualHalfSpeed = 2;
   private double[] driveSpeedList = new double[2];
   private double[] launchSpeedList = new double[2];
   private int rightIndex = 0;
@@ -26,7 +27,7 @@ public class TeleopDrive extends CommandBase {
   private double changeDriveSpeed = 2;
   private double previousX;
   private double previousY;
-  private double speedChangeScale = 20;
+  private double speedChangeScale = 15;
   PIDController leftPidController = new PIDController(Constants.kPDriveVel, 0, 0);
 
   /*
@@ -46,6 +47,7 @@ public class TeleopDrive extends CommandBase {
     driveSubsystem = subsystem;
     driveSpeedList[0] = halfSpeed;
     driveSpeedList[1] = threeQuarters;
+    //driveSpeedList[2] = actualHalfSpeed;
     launchSpeedList[0] = 0.5;
     launchSpeedList[1] = 1;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -68,8 +70,8 @@ public class TeleopDrive extends CommandBase {
     boolean rightStickPressed = xboxController.getLeftStickButtonPressed();
     SmartDashboard.putNumber("Drive Speed", rightIndex + 1);
 
-    x = (x - previousX) / speedChangeScale + previousX;
-    y = (y - previousY) / speedChangeScale + previousY;
+    //x = (x - previousX) / speedChangeScale + previousX;
+    //y = (y - previousY) / speedChangeScale + previousY;
 
     if (rightStickPressed) {
       rightIndex++;
@@ -77,6 +79,7 @@ public class TeleopDrive extends CommandBase {
         rightIndex = 0;
       }
       changeDriveSpeed = driveSpeedList[rightIndex];
+      System.out.println(changeDriveSpeed);
     }
 
     //smooth turn;
@@ -93,19 +96,19 @@ public class TeleopDrive extends CommandBase {
       */
     //} else {
       //joystick deadzone
-      if((x > deadzoneX || x < -deadzoneX) || (y > deadzoneY || y < -deadzoneY)){
-        driveSubsystem.arcadeDrive(-y/changeDriveSpeed, x/changeDriveSpeed);
-        driveSubsystem.setZeroAngle(driveSubsystem.getGyro());
+    if((x > deadzoneX || x < -deadzoneX) || (y > deadzoneY || y < -deadzoneY)){
+      driveSubsystem.arcadeDrive(-y/changeDriveSpeed, x/changeDriveSpeed);
+      driveSubsystem.setZeroAngle(driveSubsystem.getGyro());
         //previousError = 0;
         //justReleasedZFlag = true;
 
-      } else {
-        driveSubsystem.arcadeDrive(0, 0);
-      }
+    } else {
+      driveSubsystem.arcadeDrive(0, 0);
+    }
     //}
 
-    previousX = x;
-    previousY = y;
+    //previousX = x;
+    //previousY = y;
   }
 
   // Called once the command ends or is interrupted.

@@ -44,6 +44,7 @@ public class LaunchCommand extends CommandBase {
     boolean leftStickPressed = xboxController.getRightStickButtonPressed();
     SmartDashboard.putNumber("Launch Speed", leftIndex + 1);
     
+    //it's actually right stick
     if (leftStickPressed) {
       leftIndex++;
       if(leftIndex > launchSpeedList.length - 1) {
@@ -51,7 +52,8 @@ public class LaunchCommand extends CommandBase {
       }
     }
 
-    launchSubsystem.setLaunchMotors(launchSpeedList[leftIndex]);
+    //launchSubsystem.setLaunchMotors(launchSpeedList[leftIndex]);
+    launchSubsystem.setLaunchMotors(.4);
     //launchSubsystem.setLaunchMotors(.4);
   }
 
