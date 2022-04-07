@@ -6,7 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  */
 public class Robot extends TimedRobot {
   private RobotContainer robotContainer;
+  private final SendableChooser<String> pathChooser = new SendableChooser<>();
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -30,6 +31,11 @@ public class Robot extends TimedRobot {
 
     //does not work with raspberry pi right now
     robotContainer = new RobotContainer();
+    SmartDashboard.putData("Auto Path", pathChooser);
+    pathChooser.setDefaultOption("Straight Back", "Straight Back");
+    pathChooser.addOption("F5", "F5");
+    pathChooser.addOption("Unnamed_0", "Unnamed_0");
+    pathChooser.addOption("C3", "C3");
   }
 
   /**
@@ -66,7 +72,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     robotContainer.driveSubsystem.gyro.reset();
-    robotContainer.TrajectoryCommand().schedule();
+    robotContainer.TrajectoryCommand(pathChooser.getSelected()).schedule();
   }
 
   /** This function is called periodically during autonomous. */
