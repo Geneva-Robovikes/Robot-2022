@@ -15,6 +15,7 @@ public class LaunchCommand extends CommandBase {
   private final LaunchSubsystem launchSubsystem;
   private XboxController xboxController;
   private int leftIndex = 0;
+  private double speed;
   private double[] launchSpeedList = new double[3];
   //private final DriveSubsystem driveSubsystem;
    /*
@@ -27,8 +28,10 @@ public class LaunchCommand extends CommandBase {
     launchSubsystem = subsystem;
 
     launchSpeedList[0] = 0.2;
-    launchSpeedList[1] = 0.4;
-    launchSpeedList[2] = 0.6;
+    //launchSpeedList[1] = .35;
+    launchSpeedList[1] = .45;
+    //launchSpeedList[1] = 0.4;
+    //launchSpeedList[2] = 0.6;
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -47,14 +50,21 @@ public class LaunchCommand extends CommandBase {
     //it's actually right stick
     if (leftStickPressed) {
       leftIndex++;
+      System.out.println("pressed");
       if(leftIndex > launchSpeedList.length - 1) {
         leftIndex = 0;
       }
     }
-
-    //launchSubsystem.setLaunchMotors(launchSpeedList[leftIndex]);
-    launchSubsystem.setLaunchMotors(.4);
-    //launchSubsystem.setLaunchMotors(.4);
+    speed = launchSpeedList[leftIndex];
+    /*if (xboxController.getPOV() == 1) {
+      speed += .05;
+    }
+    if (xboxController.getPOV() == 180) {
+      speed -= .05;
+    }*/
+    //launchSubsystem.setLaunchMotors(speed);
+    launchSubsystem.setLaunchMotors(launchSpeedList[leftIndex]);
+    System.out.println(speed);
   }
 
   // Returns true when the command should end.

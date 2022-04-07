@@ -14,7 +14,8 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class TeleopDrive extends CommandBase {
   private final DriveSubsystem driveSubsystem;
   private XboxController xboxController;
-  private double halfSpeed = 1.6;
+  //private double halfSpeed = 1.6;
+  private double halfSpeed = 2.0;
   private double threeQuarters = 1.33333;
   //private double actualHalfSpeed = 2;
   private double[] driveSpeedList = new double[2];

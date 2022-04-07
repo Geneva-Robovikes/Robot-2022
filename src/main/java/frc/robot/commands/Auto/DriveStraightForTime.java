@@ -15,16 +15,20 @@ public class DriveStraightForTime extends CommandBase {
   //private double rspeed = 0.43;
   private double time = 2;
   private Timer timer = new Timer();
+  //private double speed;
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public DriveStraightForTime(DriveSubsystem subsystem) {
+  public DriveStraightForTime(DriveSubsystem subsystem, double speed, double time) {
     driveSubsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
+    time = time;
+    lspeed = speed;
   }
+
 
   // Called when the command is initially scheduled.
   @Override

@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.Auto.AutoBeltCommand;
 import frc.robot.commands.Auto.AutoContinuousBeltCommand;
@@ -68,13 +69,13 @@ public class RobotContainer {
   public final ClimbCommandDown climbCommandDown = new ClimbCommandDown(climbSubsystem);
   
   //add Auto Commands Here!
-  public final DriveStraightForTime driveStraightfortime = new DriveStraightForTime(driveSubsystem);
+  public final DriveStraightForTime driveStraightfortime = new DriveStraightForTime(driveSubsystem, .4, 2);
   public final DriveStraightPIDCommand driveStraightPIDCommand = new DriveStraightPIDCommand(driveSubsystem, 1.15);
   public final AutoTimer autoTimer = new AutoTimer();
   public final TurnPIDCommand turnPIDCommand = new TurnPIDCommand(driveSubsystem, 180);
   public final AutoIntakeCommand autoIntakeCommand = new AutoIntakeCommand(intakeSubsystem);
   public final AutoBeltCommand autoBeltCommand = new AutoBeltCommand(beltSubsystem, 0.8);
-  public final AutoLaunchCommand autoLaunchCommand = new AutoLaunchCommand(launchSubsystem);
+  public final AutoLaunchCommand autoLaunchCommand = new AutoLaunchCommand(launchSubsystem, 0.2);
   public final AutoContinuousBeltCommand autoContinuousBeltCommand = new AutoContinuousBeltCommand(beltSubsystem);
 
   //private Command autoCommand;
@@ -116,7 +117,7 @@ public class RobotContainer {
     driveSubsystem.gyro.reset();
 
     // ~~~~~~ Change this string to the path you want to run ~~~~~~//
-    String pathToRun = "C3";
+    String pathToRun = "F5";
     //String secondPath = "one ball part2";
     
     Trajectory trajectory1 = new Trajectory();
@@ -153,8 +154,9 @@ public class RobotContainer {
     driveSubsystem.ResetOdometry(trajectory1.getInitialPose());
 
     // Run path following command, then stop at the end.
-    return new ParallelRaceGroup(new AutoIntakeCommand(intakeSubsystem), new AutoBeltCommand(beltSubsystem, 8.0), ramseteCommandPart1.andThen(() -> driveSubsystem.tankDriveVolts(0, 0))).andThen(new ParallelCommandGroup(new AutoLaunchCommand(launchSubsystem), new AutoContinuousBeltCommand(beltSubsystem)));
-    //return new ParallelCommandGroup(new ParallelRaceGroup(autoIntakeCommand, ramseteCommandPart1.andThen(new ParallelCommandGroup(autoBeltCommand, autoIntakeCommand, ramseteCommandPart2)).andThen(() -> driveSubsystem.tankDriveVolts(0, 0))),  autoTimer);
-    //return new ParallelCommandGroup(new AutoLaunchCommand(launchSubsystem), new AutoContinuousBeltCommand(beltSubsystem));
+
+    //return new ParallelRaceGroup(new AutoIntakeCommand(intakeSubsystem), new AutoBeltCommand(beltSubsystem, 8.0), ramseteCommandPart1.andThen(() -> driveSubsystem.tankDriveVolts(0, 0))).andThen(new ParallelCommandGroup(new AutoLaunchCommand(launchSubsystem, 0.2), new AutoContinuousBeltCommand(beltSubsystem)));
+    return new SequentialCommandGroup(new DriveStraightForTime(driveSubsystem, .5, 2.5), new ParallelCommandGroup(new AutoContinuousBeltCommand(beltSubsystem), new AutoLaunchCommand(launchSubsystem, .15)));
+
   }
 }
