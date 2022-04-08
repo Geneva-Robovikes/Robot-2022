@@ -13,7 +13,7 @@ public class DriveStraightForTime extends CommandBase {
   private final DriveSubsystem driveSubsystem;
   private double lspeed = 0.4;
   //private double rspeed = 0.43;
-  private double time = 2;
+  private double time;
   private Timer timer = new Timer();
   //private double speed;
   /**
@@ -25,7 +25,7 @@ public class DriveStraightForTime extends CommandBase {
     driveSubsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
-    time = time;
+    this.time = time;
     lspeed = speed;
   }
 

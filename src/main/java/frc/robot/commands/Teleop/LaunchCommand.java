@@ -16,7 +16,7 @@ public class LaunchCommand extends CommandBase {
   private XboxController xboxController;
   private int leftIndex = 0;
   private double speed;
-  private double[] launchSpeedList = new double[3];
+  private double[] launchSpeedList = new double[2];
   //private final DriveSubsystem driveSubsystem;
    /*
    * Creates a new ExampleCommand.

@@ -117,7 +117,7 @@ public class RobotContainer {
     driveSubsystem.gyro.reset();
     System.out.println(pathToRun);
     if(pathToRun == "Straight Back") {
-      return new SequentialCommandGroup(new DriveStraightForTime(driveSubsystem, -.4, 2.8), new ParallelCommandGroup(new AutoContinuousBeltCommand(beltSubsystem), new AutoLaunchCommand(launchSubsystem, .4)));
+      return new SequentialCommandGroup(new DriveStraightForTime(driveSubsystem, -.4, 3), new ParallelCommandGroup(new AutoContinuousBeltCommand(beltSubsystem), new AutoLaunchCommand(launchSubsystem, .4)));
     }
     // ~~~~~~ Change this string to the path you want to run ~~~~~~//
     //String secondPath = "one ball part2";
