@@ -80,7 +80,7 @@ public class TeleopDrive extends CommandBase {
         rightIndex = 0;
       }
       changeDriveSpeed = driveSpeedList[rightIndex];
-      System.out.println(changeDriveSpeed);
+      //System.out.println(changeDriveSpeed);
     }
 
     //smooth turn;

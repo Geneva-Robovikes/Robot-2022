@@ -27,9 +27,9 @@ public class LaunchCommand extends CommandBase {
     xboxController = controller;
     launchSubsystem = subsystem;
 
-    launchSpeedList[0] = 0.2;
+    launchSpeedList[0] = 1;
     //launchSpeedList[1] = .35;
-    launchSpeedList[1] = .45;
+    //launchSpeedList[1] = .45;
     //launchSpeedList[1] = 0.4;
     //launchSpeedList[2] = 0.6;
 
@@ -50,7 +50,7 @@ public class LaunchCommand extends CommandBase {
     //it's actually right stick
     if (leftStickPressed) {
       leftIndex++;
-      System.out.println("pressed");
+      //System.out.println("pressed");
       if(leftIndex > launchSpeedList.length - 1) {
         leftIndex = 0;
       }
@@ -64,7 +64,7 @@ public class LaunchCommand extends CommandBase {
     }*/
     //launchSubsystem.setLaunchMotors(speed);
     launchSubsystem.setLaunchMotors(launchSpeedList[leftIndex]);
-    System.out.println(speed);
+    //System.out.println(speed);
   }
 
   // Returns true when the command should end.
