@@ -47,10 +47,10 @@ public class TeleopDrive extends CommandBase {
     xboxController = controller;
     driveSubsystem = subsystem;
     driveSpeedList[0] = halfSpeed;
-    driveSpeedList[1] = threeQuarters;
+    //driveSpeedList[1] = threeQuarters;
     //driveSpeedList[2] = actualHalfSpeed;
     launchSpeedList[0] = 0.5;
-    launchSpeedList[1] = 1;
+    //launchSpeedList[1] = 1;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
