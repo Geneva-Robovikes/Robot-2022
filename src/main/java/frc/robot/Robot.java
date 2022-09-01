@@ -5,10 +5,13 @@
 package frc.robot;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.Auto.VisionTest;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -31,11 +34,15 @@ public class Robot extends TimedRobot {
 
     //does not work with raspberry pi right now
     robotContainer = new RobotContainer();
+
     SmartDashboard.putData("Auto Path", pathChooser);
     pathChooser.setDefaultOption("Straight Back", "Straight Back");
     pathChooser.addOption("F5", "F5");
     pathChooser.addOption("Unnamed_0", "Unnamed_0");
     pathChooser.addOption("C3", "C3");
+    pathChooser.addOption("andrew", "andrew");
+    pathChooser.addOption("something", "something");
+    pathChooser.addOption("drew", "drew");
   }
 
   /**
@@ -70,8 +77,11 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
+    /*
     robotContainer.driveSubsystem.gyro.reset();
     robotContainer.TrajectoryCommand(pathChooser.getSelected()).schedule();
+    */
+    robotContainer.visionTest.schedule();
   }
 
   /** This function is called periodically during autonomous. */

@@ -16,6 +16,7 @@ public class TeleopDrive extends CommandBase {
   private XboxController xboxController;
   //private double halfSpeed = 1.6;
   private double halfSpeed = 2.0;
+  private double otherSpeed = 1.6;
   private double threeQuarters = 1.33333;
   //private double actualHalfSpeed = 2;
   private double[] driveSpeedList = new double[2];
@@ -46,7 +47,7 @@ public class TeleopDrive extends CommandBase {
   public TeleopDrive(DriveSubsystem subsystem, XboxController controller) {
     xboxController = controller;
     driveSubsystem = subsystem;
-    driveSpeedList[0] = halfSpeed;
+    driveSpeedList[0] = otherSpeed;
     //driveSpeedList[1] = threeQuarters;
     //driveSpeedList[2] = actualHalfSpeed;
     launchSpeedList[0] = 0.5;
@@ -79,7 +80,7 @@ public class TeleopDrive extends CommandBase {
       //if(rightIndex > driveSpeedList.length - 1) {
         //rightIndex = 0;
       //}
-      changeDriveSpeed = halfSpeed;
+      changeDriveSpeed = otherSpeed;
       //System.out.println(changeDriveSpeed);
     //}
 
