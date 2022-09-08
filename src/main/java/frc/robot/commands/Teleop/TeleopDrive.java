@@ -66,6 +66,7 @@ public class TeleopDrive extends CommandBase {
     }
 
     if((x > deadzoneX || x < -deadzoneX) || (y > deadzoneY || y < -deadzoneY)){
+      System.out.println("Driving!");
       driveSubsystem.arcadeDrive(-y/changeDriveSpeed, x/changeDriveSpeed);
     } else {
       driveSubsystem.arcadeDrive(0, 0);
