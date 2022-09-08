@@ -15,7 +15,7 @@ public class LaunchCommand extends CommandBase {
   private final LaunchSubsystem launchSubsystem;
   private XboxController xboxController;
   private int leftIndex = 0;
-  private double[] launchSpeedList = new double[2];
+  private double[] launchSpeedList = new double[3];
   //private final DriveSubsystem driveSubsystem;
    /*
    * Creates a new ExampleCommand.
@@ -26,8 +26,9 @@ public class LaunchCommand extends CommandBase {
     xboxController = controller;
     launchSubsystem = subsystem;
 
-    launchSpeedList[0] = 0.35;
-    launchSpeedList[1] = 0.5;
+    launchSpeedList[0] = 0.2;
+    launchSpeedList[1] = 0.4;
+    launchSpeedList[2] = 0.6;
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -43,6 +44,7 @@ public class LaunchCommand extends CommandBase {
     boolean leftStickPressed = xboxController.getRightStickButtonPressed();
     SmartDashboard.putNumber("Launch Speed", leftIndex + 1);
     
+    //it's actually right stick
     if (leftStickPressed) {
       leftIndex++;
       if(leftIndex > launchSpeedList.length - 1) {
@@ -50,7 +52,9 @@ public class LaunchCommand extends CommandBase {
       }
     }
 
-    launchSubsystem.setLaunchMotors(launchSpeedList[leftIndex]);
+    //launchSubsystem.setLaunchMotors(launchSpeedList[leftIndex]);
+    launchSubsystem.setLaunchMotors(.4);
+    //launchSubsystem.setLaunchMotors(.4);
   }
 
   // Returns true when the command should end.

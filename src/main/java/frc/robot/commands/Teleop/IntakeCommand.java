@@ -10,12 +10,8 @@ import frc.robot.subsystems.IntakeSubsystem;
 /** An example command that uses an example subsystem. */
 public class IntakeCommand extends CommandBase {
   private final IntakeSubsystem intakeSubsystem;
-  //private final DriveSubsystem driveSubsystem;
-   /*
-   * Creates a new ExampleCommand.
-   *
-   * @param subsystem The subsystem used by this command.
-   */
+  
+   
   public IntakeCommand(IntakeSubsystem intakeSubsystem) {
     this.intakeSubsystem = intakeSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.

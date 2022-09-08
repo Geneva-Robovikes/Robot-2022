@@ -30,9 +30,12 @@ public class DriveSubsystem extends SubsystemBase {
 
     private XboxController controller;
 
+    private double zeroAngle;
+
     private final DifferentialDriveOdometry odometry;
 
     public DriveSubsystem(){
+      zeroAngle = 0;
       driveRight.setInverted(true);
       motorLeftFront.setSafetyEnabled(false);
       motorRightFront.setSafetyEnabled(false);
@@ -128,5 +131,17 @@ public class DriveSubsystem extends SubsystemBase {
 
     public double getGyro() {
       return gyro.getAngle();
+    }
+
+    public void setZeroAngle(double angle) {
+      zeroAngle = angle;
+    }
+
+    public double getZeroAngle() {
+      return zeroAngle;
+    }
+
+    public double getGyroRate() {
+      return gyro.getRate();
     }
 }
