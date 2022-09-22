@@ -98,6 +98,7 @@ public class TeleopDrive extends CommandBase {
     //} else {
       //joystick deadzone
     if((x > deadzoneX || x < -deadzoneX) || (y > deadzoneY || y < -deadzoneY)){
+      System.out.println("Driving!");
       driveSubsystem.arcadeDrive(-y/changeDriveSpeed, x/changeDriveSpeed);
       driveSubsystem.setZeroAngle(driveSubsystem.getGyro());
         //previousError = 0;
