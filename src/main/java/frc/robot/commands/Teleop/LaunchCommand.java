@@ -27,9 +27,10 @@ public class LaunchCommand extends CommandBase {
     xboxController = controller;
     launchSubsystem = subsystem;
 
-    launchSpeedList[0] = 0.2;
+    // ~~~~~ Launch Speeds ~~~~~ //
+    launchSpeedList[0] = 0.525;
     //launchSpeedList[1] = .35;
-    launchSpeedList[1] = .45;
+    launchSpeedList[1] = .55;
     //launchSpeedList[1] = 0.4;
     //launchSpeedList[2] = 0.6;
 
