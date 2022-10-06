@@ -5,12 +5,20 @@
 package frc.robot.commands.Auto;
 
 import frc.robot.subsystems.DriveSubsystem;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
 public class VisionCenter extends CommandBase {
   private final DriveSubsystem driveSubsystem;
+  private ShuffleboardTab dashTab;
+  private NetworkTableEntry xpos;
+  private NetworkTableEntry ypos;
+
 
   /**
    * Creates a new ExampleCommand.
@@ -30,7 +38,10 @@ public class VisionCenter extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
+    System.out.println(SmartDashboard.getNumber("X", 80));
+    double speed = ((SmartDashboard.getNumber("X", 80) - 80.0) / 80) / 2;
+    System.out.println("Speed: " + speed);
+    driveSubsystem.tankDrive(speed, -speed);
   }
 
   // Called once the command ends or is interrupted.

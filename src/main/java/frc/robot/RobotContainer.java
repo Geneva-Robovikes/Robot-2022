@@ -29,6 +29,7 @@ import frc.robot.commands.Auto.AutoTimer;
 import frc.robot.commands.Auto.DriveStraightForTime;
 import frc.robot.commands.Auto.DriveStraightPIDCommand;
 import frc.robot.commands.Auto.TurnPIDCommand;
+import frc.robot.commands.Auto.VisionCenter;
 import frc.robot.commands.Teleop.BeltCommand;
 import frc.robot.commands.Teleop.DefaultCommand;
 import frc.robot.commands.Teleop.IntakeCommand;
@@ -76,6 +77,7 @@ public class RobotContainer {
   public final AutoBeltCommand autoBeltCommand = new AutoBeltCommand(beltSubsystem, 0.8);
   public final AutoLaunchCommand autoLaunchCommand = new AutoLaunchCommand(launchSubsystem);
   public final AutoContinuousBeltCommand autoContinuousBeltCommand = new AutoContinuousBeltCommand(beltSubsystem);
+  public final VisionCenter visionCenter = new VisionCenter(driveSubsystem);
 
   //private Command autoCommand;
 
