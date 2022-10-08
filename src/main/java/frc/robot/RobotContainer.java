@@ -32,11 +32,14 @@ import frc.robot.commands.Teleop.BeltCommand;
 import frc.robot.commands.Teleop.DefaultCommand;
 import frc.robot.commands.Teleop.IntakeCommand;
 import frc.robot.commands.Teleop.LaunchCommand;
+import frc.robot.commands.Teleop.PneumaticsCommand;
 import frc.robot.commands.Teleop.TeleopDrive;
 import frc.robot.subsystems.BeltSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LaunchSubsystem;
+import frc.robot.subsystems.PneumaticsSubsystem;
+import edu.wpi.first.wpilibj.Compressor;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -48,32 +51,34 @@ public class RobotContainer {
   private XboxController controller = new XboxController(0);
 
   //Add Subsystems Here!
-  public final DriveSubsystem driveSubsystem = new DriveSubsystem();
-  public final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
-  public final LaunchSubsystem launchSubsystem = new LaunchSubsystem();
-  public final BeltSubsystem beltSubsystem = new BeltSubsystem();
+  //public final DriveSubsystem driveSubsystem = new DriveSubsystem();
+  //public final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+  //public final LaunchSubsystem launchSubsystem = new LaunchSubsystem();
+  //public final BeltSubsystem beltSubsystem = new BeltSubsystem();
+  public final PneumaticsSubsystem pneumaticsSubsystem = new PneumaticsSubsystem();
 
   //Add Teleop Commands Here!
-  public final TeleopDrive teleopDrive = new TeleopDrive(driveSubsystem, controller);
-  public final DefaultCommand defaultCommand = new DefaultCommand(driveSubsystem);
-  public final BeltCommand beltCommand = new BeltCommand(beltSubsystem);
-  public final IntakeCommand intakeCommand = new IntakeCommand(intakeSubsystem, beltSubsystem);
-  public final LaunchCommand launchCommand = new LaunchCommand(launchSubsystem);
+  //public final TeleopDrive teleopDrive = new TeleopDrive(driveSubsystem, controller);
+  //public final DefaultCommand defaultCommand = new DefaultCommand(driveSubsystem);
+  //public final BeltCommand beltCommand = new BeltCommand(beltSubsystem);
+  //public final IntakeCommand intakeCommand = new IntakeCommand(intakeSubsystem, beltSubsystem);
+  //public final LaunchCommand launchCommand = new LaunchCommand(launchSubsystem);
+  public final PneumaticsCommand pneumaticsCommand = new PneumaticsCommand(pneumaticsSubsystem);
   
   //add Auto Commands Here!
-  public final DriveStraightForTime driveStraightfortime = new DriveStraightForTime(driveSubsystem);
-  public final DriveStraightPIDCommand driveStraightPIDCommand = new DriveStraightPIDCommand(driveSubsystem, 1.15);
-  public final AutoTimer autoTimer = new AutoTimer();
-  public final TurnPIDCommand turnPIDCommand = new TurnPIDCommand(driveSubsystem, 180);
-  public final AutoIntakeCommand autoIntakeCommand = new AutoIntakeCommand(intakeSubsystem);
-  public final AutoBeltCommand autoBeltCommand = new AutoBeltCommand(beltSubsystem);
-  public final AutoLaunchCommand autoLaunchCommand = new AutoLaunchCommand(launchSubsystem);
+  //public final DriveStraightForTime driveStraightfortime = new DriveStraightForTime(driveSubsystem);
+  //public final DriveStraightPIDCommand driveStraightPIDCommand = new DriveStraightPIDCommand(driveSubsystem, 1.15);
+  //public final AutoTimer autoTimer = new AutoTimer();
+  //public final TurnPIDCommand turnPIDCommand = new TurnPIDCommand(driveSubsystem, 180);
+  //public final AutoIntakeCommand autoIntakeCommand = new AutoIntakeCommand(intakeSubsystem);
+  //public final AutoBeltCommand autoBeltCommand = new AutoBeltCommand(beltSubsystem);
+  //public final AutoLaunchCommand autoLaunchCommand = new AutoLaunchCommand(launchSubsystem);
 
   //private Command autoCommand;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    CommandScheduler.getInstance().setDefaultCommand(driveSubsystem, defaultCommand);
+    //CommandScheduler.getInstance().setDefaultCommand(driveSubsystem, defaultCommand);
     //autoCommand = new ParallelRaceGroup(TrajectoryCommand(), autoTimer);
     // Configure the button bindings
     configureButtonBindings();
@@ -90,10 +95,12 @@ public class RobotContainer {
     JoystickButton intakeButton = new JoystickButton(controller, 1);
     JoystickButton launchButton = new JoystickButton(controller, 4);
     JoystickButton beltButton = new JoystickButton(controller, 3);
+    JoystickButton pneumaticsButton = new JoystickButton(controller, 2);
 
-    intakeButton.toggleWhenPressed(intakeCommand);
-    launchButton.toggleWhenPressed(launchCommand);
-    beltButton.toggleWhenPressed(beltCommand);
+    //intakeButton.toggleWhenPressed(intakeCommand);
+    //launchButton.toggleWhenPressed(launchCommand);
+    //beltButton.toggleWhenPressed(beltCommand);
+    //pneumaticsButton.toggleWhenPressed(pneumaticsCommand);
     
   }
 /*
@@ -101,7 +108,7 @@ public class RobotContainer {
     return autoCommand;
   }
 */
-  public Command TrajectoryCommand() {
+  /*public Command TrajectoryCommand() {
     driveSubsystem.gyro.reset();
 
     // ~~~~~~ Change this string to the path you want to run ~~~~~~//
@@ -137,5 +144,5 @@ public class RobotContainer {
     // Run path following command, then stop at the end.
     return new ParallelCommandGroup(new ParallelRaceGroup(autoIntakeCommand, ramseteCommand.andThen(() -> driveSubsystem.tankDriveVolts(0, 0)).andThen(new ParallelCommandGroup(autoBeltCommand, autoLaunchCommand))), autoTimer);
     //return new ParallelCommandGroup(new ParallelRaceGroup(autoIntakeCommand, ramseteCommand.andThen(() -> ))
-  }
+  }*/
 }

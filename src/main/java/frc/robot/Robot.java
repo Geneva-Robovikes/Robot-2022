@@ -8,6 +8,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.Compressor;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -44,6 +45,7 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    System.out.println();
     //System.out.println(driveSubsystem.getGyro());
     //System.out.println(robotContainer.driveSubsystem.gyro.getRotation2d());
   }
@@ -51,7 +53,7 @@ public class Robot extends TimedRobot {
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
   public void disabledInit() {
-    robotContainer.driveSubsystem.ResetOdometry(new Pose2d());
+    //robotContainer.driveSubsystem.ResetOdometry(new Pose2d());
   }
 
   @Override
@@ -60,9 +62,9 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    robotContainer.driveSubsystem.gyro.reset();
-    System.out.println("Heading: " + robotContainer.driveSubsystem.getHeading());
-    robotContainer.TrajectoryCommand().schedule();
+    //robotContainer.driveSubsystem.gyro.reset();
+    //System.out.println("Heading: " + robotContainer.driveSubsystem.getHeading());
+    //robotContainer.TrajectoryCommand().schedule();
   }
 
   /** This function is called periodically during autonomous. */
@@ -71,7 +73,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    robotContainer.teleopDrive.schedule();
+    //robotContainer.teleopDrive.schedule();
   }
 
   /** This function is called periodically during operator control. */
