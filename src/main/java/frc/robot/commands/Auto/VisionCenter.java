@@ -15,10 +15,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 /** An example command that uses an example subsystem. */
 public class VisionCenter extends CommandBase {
   private final DriveSubsystem driveSubsystem;
-  private ShuffleboardTab dashTab;
-  private NetworkTableEntry xpos;
-  private NetworkTableEntry ypos;
-
 
   /**
    * Creates a new ExampleCommand.
