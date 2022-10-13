@@ -36,4 +36,8 @@ public class DriveSubsystem extends SubsystemBase {
       driveRight = new MotorControllerGroup(motorRightFront, motorRightBack);
       differentialDrive = new DifferentialDrive(driveLeft, driveRight);
     }
+  
+  public void tankDrive (double leftSpeed, double rightSpeed){
+    differentialDrive.tankDrive(leftSpeed, rightSpeed);
+  }
 }
