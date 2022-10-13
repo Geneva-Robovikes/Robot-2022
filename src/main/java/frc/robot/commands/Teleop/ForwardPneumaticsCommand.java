@@ -5,13 +5,15 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.PneumaticsSubsystem;
 import frc.robot.subsystems.PneumaticsSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj.PneumaticsBase;
 import static edu.wpi.first.wpilibj.DoubleSolenoid.Value.*;
 
 
-public class PneumaticsCommand extends CommandBase {
+
+public class ForwardPneumaticsCommand extends CommandBase {
     private final PneumaticsSubsystem pneumaticsSubsystem;
 
-    public PneumaticsCommand(PneumaticsSubsystem subsystem) {
+    public ForwardPneumaticsCommand(PneumaticsSubsystem subsystem) {
         pneumaticsSubsystem = subsystem;
         addRequirements(subsystem);
 
@@ -20,7 +22,8 @@ public class PneumaticsCommand extends CommandBase {
 
     @Override
     public void initialize() {
-        pneumaticsSubsystem.setSolenoid(Value.kForward);
+        pneumaticsSubsystem.setSolenoid(kForward);
+        System.out.println("print");
     }
 
     @Override
@@ -30,7 +33,7 @@ public class PneumaticsCommand extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-      pneumaticsSubsystem.setSolenoid(Value.kReverse);
+      pneumaticsSubsystem.setSolenoid(kOff);
     }
 
     //public void get

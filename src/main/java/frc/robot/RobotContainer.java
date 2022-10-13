@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.Auto.AutoBeltCommand;
 import frc.robot.commands.Auto.AutoIntakeCommand;
 import frc.robot.commands.Auto.AutoLaunchCommand;
@@ -40,7 +41,9 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LaunchSubsystem;
 import frc.robot.subsystems.PneumaticsSubsystem;
 import edu.wpi.first.wpilibj.Compressor;
-
+import edu.wpi.first.wpilibj2.command.button.POVButton;
+import frc.robot.commands.Teleop.ForwardPneumaticsCommand;
+import frc.robot.commands.Teleop.BackwardPneumaticsCommand;
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -57,6 +60,7 @@ public class RobotContainer {
   //public final BeltSubsystem beltSubsystem = new BeltSubsystem();
   public final PneumaticsSubsystem pneumaticsSubsystem = new PneumaticsSubsystem();
 
+
   //Add Teleop Commands Here!
   //public final TeleopDrive teleopDrive = new TeleopDrive(driveSubsystem, controller);
   //public final DefaultCommand defaultCommand = new DefaultCommand(driveSubsystem);
@@ -64,6 +68,8 @@ public class RobotContainer {
   //public final IntakeCommand intakeCommand = new IntakeCommand(intakeSubsystem, beltSubsystem);
   //public final LaunchCommand launchCommand = new LaunchCommand(launchSubsystem);
   public final PneumaticsCommand pneumaticsCommand = new PneumaticsCommand(pneumaticsSubsystem);
+  public final ForwardPneumaticsCommand forwardPneumaticsCommand = new ForwardPneumaticsCommand(pneumaticsSubsystem);
+  public final BackwardPneumaticsCommand backwardPneumaticsCommand = new BackwardPneumaticsCommand(pneumaticsSubsystem);
   
   //add Auto Commands Here!
   //public final DriveStraightForTime driveStraightfortime = new DriveStraightForTime(driveSubsystem);
@@ -96,11 +102,17 @@ public class RobotContainer {
     JoystickButton launchButton = new JoystickButton(controller, 4);
     JoystickButton beltButton = new JoystickButton(controller, 3);
     JoystickButton pneumaticsButton = new JoystickButton(controller, 2);
+    JoystickButton forwardButton = new JoystickButton(controller, 7);
+    JoystickButton backwardButton = new JoystickButton(controller, 8);
+
+    pneumaticsButton.toggleWhenPressed(pneumaticsCommand);
 
     //intakeButton.toggleWhenPressed(intakeCommand);
     //launchButton.toggleWhenPressed(launchCommand);
     //beltButton.toggleWhenPressed(beltCommand);
     //pneumaticsButton.toggleWhenPressed(pneumaticsCommand);
+    //forwardButton.whenPressed(forwardPneumaticsCommand);
+    //backwardButton.whenPressed(backwardPneumaticsCommand);
     
   }
 /*

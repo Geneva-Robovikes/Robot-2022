@@ -27,8 +27,8 @@ public class PneumaticsSubsystem extends SubsystemBase{
         pressureSwitch = pcmCompressor.getPressureSwitchValue();
         current = pcmCompressor.getCurrent();
 
-        exampleDoublePCM = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 1, 2);
-        exampleDoublePCM.set(kOff);
+        exampleDoublePCM = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 1);
+        exampleDoublePCM.set(kReverse);
     }
 
     public boolean getEnabled() {
@@ -43,10 +43,13 @@ public class PneumaticsSubsystem extends SubsystemBase{
         return pcmCompressor.getCurrent();
     }
 
+    //public void setSolenoid(Value value) {
+        //exampleDoublePCM.set(value);
+    //
+
     public void setSolenoid(Value value) {
         exampleDoublePCM.set(value);
     }
-
-
-
 }
+
+
