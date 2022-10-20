@@ -6,8 +6,9 @@ package frc.robot;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.Compressor;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -26,9 +27,8 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-
-    //does not work with raspberry pi right now
     robotContainer = new RobotContainer();
+    CameraServer.startAutomaticCapture();
   }
 
   /**
@@ -45,9 +45,7 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-    SmartDashboard.putBoolean("Belt Switch", robotContainer.beltSubsystem.getSwitch1State());
-    SmartDashboard.putBoolean("Belt Switch 2", robotContainer.beltSubsystem.getSwitch2State());
-    SmartDashboard.putNumber("Right Climb", robotContainer.climbSubsystem.getRightClimbEncoder());
+    System.out.println();
     //System.out.println(driveSubsystem.getGyro());
     //System.out.println(robotContainer.driveSubsystem.gyro.getRotation2d());
   }
@@ -55,7 +53,7 @@ public class Robot extends TimedRobot {
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
   public void disabledInit() {
-    robotContainer.driveSubsystem.ResetOdometry(new Pose2d());
+    //robotContainer.driveSubsystem.ResetOdometry(new Pose2d());
   }
 
   @Override
@@ -64,11 +62,9 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    /*
-    robotContainer.driveSubsystem.gyro.reset();
-    robotContainer.TrajectoryCommand().schedule();
-    */
-    robotContainer.visionCenter.schedule();
+    //robotContainer.driveSubsystem.gyro.reset();
+    //System.out.println("Heading: " + robotContainer.driveSubsystem.getHeading());
+    //robotContainer.TrajectoryCommand().schedule();
   }
 
   /** This function is called periodically during autonomous. */
@@ -77,8 +73,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    robotContainer.teleopDrive.schedule();
-    robotContainer.climbSubsystem.ResetClimbEncoders();
+    //robotContainer.teleopDrive.schedule();
   }
 
   /** This function is called periodically during operator control. */

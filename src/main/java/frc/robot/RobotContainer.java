@@ -22,14 +22,12 @@ import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.Auto.AutoBeltCommand;
-import frc.robot.commands.Auto.AutoContinuousBeltCommand;
 import frc.robot.commands.Auto.AutoIntakeCommand;
 import frc.robot.commands.Auto.AutoLaunchCommand;
 import frc.robot.commands.Auto.AutoTimer;
 import frc.robot.commands.Auto.DriveStraightForTime;
 import frc.robot.commands.Auto.DriveStraightPIDCommand;
 import frc.robot.commands.Auto.TurnPIDCommand;
-import frc.robot.commands.Auto.VisionCenter;
 import frc.robot.commands.Teleop.BeltCommand;
 import frc.robot.commands.Teleop.DefaultCommand;
 import frc.robot.commands.Teleop.IntakeCommand;
@@ -39,9 +37,6 @@ import frc.robot.subsystems.BeltSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LaunchSubsystem;
-import frc.robot.subsystems.ClimbSubsystem;
-import frc.robot.commands.Teleop.ClimbCommandDown;
-import frc.robot.commands.Teleop.ClimbCommandUp;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -57,16 +52,13 @@ public class RobotContainer {
   public final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   public final LaunchSubsystem launchSubsystem = new LaunchSubsystem();
   public final BeltSubsystem beltSubsystem = new BeltSubsystem();
-  public final ClimbSubsystem climbSubsystem = new ClimbSubsystem();
 
   //Add Teleop Commands Here!
   public final TeleopDrive teleopDrive = new TeleopDrive(driveSubsystem, controller);
   public final DefaultCommand defaultCommand = new DefaultCommand(driveSubsystem);
   public final BeltCommand beltCommand = new BeltCommand(beltSubsystem);
-  public final IntakeCommand intakeCommand = new IntakeCommand(intakeSubsystem);
-  public final LaunchCommand launchCommand = new LaunchCommand(launchSubsystem, controller);
-  public final ClimbCommandUp climbCommandUp = new ClimbCommandUp(climbSubsystem);
-  public final ClimbCommandDown climbCommandDown = new ClimbCommandDown(climbSubsystem);
+  //public final IntakeCommand intakeCommand = new IntakeCommand(intakeSubsystem, beltSubsystem);
+  //public final LaunchCommand launchCommand = new LaunchCommand(launchSubsystem);
   
   //add Auto Commands Here!
   public final DriveStraightForTime driveStraightfortime = new DriveStraightForTime(driveSubsystem);
@@ -74,10 +66,8 @@ public class RobotContainer {
   public final AutoTimer autoTimer = new AutoTimer();
   public final TurnPIDCommand turnPIDCommand = new TurnPIDCommand(driveSubsystem, 180);
   public final AutoIntakeCommand autoIntakeCommand = new AutoIntakeCommand(intakeSubsystem);
-  public final AutoBeltCommand autoBeltCommand = new AutoBeltCommand(beltSubsystem, 0.8);
+  //public final AutoBeltCommand autoBeltCommand = new AutoBeltCommand(beltSubsystem);
   public final AutoLaunchCommand autoLaunchCommand = new AutoLaunchCommand(launchSubsystem);
-  public final AutoContinuousBeltCommand autoContinuousBeltCommand = new AutoContinuousBeltCommand(beltSubsystem);
-  public final VisionCenter visionCenter = new VisionCenter(driveSubsystem);
 
   //private Command autoCommand;
 
@@ -100,43 +90,34 @@ public class RobotContainer {
     JoystickButton intakeButton = new JoystickButton(controller, 1);
     JoystickButton launchButton = new JoystickButton(controller, 4);
     JoystickButton beltButton = new JoystickButton(controller, 3);
-    JoystickButton climbDownButton = new JoystickButton(controller, 5);
-    JoystickButton climbUpButton = new JoystickButton(controller, 6);
 
-    intakeButton.toggleWhenPressed(intakeCommand);
-    launchButton.toggleWhenPressed(launchCommand);
+    //intakeButton.toggleWhenPressed(intakeCommand);
+    //launchButton.toggleWhenPressed(launchCommand);
     beltButton.toggleWhenPressed(beltCommand);
-    climbDownButton.toggleWhenPressed(climbCommandDown);
-    climbUpButton.toggleWhenPressed(climbCommandUp);
+    
   }
 /*
   public Command AutoCommand() {
     return autoCommand;
   }
 */
-  public Command TrajectoryCommand() {
+  /*public Command TrajectoryCommand() {
     driveSubsystem.gyro.reset();
 
     // ~~~~~~ Change this string to the path you want to run ~~~~~~//
-    String pathToRun = "C3";
-    //String secondPath = "one ball part2";
+    String pathToRun = "one ball";
     
-    Trajectory trajectory1 = new Trajectory();
-    //Trajectory trajectory2 = new Trajectory();
+    Trajectory trajectory = new Trajectory();
     try {
-      Path path1 = Filesystem.getDeployDirectory().toPath().resolve("PathWeaver/output/" + pathToRun + ".wpilib.json");
-      //Path path2 = Filesystem.getDeployDirectory().toPath().resolve("PathWeaver/output/" + secondPath + ".wpilib.json");
-
-      trajectory1 = TrajectoryUtil.fromPathweaverJson(path1);
-      //trajectory2 = TrajectoryUtil.fromPathweaverJson(path2);
-
+      Path path = Filesystem.getDeployDirectory().toPath().resolve("PathWeaver/output/" + pathToRun + ".wpilib.json");
+      trajectory = TrajectoryUtil.fromPathweaverJson(path);
     } catch (IOException ex) {
-      DriverStation.reportError("Unable to open trajectory: " + trajectory1, ex.getStackTrace());
+      DriverStation.reportError("Unable to open trajectory: " + trajectory, ex.getStackTrace());
     }
 
-    RamseteCommand ramseteCommandPart1 = 
+    RamseteCommand ramseteCommand = 
         new RamseteCommand(
-            trajectory1,
+            trajectory,
             driveSubsystem::getPose,
             new RamseteController(Constants.kRamseteB, Constants.kRamseteZeta),
             new SimpleMotorFeedforward(
@@ -150,13 +131,11 @@ public class RobotContainer {
             // RamseteCommand passes volts to the callback
             driveSubsystem::tankDriveVolts,
             driveSubsystem);
-            
     // Reset odometry to the starting pose of the trajectory.
-    driveSubsystem.ResetOdometry(trajectory1.getInitialPose());
+    driveSubsystem.ResetOdometry(trajectory.getInitialPose());
 
     // Run path following command, then stop at the end.
-    return new ParallelRaceGroup(new AutoIntakeCommand(intakeSubsystem), new AutoBeltCommand(beltSubsystem, 8.0), ramseteCommandPart1.andThen(() -> driveSubsystem.tankDriveVolts(0, 0))).andThen(new ParallelCommandGroup(new AutoLaunchCommand(launchSubsystem), new AutoContinuousBeltCommand(beltSubsystem)));
-    //return new ParallelCommandGroup(new ParallelRaceGroup(autoIntakeCommand, ramseteCommandPart1.andThen(new ParallelCommandGroup(autoBeltCommand, autoIntakeCommand, ramseteCommandPart2)).andThen(() -> driveSubsystem.tankDriveVolts(0, 0))),  autoTimer);
-    //return new ParallelCommandGroup(new AutoLaunchCommand(launchSubsystem), new AutoContinuousBeltCommand(beltSubsystem));
-  }
+    //return new ParallelCommandGroup(new ParallelRaceGroup(autoIntakeCommand, ramseteCommand.andThen(() -> driveSubsystem.tankDriveVolts(0, 0)).andThen(new ParallelCommandGroup(autoBeltCommand, autoLaunchCommand))), autoTimer);
+    //return new ParallelCommandGroup(new ParallelRaceGroup(autoIntakeCommand, ramseteCommand.andThen(() -> ))
+  }*/
 }
