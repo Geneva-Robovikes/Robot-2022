@@ -11,14 +11,16 @@ import frc.robot.subsystems.LaunchSubsystem;
 /** An example command that uses an example subsystem. */
 public class AutoLaunchCommand extends CommandBase {
   private final LaunchSubsystem launchSubsystem;
+  private double launchSpeed;
   //private final DriveSubsystem driveSubsystem;
    /*
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public AutoLaunchCommand(LaunchSubsystem subsystem) {
+  public AutoLaunchCommand(LaunchSubsystem subsystem, double speed) {
     launchSubsystem = subsystem;
+    launchSpeed = speed;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -26,7 +28,7 @@ public class AutoLaunchCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    launchSubsystem.setLaunchMotors(.4);
+    launchSubsystem.setLaunchMotors(launchSpeed);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

@@ -30,9 +30,12 @@ public class DriveSubsystem extends SubsystemBase {
 
     private XboxController controller;
 
+    private double zeroAngle;
+
     private final DifferentialDriveOdometry odometry;
 
     public DriveSubsystem(){
+      zeroAngle = 0;
       driveRight.setInverted(true);
       motorLeftFront.setSafetyEnabled(false);
       motorRightFront.setSafetyEnabled(false);
@@ -83,21 +86,27 @@ public class DriveSubsystem extends SubsystemBase {
       return mult * motor.getSelectedSensorVelocity() / (gearRatio * unitsPerRevolution) * (Math.PI * wheelDiameter);
     }
 
+    public double getLeftMotorVelocity() {
+      double wheelDiameter = 0.1524;
+      double gearRatio = 10.71;
+      double unitsPerRevolution = 2048;
+      return motorLeftFront.getSelectedSensorVelocity() / (gearRatio * unitsPerRevolution) * (Math.PI * wheelDiameter);
+    }
+
     @Override
     public void periodic() {
       odometry.update(gyro.getRotation2d(), getEncoderMeters(motorLeftFront, 1), getEncoderMeters(motorRightFront, -1));
     }
 
     public Pose2d getPose() {
-      System.out.println(odometry.getPoseMeters());
       return odometry.getPoseMeters();
     }
 
-    public DifferentialDriveWheelSpeeds getWheelSpeeds(){
+    public DifferentialDriveWheelSpeeds getWheelSpeeds() {
       return new DifferentialDriveWheelSpeeds(getEncoderVelocity(motorLeftFront, 1), getEncoderVelocity(motorRightFront, -1));
     }
-
-    public void ResetOdometry(Pose2d pose){
+    
+    public void ResetOdometry(Pose2d pose) {
       motorRightFront.setSelectedSensorPosition(0);
       motorLeftFront.setSelectedSensorPosition(0);
       odometry.resetPosition(pose, gyro.getRotation2d());
@@ -122,5 +131,17 @@ public class DriveSubsystem extends SubsystemBase {
 
     public double getGyro() {
       return gyro.getAngle();
+    }
+
+    public void setZeroAngle(double angle) {
+      zeroAngle = angle;
+    }
+
+    public double getZeroAngle() {
+      return zeroAngle;
+    }
+
+    public double getGyroRate() {
+      return gyro.getRate();
     }
 }

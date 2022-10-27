@@ -5,19 +5,20 @@
 package frc.robot.commands.Teleop;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.BeltSubsystem;
+import frc.robot.subsystems.ClimbSubsystem;
 
 /** An example command that uses an example subsystem. */
-public class BeltCommand extends CommandBase {
-  private final BeltSubsystem beltSubsystem;
+public class ClimbCommandDown extends CommandBase {
+  private final ClimbSubsystem climbSubsystem;
+  private double maxHeight = 307200;
   //private final DriveSubsystem driveSubsystem;
    /*
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public BeltCommand(BeltSubsystem subsystem) {
-    beltSubsystem = subsystem;
+  public ClimbCommandDown(ClimbSubsystem subsystem) {
+    climbSubsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -25,7 +26,7 @@ public class BeltCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    beltSubsystem.setBeltMotor(0.8);
+    climbSubsystem.setClimbMotors(-0.3);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -35,11 +36,12 @@ public class BeltCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    if(climbSubsystem.getRightClimbEncoder() > maxHeight) {return true;}
+    else {return false;}
   }
 
   @Override
   public void end(boolean interrupted) {
-    beltSubsystem.setBeltMotor(0);
+    climbSubsystem.setClimbMotors(0);
   }
 }

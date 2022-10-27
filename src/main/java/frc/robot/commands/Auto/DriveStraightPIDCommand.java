@@ -20,11 +20,11 @@ public class DriveStraightPIDCommand extends PIDCommand {
     super (
       new PIDController(Constants.kPDriveVel, 0, 0),
       drive::getLeftEncoderMeters,
-      distance,
+      drive.getLeftEncoderMeters() + distance,
       output -> drive.tankDrive(output, output),
       drive);
 
-    getController().setTolerance(0.1, 0.2);
+    getController().setTolerance(0.05, 0.1);
   }
 
   // Returns true when the command should end.

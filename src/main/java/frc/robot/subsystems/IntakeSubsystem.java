@@ -1,14 +1,14 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class IntakeSubsystem extends SubsystemBase {
-    private VictorSPX rollerMotor;
+    private WPI_VictorSPX rollerMotor;
 
     public IntakeSubsystem () {
-        rollerMotor = new VictorSPX(4);
+        rollerMotor = new WPI_VictorSPX(4);
     }
 
     public void setRollerMotor(double value) {

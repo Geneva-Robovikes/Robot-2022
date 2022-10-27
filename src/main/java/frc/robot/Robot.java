@@ -5,9 +5,13 @@
 package frc.robot;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.cameraserver.CameraServer;
+import frc.robot.commands.Auto.VisionTest;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -17,6 +21,7 @@ import edu.wpi.first.cameraserver.CameraServer;
  */
 public class Robot extends TimedRobot {
   private RobotContainer robotContainer;
+  private final SendableChooser<String> pathChooser = new SendableChooser<>();
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -26,8 +31,18 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
+
+    //does not work with raspberry pi right now
     robotContainer = new RobotContainer();
-    CameraServer.startAutomaticCapture();
+
+    SmartDashboard.putData("Auto Path", pathChooser);
+    pathChooser.setDefaultOption("Straight Back", "Straight Back");
+    pathChooser.addOption("F5", "F5");
+    pathChooser.addOption("Unnamed_0", "Unnamed_0");
+    pathChooser.addOption("C3", "C3");
+    pathChooser.addOption("andrew", "andrew");
+    pathChooser.addOption("something", "something");
+    pathChooser.addOption("drew", "drew");
   }
 
   /**
@@ -44,6 +59,8 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    SmartDashboard.putBoolean("Belt Switch", robotContainer.beltSubsystem.getSwitch1State());
+    SmartDashboard.putBoolean("Belt Switch 2", robotContainer.beltSubsystem.getSwitch2State());
     //System.out.println(driveSubsystem.getGyro());
     //System.out.println(robotContainer.driveSubsystem.gyro.getRotation2d());
   }
@@ -60,9 +77,11 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
+    /*
     robotContainer.driveSubsystem.gyro.reset();
-    System.out.println("Heading: " + robotContainer.driveSubsystem.getHeading());
-    robotContainer.TrajectoryCommand().schedule();
+    robotContainer.TrajectoryCommand(pathChooser.getSelected()).schedule();
+    */
+    robotContainer.visionTest.schedule();
   }
 
   /** This function is called periodically during autonomous. */
@@ -72,6 +91,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     robotContainer.teleopDrive.schedule();
+    robotContainer.climbSubsystem.ResetClimbEncoders();
   }
 
   /** This function is called periodically during operator control. */

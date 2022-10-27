@@ -20,12 +20,12 @@ public class TurnPIDCommand extends PIDCommand {
     super (
       new PIDController(Constants.kPDriveVel, 0, 0),
       drive::getHeading,
-      angle,
+      drive.getHeading() + angle,
       output -> drive.arcadeDrive(0, output),
       drive);
 
     getController().enableContinuousInput(-180, 180);
-    getController().setTolerance(1.5, 5);
+    getController().setTolerance(1, 1);
   }
 
   // Returns true when the command should end.
