@@ -14,10 +14,8 @@ import frc.robot.subsystems.LaunchSubsystem;
 public class LaunchCommand extends CommandBase {
   private final LaunchSubsystem launchSubsystem;
   private XboxController xboxController;
-  private int leftIndex = 0;
-  private double speed;
   private double[] launchSpeedList = new double[2];
-  //private final DriveSubsystem driveSubsystem;
+  private int leftIndex = 0;
    /*
    * Creates a new ExampleCommand.
    *
@@ -55,16 +53,7 @@ public class LaunchCommand extends CommandBase {
         leftIndex = 0;
       }
     }
-    speed = launchSpeedList[leftIndex];
-    /*if (xboxController.getPOV() == 1) {
-      speed += .05;
-    }
-    if (xboxController.getPOV() == 180) {
-      speed -= .05;
-    }*/
-    //launchSubsystem.setLaunchMotors(speed);
     launchSubsystem.setLaunchMotors(launchSpeedList[leftIndex]);
-    //System.out.println(speed);
   }
 
   // Returns true when the command should end.

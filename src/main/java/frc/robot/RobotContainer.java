@@ -28,7 +28,6 @@ import frc.robot.commands.Auto.AutoTimer;
 import frc.robot.commands.Auto.DriveStraightForTime;
 import frc.robot.commands.Auto.DriveStraightPIDCommand;
 import frc.robot.commands.Auto.TurnPIDCommand;
-import frc.robot.commands.Auto.VisionTest;
 import frc.robot.commands.Teleop.BeltCommand;
 import frc.robot.commands.Teleop.DefaultCommand;
 import frc.robot.commands.Teleop.IntakeCommand;
@@ -42,10 +41,8 @@ import frc.robot.subsystems.LaunchSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.commands.Teleop.ClimbCommandDown;
 import frc.robot.commands.Teleop.ClimbCommandUp;
-
 import frc.robot.subsystems.PneumaticsSubsystem;
-import frc.robot.commands.Teleop.ForwardPneumaticsCommand;
-import frc.robot.commands.Teleop.BackwardPneumaticsCommand;
+
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
