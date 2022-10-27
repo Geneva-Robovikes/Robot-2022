@@ -64,7 +64,7 @@ public class RobotContainer {
   public final TeleopDrive teleopDrive = new TeleopDrive(driveSubsystem, controller);
   public final DefaultCommand defaultCommand = new DefaultCommand(driveSubsystem);
   public final BeltCommand beltCommand = new BeltCommand(beltSubsystem);
-  public final IntakeCommand intakeCommand = new IntakeCommand(intakeSubsystem);
+  public final IntakeCommand intakeCommand = new IntakeCommand(intakeSubsystem, pneumaticsSubsystem);
   public final LaunchCommand launchCommand = new LaunchCommand(launchSubsystem, controller);
   public final ClimbCommandUp climbCommandUp = new ClimbCommandUp(climbSubsystem);
   public final ClimbCommandDown climbCommandDown = new ClimbCommandDown(climbSubsystem);
@@ -75,7 +75,7 @@ public class RobotContainer {
   public final DriveStraightPIDCommand driveStraightPIDCommand = new DriveStraightPIDCommand(driveSubsystem, 1.15);
   public final AutoTimer autoTimer = new AutoTimer();
   public final TurnPIDCommand turnPIDCommand = new TurnPIDCommand(driveSubsystem, 180);
-  public final AutoIntakeCommand autoIntakeCommand = new AutoIntakeCommand(intakeSubsystem);
+  public final AutoIntakeCommand autoIntakeCommand = new AutoIntakeCommand(intakeSubsystem, pneumaticsSubsystem);
   public final AutoBeltCommand autoBeltCommand = new AutoBeltCommand(beltSubsystem, 0.8);
   public final AutoLaunchCommand autoLaunchCommand = new AutoLaunchCommand(launchSubsystem, 0.2);
   public final AutoContinuousBeltCommand autoContinuousBeltCommand = new AutoContinuousBeltCommand(beltSubsystem);

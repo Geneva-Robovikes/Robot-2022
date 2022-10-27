@@ -18,11 +18,6 @@ public class PneumaticsSubsystem extends SubsystemBase{
     
     public PneumaticsSubsystem() {
         pcmCompressor = new Compressor(0, PneumaticsModuleType.CTREPCM);
-        //phCompressor = new Compressor(1, PneumaticsModuleType.REVPH);
-        //pcmCompressor.enableAnalog(40, 60);
-        
-        //pcmCompressor.enableDigital();
-        //pcmCompressor.disable();
         enabled = pcmCompressor.enabled();
         
         pressureSwitch = pcmCompressor.getPressureSwitchValue();
@@ -43,10 +38,6 @@ public class PneumaticsSubsystem extends SubsystemBase{
     public double getCurrent() {
         return pcmCompressor.getCurrent();
     }
-
-    //public void setSolenoid(Value value) {
-        //exampleDoublePCM.set(value);
-    //
 
     public void setSolenoid(Value value) {
         exampleDoublePCM.set(value);

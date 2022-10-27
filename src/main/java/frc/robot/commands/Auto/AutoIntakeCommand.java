@@ -5,12 +5,15 @@
 package frc.robot.commands.Auto;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.PneumaticsSubsystem;
 
 /** An example command that uses an example subsystem. */
 public class AutoIntakeCommand extends CommandBase {
   private final IntakeSubsystem intakeSubsystem;
+  private final PneumaticsSubsystem pneumaticsSubsystem;
   private Timer timer = new Timer();
   private double waitTime = 1.5;
   //private final DriveSubsystem driveSubsystem;
@@ -19,23 +22,28 @@ public class AutoIntakeCommand extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public AutoIntakeCommand(IntakeSubsystem subsystem) {
-    intakeSubsystem = subsystem;
+  public AutoIntakeCommand(IntakeSubsystem intakeSubsystem, PneumaticsSubsystem pneumaticsSubsystem) {
+    this.intakeSubsystem = intakeSubsystem;
+    this.pneumaticsSubsystem = pneumaticsSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+    addRequirements(intakeSubsystem, pneumaticsSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    intakeSubsystem.setRollerMotor(.6);
+    intakeSubsystem.setInnerRollerMotor(.6);
+    intakeSubsystem.setOuterRollerMotor(.5);
+    pneumaticsSubsystem.setSolenoid(Value.kForward);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     if(timer.get() > waitTime) {
-      intakeSubsystem.setRollerMotor(0);
+      intakeSubsystem.setInnerRollerMotor(0);
+      intakeSubsystem.setOuterRollerMotor(0);
+      pneumaticsSubsystem.setSolenoid(Value.kReverse);
     }
   }
 
@@ -47,6 +55,8 @@ public class AutoIntakeCommand extends CommandBase {
 
   @Override
   public void end(boolean interrupted) {
-    intakeSubsystem.setRollerMotor(0);
+    intakeSubsystem.setInnerRollerMotor(0);
+    intakeSubsystem.setOuterRollerMotor(0);
+    pneumaticsSubsystem.setSolenoid(Value.kReverse);
   }
 }
