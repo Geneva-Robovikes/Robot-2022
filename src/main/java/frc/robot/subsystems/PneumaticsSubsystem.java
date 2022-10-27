@@ -41,7 +41,7 @@ public class PneumaticsSubsystem extends SubsystemBase{
 
     public void setSolenoid(Value value) {
         exampleDoublePCM.set(value);
-        System.out.println("Solenoid set to " + value);
+        //System.out.println("Solenoid set to " + value);
     }
 }
 
