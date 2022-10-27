@@ -16,7 +16,6 @@ import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -34,6 +33,7 @@ import frc.robot.commands.Teleop.BeltCommand;
 import frc.robot.commands.Teleop.DefaultCommand;
 import frc.robot.commands.Teleop.IntakeCommand;
 import frc.robot.commands.Teleop.LaunchCommand;
+import frc.robot.commands.Teleop.PneumaticsCommand;
 import frc.robot.commands.Teleop.TeleopDrive;
 import frc.robot.subsystems.BeltSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -43,6 +43,9 @@ import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.commands.Teleop.ClimbCommandDown;
 import frc.robot.commands.Teleop.ClimbCommandUp;
 
+import frc.robot.subsystems.PneumaticsSubsystem;
+import frc.robot.commands.Teleop.ForwardPneumaticsCommand;
+import frc.robot.commands.Teleop.BackwardPneumaticsCommand;
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -58,6 +61,7 @@ public class RobotContainer {
   public final LaunchSubsystem launchSubsystem = new LaunchSubsystem();
   public final BeltSubsystem beltSubsystem = new BeltSubsystem();
   public final ClimbSubsystem climbSubsystem = new ClimbSubsystem();
+  public final PneumaticsSubsystem pneumaticsSubsystem = new PneumaticsSubsystem();
 
   //Add Teleop Commands Here!
   public final TeleopDrive teleopDrive = new TeleopDrive(driveSubsystem, controller);
@@ -67,6 +71,7 @@ public class RobotContainer {
   public final LaunchCommand launchCommand = new LaunchCommand(launchSubsystem, controller);
   public final ClimbCommandUp climbCommandUp = new ClimbCommandUp(climbSubsystem);
   public final ClimbCommandDown climbCommandDown = new ClimbCommandDown(climbSubsystem);
+  public final PneumaticsCommand pneumaticsCommand = new PneumaticsCommand(pneumaticsSubsystem);
   
   //add Auto Commands Here!
   public final DriveStraightForTime driveStraightfortime = new DriveStraightForTime(driveSubsystem, .4, 2);
@@ -77,13 +82,9 @@ public class RobotContainer {
   public final AutoBeltCommand autoBeltCommand = new AutoBeltCommand(beltSubsystem, 0.8);
   public final AutoLaunchCommand autoLaunchCommand = new AutoLaunchCommand(launchSubsystem, 0.2);
   public final AutoContinuousBeltCommand autoContinuousBeltCommand = new AutoContinuousBeltCommand(beltSubsystem);
-  public final VisionTest visionTest = new VisionTest(driveSubsystem);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    CommandScheduler.getInstance().setDefaultCommand(driveSubsystem, defaultCommand);
-    //autoCommand = new ParallelRaceGroup(TrajectoryCommand(), autoTimer);
-    // Configure the button bindings
     configureButtonBindings();
   }
 
@@ -100,18 +101,17 @@ public class RobotContainer {
     JoystickButton beltButton = new JoystickButton(controller, 3);
     JoystickButton climbDownButton = new JoystickButton(controller, 5);
     JoystickButton climbUpButton = new JoystickButton(controller, 6);
+    JoystickButton pneumaticsButton = new JoystickButton(controller, 2);
 
     intakeButton.toggleWhenPressed(intakeCommand);
     launchButton.toggleWhenPressed(launchCommand);
     beltButton.toggleWhenPressed(beltCommand);
     climbDownButton.toggleWhenPressed(climbCommandDown);
     climbUpButton.toggleWhenPressed(climbCommandUp);
+    pneumaticsButton.toggleWhenPressed(pneumaticsCommand);
+    
   }
-/*
-  public Command AutoCommand() {
-    return autoCommand;
-  }
-*/
+
   public Command TrajectoryCommand(String pathToRun) {
     driveSubsystem.gyro.reset();
     //System.out.println(pathToRun);
