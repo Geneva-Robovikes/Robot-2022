@@ -1,10 +1,7 @@
 package frc.robot.commands.Teleop;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.PneumaticsSubsystem;
-import frc.robot.subsystems.PneumaticsSubsystem;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import static edu.wpi.first.wpilibj.DoubleSolenoid.Value.*;
 
 
@@ -20,7 +17,7 @@ public class PneumaticsCommand extends CommandBase {
 
     @Override
     public void initialize() {
-        pneumaticsSubsystem.setSolenoid(Value.kForward);
+        pneumaticsSubsystem.setSolenoid(kForward);
     }
 
     @Override
@@ -30,9 +27,6 @@ public class PneumaticsCommand extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-      pneumaticsSubsystem.setSolenoid(Value.kReverse);
+      pneumaticsSubsystem.setSolenoid(kReverse);
     }
-
-    //public void get
-
 }
