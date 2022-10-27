@@ -98,15 +98,14 @@ public class RobotContainer {
     JoystickButton beltButton = new JoystickButton(controller, 3);
     JoystickButton climbDownButton = new JoystickButton(controller, 5);
     JoystickButton climbUpButton = new JoystickButton(controller, 6);
-    JoystickButton pneumaticsButton = new JoystickButton(controller, 2);
+    //JoystickButton pneumaticsButton = new JoystickButton(controller, 2);
 
     intakeButton.toggleWhenPressed(intakeCommand);
     launchButton.toggleWhenPressed(launchCommand);
     beltButton.toggleWhenPressed(beltCommand);
     climbDownButton.toggleWhenPressed(climbCommandDown);
     climbUpButton.toggleWhenPressed(climbCommandUp);
-    pneumaticsButton.toggleWhenPressed(pneumaticsCommand);
-    
+    //pneumaticsButton.toggleWhenPressed(pneumaticsCommand);
   }
 
   public Command TrajectoryCommand(String pathToRun) {
