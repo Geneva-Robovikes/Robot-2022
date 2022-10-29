@@ -5,3 +5,4 @@ folder, in deploy, you can put chrp files generated in phoenix tuner. As of 22/2
 on the robot so you should be able to play 6-track midi files as long as you add all of them. make a separate
 branch for music because you cannot play music and drive at the same time because of how the motors are set
 up for music.
+Also tell soren to wear his safety glasses.
