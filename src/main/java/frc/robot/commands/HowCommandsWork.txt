@@ -4,6 +4,7 @@ subsystem.
 initialize() is used to set what happens when the command is run, and end(boolean interrupted)
 is what happens when the command stops. 
 isFinished() should just return false.
+execute() is anything that needs to needs to run continuously, like getting joystick inputs
 The constructor (the method with the same name as the class) is where you make an object of the corresponding
 subsystem and the line  addRequirements(subsystem name here); put in the name of the subsystem object you
 just made. also make sure to say that the class extends commandbase and import commands and the subsystem you use.
