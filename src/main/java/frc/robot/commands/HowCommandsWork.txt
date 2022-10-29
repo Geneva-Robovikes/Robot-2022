@@ -9,3 +9,5 @@ subsystem and the line  addRequirements(subsystem name here); put in the name of
 just made. also make sure to say that the class extends commandbase and import commands and the subsystem you use.
 The drive command will likely be written somewhat differently so you can probably copy some of that code from
 the (recent) github, but make sure to change variables/object names to be consistent with your current code.
+To make things much easier for yourself, make auto commands and teleop commands separately, even if they do
+the same thing.
