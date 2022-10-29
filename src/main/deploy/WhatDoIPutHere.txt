@@ -1,0 +1,7 @@
+the deploy folder is deployed directly to the roborio. Paths are sent here from pathweaver and end up
+in the output, paths, and autos folders. You shouldn't need to worry about what goes where, it should do 
+that automatically. Also make sure that pathweaver.json is in the pathweaver folder too. Outside of the pathweaver
+folder, in deploy, you can put chrp files generated in phoenix tuner. As of 22/23 we have 6 falcon motors
+on the robot so you should be able to play 6-track midi files as long as you add all of them. make a separate
+branch for music because you cannot play music and drive at the same time because of how the motors are set
+up for music.

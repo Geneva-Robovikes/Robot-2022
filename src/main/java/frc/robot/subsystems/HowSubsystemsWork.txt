@@ -1,0 +1,11 @@
+subsystems are where you create motors/switches/etc and write methods for what they do. initialize them in
+the constructor (the method with the name of the class) and then write methods to make them work/get data
+if needed (limit switches).
+DriveSubsystem is written in a very specific way, you can probably just copy our (recent) github code 
+for that but make sure to change variable/object names so that everything lines up in your code.
+Also make sure to check/set the indexes of the motors in phoenix tuner so that they are all unique - I think
+they are all set to 0 by default so if only one is showing up change the index and more will appear.
+Make sure that the subsystem extends subsystembase and that you import everything you will use.
+
+Very Important - you are only Writing methods in subsystems. You never call them, that is done in their
+corresponding command. 

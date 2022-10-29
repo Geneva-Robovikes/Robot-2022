@@ -1,0 +1,11 @@
+commands are what make subsystems work. They have a pretty consistent structure, as seen in ExampleCommand. 
+Inside the already existing methods like initialize() and end(), you call the methods from the corresponding 
+subsystem. 
+initialize() is used to set what happens when the command is run, and end(boolean interrupted)
+is what happens when the command stops. 
+isFinished() should just return false.
+The constructor (the method with the same name as the class) is where you make an object of the corresponding
+subsystem and the line  addRequirements(subsystem name here); put in the name of the subsystem object you
+just made. also make sure to say that the class extends commandbase and import commands and the subsystem you use.
+The drive command will likely be written somewhat differently so you can probably copy some of that code from
+the (recent) github, but make sure to change variables/object names to be consistent with your current code.
