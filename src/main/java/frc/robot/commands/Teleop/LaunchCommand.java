@@ -28,10 +28,10 @@ public class LaunchCommand extends CommandBase {
     launchSubsystem = subsystem;
 
     // ~~~~~ Launch Speeds ~~~~~ //
-    launchSpeedList[0] = .45;
+    launchSpeedList[0] = .25;
     //launchSpeedList[1] = .35;
-    launchSpeedList[1] = .5;
-    launchSpeedList[2] = .55;
+    launchSpeedList[1] = .35;
+    launchSpeedList[2] = .45;
     //launchSpeedList[1] = 0.4;
     //launchSpeedList[2] = 0.6;
 
