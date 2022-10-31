@@ -11,7 +11,7 @@ public class IntakeSubsystem extends SubsystemBase {
     private CANSparkMax outerRollerMotor;
 
     public IntakeSubsystem () {
-        outerRollerMotor = new CANSparkMax(8, MotorType.kBrushless);
+        outerRollerMotor = new CANSparkMax(10, MotorType.kBrushless);
         innerRollerMotor = new WPI_VictorSPX(4);
     }
 
