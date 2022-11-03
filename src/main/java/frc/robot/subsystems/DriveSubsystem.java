@@ -36,7 +36,6 @@ public class DriveSubsystem extends SubsystemBase {
 
     public DriveSubsystem(){
       zeroAngle = 0;
-      driveRight.setInverted(true);
       motorLeftFront.setSafetyEnabled(false);
       motorRightFront.setSafetyEnabled(false);
       motorLeftBack.setSafetyEnabled(false);

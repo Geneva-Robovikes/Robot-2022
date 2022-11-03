@@ -27,7 +27,10 @@ public class TeleopDrive extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    driveSpeedList[0] = 4;
+    driveSpeedList[1] = 2;
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -45,13 +48,14 @@ public class TeleopDrive extends CommandBase {
     }
 
 
-    //joystick deadzone
+    driveSubsystem.arcadeDrive(x, -y);
+    /*joystick deadzone
     if((x > deadzoneX || x < -deadzoneX) || (y > deadzoneY || y < -deadzoneY)){
       driveSubsystem.arcadeDrive(-y/driveSpeedList[rightIndex], x/driveSpeedList[rightIndex]);
       driveSubsystem.setZeroAngle(driveSubsystem.getGyro());
     } else {
       driveSubsystem.arcadeDrive(0, 0);
-    }
+    }*/
   }
 
   // Called once the command ends or is interrupted.
