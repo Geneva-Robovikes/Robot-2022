@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -110,21 +111,15 @@ public class RobotContainer {
 
   public Command TrajectoryCommand(String pathToRun) {
     driveSubsystem.gyro.reset();
-    //System.out.println(pathToRun);
     if(pathToRun == "Straight Back") {
       return new SequentialCommandGroup(new DriveStraightForTime(driveSubsystem, -.4, 3), new ParallelCommandGroup(new AutoContinuousBeltCommand(beltSubsystem), new AutoLaunchCommand(launchSubsystem, .35)));
     }
-    // ~~~~~~ Change this string to the path you want to run ~~~~~~//
-    //String secondPath = "one ball part2";
     
     Trajectory trajectory1 = new Trajectory();
-    //Trajectory trajectory2 = new Trajectory();
     try {
       Path path1 = Filesystem.getDeployDirectory().toPath().resolve("PathWeaver/output/" + pathToRun + ".wpilib.json");
-      //Path path2 = Filesystem.getDeployDirectory().toPath().resolve("PathWeaver/output/" + secondPath + ".wpilib.json");
 
       trajectory1 = TrajectoryUtil.fromPathweaverJson(path1);
-      //trajectory2 = TrajectoryUtil.fromPathweaverJson(path2);
 
     } catch (IOException ex) {
       DriverStation.reportError("Unable to open trajectory: " + trajectory1, ex.getStackTrace());
@@ -151,8 +146,8 @@ public class RobotContainer {
     driveSubsystem.ResetOdometry(trajectory1.getInitialPose());
 
     // Run path following command, then stop at the end.
-    return ramseteCommandPart1.andThen(() -> driveSubsystem.tankDriveVolts(0, 0));
-    //return new ParallelRaceGroup(new AutoIntakeCommand(intakeSubsystem), new AutoBeltCommand(beltSubsystem, 8.0), ramseteCommandPart1.andThen(() -> driveSubsystem.tankDriveVolts(0, 0))).andThen(new ParallelCommandGroup(new AutoLaunchCommand(launchSubsystem, 0.2), new AutoContinuousBeltCommand(beltSubsystem)));
+    //return ramseteCommandPart1.andThen(() -> driveSubsystem.tankDriveVolts(0, 0));
+    return new ParallelRaceGroup(new AutoIntakeCommand(intakeSubsystem, pneumaticsSubsystem), new AutoBeltCommand(beltSubsystem, 8.0), ramseteCommandPart1.andThen(() -> driveSubsystem.tankDriveVolts(0, 0))).andThen(new ParallelCommandGroup(new AutoLaunchCommand(launchSubsystem, 0.2), new AutoContinuousBeltCommand(beltSubsystem)));
     //return new SequentialCommandGroup(new DriveStraightForTime(driveSubsystem, -.4, 2.8), new ParallelCommandGroup(new AutoContinuousBeltCommand(beltSubsystem), new AutoLaunchCommand(launchSubsystem, .4)));
 
   }
