@@ -16,8 +16,6 @@ public class TeleopDrive extends CommandBase {
   private XboxController xboxController;
   private double[] driveSpeedList = new double[2];
   private int rightIndex = 0;
-  private double deadzoneX = 0.4;
-  private double deadzoneY = 0.4;
   PIDController leftPidController = new PIDController(Constants.kPDriveVel, 0, 0);
 
   public TeleopDrive(DriveSubsystem driveSubsystem, XboxController xboxController) {
