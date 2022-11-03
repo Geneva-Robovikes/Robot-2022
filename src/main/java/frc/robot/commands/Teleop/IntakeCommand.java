@@ -24,9 +24,9 @@ public class IntakeCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    //intakeSubsystem.setInnerRollerMotor(.6);
-    //intakeSubsystem.setOuterRollerMotor(.1);
-    pneumaticsSubsystem.setSolenoid(Value.kForward);
+    intakeSubsystem.setInnerRollerMotor(-.6);
+    //intakeSubsystem.setOuterRollerMotor(.8);
+    //pneumaticsSubsystem.setSolenoid(Value.kForward);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -41,8 +41,8 @@ public class IntakeCommand extends CommandBase {
 
   @Override
   public void end(boolean interrupted) {
-    //intakeSubsystem.setInnerRollerMotor(0);
+    intakeSubsystem.setInnerRollerMotor(0);
     //intakeSubsystem.setOuterRollerMotor(0);
-    pneumaticsSubsystem.setSolenoid(Value.kReverse);
+    //pneumaticsSubsystem.setSolenoid(Value.kReverse);
   }
 }
