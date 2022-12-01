@@ -22,9 +22,10 @@ public class AutoIntakeCommand extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public AutoIntakeCommand(IntakeSubsystem intakeSubsystem, PneumaticsSubsystem pneumaticsSubsystem) {
+  public AutoIntakeCommand(IntakeSubsystem intakeSubsystem, PneumaticsSubsystem pneumaticsSubsystem, double waitTime) {
     this.intakeSubsystem = intakeSubsystem;
     this.pneumaticsSubsystem = pneumaticsSubsystem;
+    this.waitTime = waitTime;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(intakeSubsystem, pneumaticsSubsystem);
   }
@@ -32,9 +33,9 @@ public class AutoIntakeCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    intakeSubsystem.setInnerRollerMotor(.6);
-    intakeSubsystem.setOuterRollerMotor(.5);
-    pneumaticsSubsystem.setSolenoid(Value.kForward);
+    intakeSubsystem.setInnerRollerMotor(-.6);
+    //intakeSubsystem.setOuterRollerMotor(.8);
+    //pneumaticsSubsystem.setSolenoid(Value.kForward);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -42,8 +43,8 @@ public class AutoIntakeCommand extends CommandBase {
   public void execute() {
     if(timer.get() > waitTime) {
       intakeSubsystem.setInnerRollerMotor(0);
-      intakeSubsystem.setOuterRollerMotor(0);
-      pneumaticsSubsystem.setSolenoid(Value.kReverse);
+      //intakeSubsystem.setOuterRollerMotor(0);
+      //pneumaticsSubsystem.setSolenoid(Value.kReverse);
     }
   }
 
@@ -56,7 +57,7 @@ public class AutoIntakeCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     intakeSubsystem.setInnerRollerMotor(0);
-    intakeSubsystem.setOuterRollerMotor(0);
-    pneumaticsSubsystem.setSolenoid(Value.kReverse);
+    //intakeSubsystem.setOuterRollerMotor(0);
+    //pneumaticsSubsystem.setSolenoid(Value.kReverse);
   }
 }

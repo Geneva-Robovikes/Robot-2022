@@ -64,7 +64,8 @@ public class RobotContainer {
   //Add Teleop Commands Here!
   public final TeleopDrive teleopDrive = new TeleopDrive(driveSubsystem, controller);
   public final DefaultCommand defaultCommand = new DefaultCommand(driveSubsystem);
-  public final BeltCommand beltCommand = new BeltCommand(beltSubsystem);
+  public final BeltCommand beltCommand = new BeltCommand(beltSubsystem, 0.8);
+  public final BeltCommand reverseBeltCommand = new BeltCommand(beltSubsystem, -0.8);
   public final IntakeCommand intakeCommand = new IntakeCommand(intakeSubsystem, pneumaticsSubsystem);
   public final LaunchCommand launchCommand = new LaunchCommand(launchSubsystem, controller);
   public final ClimbCommandUp climbCommandUp = new ClimbCommandUp(climbSubsystem);
@@ -76,9 +77,9 @@ public class RobotContainer {
   public final DriveStraightPIDCommand driveStraightPIDCommand = new DriveStraightPIDCommand(driveSubsystem, 1.15);
   public final AutoTimer autoTimer = new AutoTimer();
   public final TurnPIDCommand turnPIDCommand = new TurnPIDCommand(driveSubsystem, 180);
-  public final AutoIntakeCommand autoIntakeCommand = new AutoIntakeCommand(intakeSubsystem, pneumaticsSubsystem);
+  public final AutoIntakeCommand autoIntakeCommand = new AutoIntakeCommand(intakeSubsystem, pneumaticsSubsystem, 1.5);
   public final AutoBeltCommand autoBeltCommand = new AutoBeltCommand(beltSubsystem, 0.8);
-  public final AutoLaunchCommand autoLaunchCommand = new AutoLaunchCommand(launchSubsystem, 0.2);
+  public final AutoLaunchCommand autoLaunchCommand = new AutoLaunchCommand(launchSubsystem, 0.4);
   public final AutoContinuousBeltCommand autoContinuousBeltCommand = new AutoContinuousBeltCommand(beltSubsystem);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -97,6 +98,7 @@ public class RobotContainer {
     JoystickButton intakeButton = new JoystickButton(controller, 1);
     JoystickButton launchButton = new JoystickButton(controller, 4);
     JoystickButton beltButton = new JoystickButton(controller, 3);
+    JoystickButton reverseBeltButton = new JoystickButton(controller, 7);
     JoystickButton climbDownButton = new JoystickButton(controller, 5);
     JoystickButton climbUpButton = new JoystickButton(controller, 6);
     //JoystickButton pneumaticsButton = new JoystickButton(controller, 2);
@@ -104,6 +106,7 @@ public class RobotContainer {
     intakeButton.toggleWhenPressed(intakeCommand);
     launchButton.toggleWhenPressed(launchCommand);
     beltButton.toggleWhenPressed(beltCommand);
+    reverseBeltButton.toggleWhenPressed(reverseBeltCommand);
     climbDownButton.toggleWhenPressed(climbCommandDown);
     climbUpButton.toggleWhenPressed(climbCommandUp);
     //pneumaticsButton.toggleWhenPressed(pneumaticsCommand);
@@ -112,7 +115,7 @@ public class RobotContainer {
   public Command TrajectoryCommand(String pathToRun) {
     driveSubsystem.gyro.reset();
     if(pathToRun == "Straight Back") {
-      return new SequentialCommandGroup(new DriveStraightForTime(driveSubsystem, -.4, 3), new ParallelCommandGroup(new AutoContinuousBeltCommand(beltSubsystem), new AutoLaunchCommand(launchSubsystem, .35)));
+      return new SequentialCommandGroup(new ParallelCommandGroup(new AutoContinuousBeltCommand(beltSubsystem), new AutoLaunchCommand(launchSubsystem, .6)), new DriveStraightForTime(driveSubsystem, -.4, 3));
     }
     
     Trajectory trajectory1 = new Trajectory();
@@ -147,8 +150,8 @@ public class RobotContainer {
 
     // Run path following command, then stop at the end.
     //return ramseteCommandPart1.andThen(() -> driveSubsystem.tankDriveVolts(0, 0));
-    return new ParallelRaceGroup(new AutoIntakeCommand(intakeSubsystem, pneumaticsSubsystem), new AutoBeltCommand(beltSubsystem, 8.0), ramseteCommandPart1.andThen(() -> driveSubsystem.tankDriveVolts(0, 0))).andThen(new ParallelCommandGroup(new AutoLaunchCommand(launchSubsystem, 0.2), new AutoContinuousBeltCommand(beltSubsystem)));
+    return new ParallelRaceGroup(new AutoIntakeCommand(intakeSubsystem, pneumaticsSubsystem, 1.5), new AutoBeltCommand(beltSubsystem, 8.0), ramseteCommandPart1.andThen(() -> driveSubsystem.tankDriveVolts(0, 0))).andThen(new ParallelCommandGroup(new AutoLaunchCommand(launchSubsystem, 0.6), new AutoContinuousBeltCommand(beltSubsystem)));
+    //return new DriveStraightForTime(driveSubsystem, 0.1, 0.1).andThen(new DriveStraightForTime(driveSubsystem, -0.1, 0.1)).andThen(new ParallelRaceGroup(new AutoIntakeCommand(intakeSubsystem, pneumaticsSubsystem), new AutoBeltCommand(beltSubsystem, 8.0), ramseteCommandPart1.andThen(() -> driveSubsystem.tankDriveVolts(0, 0))).andThen(new ParallelCommandGroup(new AutoLaunchCommand(launchSubsystem, 0.2), new AutoContinuousBeltCommand(beltSubsystem))));
     //return new SequentialCommandGroup(new DriveStraightForTime(driveSubsystem, -.4, 2.8), new ParallelCommandGroup(new AutoContinuousBeltCommand(beltSubsystem), new AutoLaunchCommand(launchSubsystem, .4)));
-
   }
 }

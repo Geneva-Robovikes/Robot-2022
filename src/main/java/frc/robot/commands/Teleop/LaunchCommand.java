@@ -14,7 +14,7 @@ import frc.robot.subsystems.LaunchSubsystem;
 public class LaunchCommand extends CommandBase {
   private final LaunchSubsystem launchSubsystem;
   private XboxController xboxController;
-  private double[] launchSpeedList = new double[2];
+  private double[] launchSpeedList = new double[3];
   private int leftIndex = 0;
    /*
    * Creates a new ExampleCommand.
@@ -25,11 +25,11 @@ public class LaunchCommand extends CommandBase {
     xboxController = controller;
     launchSubsystem = subsystem;
 
-    launchSpeedList[0] = .3;
+    launchSpeedList[0] = .4;
     //launchSpeedList[1] = .35;
-    //launchSpeedList[1] = .45;
-    //launchSpeedList[1] = 0.4;
-    //launchSpeedList[2] = 0.6;
+    launchSpeedList[1] = .45;
+    launchSpeedList[2] = .5;
+    //launchSpeedList[2] = .6;
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);

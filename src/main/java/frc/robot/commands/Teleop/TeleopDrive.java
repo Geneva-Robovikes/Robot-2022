@@ -34,10 +34,7 @@ public class TeleopDrive extends CommandBase {
   @Override
   public void execute() {
     double x = xboxController.getRightX();
-    x = x * x * Math.signum(x);
-    //x*=Math.signum(x);
     double y = xboxController.getLeftY();
-    y = y * y * Math.signum(y);
 
     boolean rightStickPressed = xboxController.getLeftStickButtonPressed();
     SmartDashboard.putNumber("Drive Speed", rightIndex + 1);
@@ -50,14 +47,7 @@ public class TeleopDrive extends CommandBase {
     }
 
 
-    driveSubsystem.arcadeDrive(x, -y);
-    /*joystick deadzone
-    if((x > deadzoneX || x < -deadzoneX) || (y > deadzoneY || y < -deadzoneY)){
-      driveSubsystem.arcadeDrive(-y/driveSpeedList[rightIndex], x/driveSpeedList[rightIndex]);
-      driveSubsystem.setZeroAngle(driveSubsystem.getGyro());
-    } else {
-      driveSubsystem.arcadeDrive(0, 0);
-    }*/
+    driveSubsystem.arcadeDrive(-y, x);
   }
 
   // Called once the command ends or is interrupted.

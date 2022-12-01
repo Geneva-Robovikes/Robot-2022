@@ -24,7 +24,7 @@ public class PneumaticsSubsystem extends SubsystemBase{
         current = pcmCompressor.getCurrent();
 
         exampleDoublePCM = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 1, 0);
-        exampleDoublePCM.set(kForward);
+        exampleDoublePCM.set(kReverse);
     }
 
     public boolean getEnabled() {

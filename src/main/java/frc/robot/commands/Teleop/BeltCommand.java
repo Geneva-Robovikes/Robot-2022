@@ -10,14 +10,16 @@ import frc.robot.subsystems.BeltSubsystem;
 /** An example command that uses an example subsystem. */
 public class BeltCommand extends CommandBase {
   private final BeltSubsystem beltSubsystem;
+  private double beltSpeed;
   //private final DriveSubsystem driveSubsystem;
    /*
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public BeltCommand(BeltSubsystem subsystem) {
+  public BeltCommand(BeltSubsystem subsystem, double speed) {
     beltSubsystem = subsystem;
+    beltSpeed = speed;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -25,7 +27,7 @@ public class BeltCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    beltSubsystem.setBeltMotor(0.8);
+    beltSubsystem.setBeltMotor(beltSpeed);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

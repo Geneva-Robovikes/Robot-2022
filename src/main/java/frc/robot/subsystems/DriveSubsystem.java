@@ -40,6 +40,7 @@ public class DriveSubsystem extends SubsystemBase {
       motorRightFront.setSafetyEnabled(false);
       motorLeftBack.setSafetyEnabled(false);
       motorRightBack.setSafetyEnabled(false);
+      driveRight.setInverted(true);
       differentialDrive = new DifferentialDrive(driveLeft, driveRight);
       differentialDrive.setSafetyEnabled(false);
       gyro.reset();
