@@ -8,10 +8,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class IntakeSubsystem extends SubsystemBase {
     private WPI_VictorSPX innerRollerMotor;
-    private CANSparkMax outerRollerMotor;
+    //private CANSparkMax outerRollerMotor;
 
     public IntakeSubsystem () {
-        outerRollerMotor = new CANSparkMax(10, MotorType.kBrushless);
+        //outerRollerMotor = new CANSparkMax(10, MotorType.kBrushless);
         innerRollerMotor = new WPI_VictorSPX(4);
     }
 
@@ -19,7 +19,7 @@ public class IntakeSubsystem extends SubsystemBase {
         innerRollerMotor.set(ControlMode.PercentOutput, value);
     }
 
-    public void setOuterRollerMotor(double value) {
+    /*public void setOuterRollerMotor(double value) {
         outerRollerMotor.set(value);
-    }
+    }*/
 }
