@@ -36,3 +36,8 @@ If you want a specific point, type values into the fields at the bottom.
 1) https://docs.wpilib.org/en/stable/ - Use this website to reasearch topics. It has great turtorials on trjectories, pathfinding, vision, and more if you look deep enough.
 2) https://first.wpi.edu/wpilib/allwpilib/docs/release/java/index.html - Use this website when reasearching specific classes or methods, it gives a more code-sided descriptions.
 3) https://www.chiefdelphi.com/ - Stack Overflow like website that focuses on FRC problems. Post a problem if in need!
+
+
+## **Demo Branch*
+
+This branch is for demonstration purposes. It is entirely functional with W4D3, but it is so that you can show off code at events if needed and without needing to worry about someone messing with it.
