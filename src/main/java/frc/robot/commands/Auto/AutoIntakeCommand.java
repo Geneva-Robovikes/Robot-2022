@@ -8,12 +8,12 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.PneumaticsSubsystem;
+//import frc.robot.subsystems.PneumaticsSubsystem;
 
 /** An example command that uses an example subsystem. */
 public class AutoIntakeCommand extends CommandBase {
   private final IntakeSubsystem intakeSubsystem;
-  private final PneumaticsSubsystem pneumaticsSubsystem;
+  //private final PneumaticsSubsystem pneumaticsSubsystem;
   private Timer timer = new Timer();
   private double waitTime = 1.5;
   //private final DriveSubsystem driveSubsystem;
@@ -22,12 +22,12 @@ public class AutoIntakeCommand extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public AutoIntakeCommand(IntakeSubsystem intakeSubsystem, PneumaticsSubsystem pneumaticsSubsystem, double waitTime) {
+  public AutoIntakeCommand(IntakeSubsystem intakeSubsystem/*, PneumaticsSubsystem pneumaticsSubsystem*/, double waitTime) {
     this.intakeSubsystem = intakeSubsystem;
-    this.pneumaticsSubsystem = pneumaticsSubsystem;
+    //this.pneumaticsSubsystem = pneumaticsSubsystem;
     this.waitTime = waitTime;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(intakeSubsystem, pneumaticsSubsystem);
+    addRequirements(intakeSubsystem/*, pneumaticsSubsystem*/);
   }
 
   // Called when the command is initially scheduled.

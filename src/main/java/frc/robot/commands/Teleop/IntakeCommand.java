@@ -7,18 +7,18 @@ package frc.robot.commands.Teleop;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.PneumaticsSubsystem;
+//import frc.robot.subsystems.PneumaticsSubsystem;
 
 /** An example command that uses an example subsystem. */
 public class IntakeCommand extends CommandBase {
   private final IntakeSubsystem intakeSubsystem;
-  private final PneumaticsSubsystem pneumaticsSubsystem;
+  //private final PneumaticsSubsystem pneumaticsSubsystem;
    
-  public IntakeCommand(IntakeSubsystem intakeSubsystem, PneumaticsSubsystem pneumaticsSubsystem) {
+  public IntakeCommand(IntakeSubsystem intakeSubsystem /*, PneumaticsSubsystem pneumaticsSubsystem*/) {
     this.intakeSubsystem = intakeSubsystem;
-    this.pneumaticsSubsystem = pneumaticsSubsystem;
+    //this.pneumaticsSubsystem = pneumaticsSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(intakeSubsystem, pneumaticsSubsystem);
+    addRequirements(intakeSubsystem/*, pneumaticsSubsystem*/);
   }
 
   // Called when the command is initially scheduled.

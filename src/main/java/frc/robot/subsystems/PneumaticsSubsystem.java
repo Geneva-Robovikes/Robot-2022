@@ -1,4 +1,4 @@
-package frc.robot.subsystems;
+/*package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.Compressor;
@@ -17,32 +17,32 @@ public class PneumaticsSubsystem extends SubsystemBase{
     DoubleSolenoid exampleDoublePCM;
     
     public PneumaticsSubsystem() {
-        pcmCompressor = new Compressor(0, PneumaticsModuleType.CTREPCM);
+        /*pcmCompressor = new Compressor(0, PneumaticsModuleType.CTREPCM);
         enabled = pcmCompressor.enabled();
         
         pressureSwitch = pcmCompressor.getPressureSwitchValue();
         current = pcmCompressor.getCurrent();
 
         exampleDoublePCM = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 1, 0);
-        exampleDoublePCM.set(kReverse);
-    }
+        exampleDoublePCM.set(kReverse);*/
+    //}
 
-    public boolean getEnabled() {
+    /*public boolean getEnabled() {
         return pcmCompressor.enabled();
-    }
+    }*/
 
-    public boolean getPressureSwitch() {
+    /*public boolean getPressureSwitch() {
         return pcmCompressor.getPressureSwitchValue();
-    }
+    }*/
 
-    public double getCurrent() {
+    /*public double getCurrent() {
         return pcmCompressor.getCurrent();
     }
 
     public void setSolenoid(Value value) {
         exampleDoublePCM.set(value);
         //System.out.println("Solenoid set to " + value);
-    }
-}
+    }*/
+//} 
 
 
